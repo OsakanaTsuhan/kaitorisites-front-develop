@@ -5,7 +5,7 @@ import { IDImages, UsageType } from '@/types/apply';
 import { BuyingRate } from '@/types/setting';
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-// 新しいフォームデータの型を定義
+
 type GiftCard = {
   code: string;
   amount: string;
@@ -29,7 +29,7 @@ export type FormState = {
     bank_name: string,
   };
   idImages: IDImages;
-  couponRateUp: number; // 0.5~
+  couponRateUp: number;
   couponCode: string;
   ad: string;
   affiliate: string;
