@@ -3,7 +3,7 @@
 FROM node:23-alpine AS base
 
 # 必要なパッケージをインストール
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat curl
 WORKDIR /app
 
 # 依存関係のインストール
@@ -47,5 +47,9 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+
+# ヘルスチェックエンドポイントを追加
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD curl -f http://localhost:3000/api/health || exit 1
 
 CMD ["node", "server.js"]
