@@ -5,17 +5,16 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
 
     steps:
     - name: Check out code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -23,12 +22,12 @@ jobs:
 
     - name: Login to Amazon ECR
       id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+      uses: aws-actions/amazon-ecr-login@v2
 
     - name: Create empty .env template
       run: |
         echo "BASIC_AUTH_ENABLED=" > .env
-        echo "BASIC_AUTH_USER=" > .env
+        echo "BASIC_AUTH_USER=" >> .env
         echo "BASIC_AUTH_PASSWORD=" >> .env
         echo "NEXT_PUBLIC_JWT_SECRET=" >> .env
         echo "NEXT_PUBLIC_BACKEND_URL=" >> .env
@@ -43,13 +42,13 @@ jobs:
           --output text)
 
         # 必要なキーのみを処理（ホワイトリスト方式）
-          expected_keys=(
-            "BASIC_AUTH_ENABLED"
-            "BASIC_AUTH_USER"
-            "BASIC_AUTH_PASSWORD"
-            "NEXT_PUBLIC_JWT_SECRET"
-            "NEXT_PUBLIC_BACKEND_URL"
-          )
+        expected_keys=(
+          "BASIC_AUTH_ENABLED"
+          "BASIC_AUTH_USER"
+          "BASIC_AUTH_PASSWORD"
+          "NEXT_PUBLIC_JWT_SECRET"
+          "NEXT_PUBLIC_BACKEND_URL"
+        )
         
         for key in "${expected_keys[@]}"; do
           value=$(echo "$secret_json" | jq -r --arg k "$key" '.[$k] // empty')
@@ -84,6 +83,34 @@ jobs:
         # ファイル権限を制限
         chmod 600 .env
 
+    # Docker Buildxのセットアップ（メモリ制限対応）
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        driver-opts: |
+          image=moby/buildkit:latest
+          network=host
+
+    # .dockerignoreファイルを作成
+    - name: Create .dockerignore
+      run: |
+        cat > .dockerignore << EOF
+        node_modules
+        .git
+        .env.local
+        .env.development.local
+        .env.test.local
+        .env.production.local
+        .next
+        out
+        dist
+        README.md
+        .gitignore
+        Dockerfile
+        docker-compose.yml
+        .github
+        EOF
+
     - name: Build, tag and push image to Amazon ECR
       id: push-image
       env:
@@ -92,6 +119,23 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker build -t $IMAGE_URI .
-        docker push $IMAGE_URI
+        
+        # GitHub Actions環境でのDocker buildコマンド（メモリ制限とビルド最適化）
+        docker buildx build \
+          --platform linux/amd64 \
+          --memory 4g \
+          --memory-swap 8g \
+          --build-arg NODE_OPTIONS="--max-old-space-size=4096" \
+          --build-arg BUILDKIT_INLINE_CACHE=1 \
+          --tag $IMAGE_URI \
+          --push \
+          .
+        
         echo "image_uri=$IMAGE_URI" >> $GITHUB_OUTPUT
+
+    # ビルド後のクリーンアップ
+    - name: Clean up sensitive files
+      if: always()
+      run: |
+        rm -f .env
+        docker system prune -f
