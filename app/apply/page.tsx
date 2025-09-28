@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: 'お魚通販.com株式会社のお申し込みです。',
 };
 
+// SSRを強制 + キャッシュ無効化
+export const dynamic = 'force-dynamic'
 
 const breadcrumbs = [
   { label: 'ホーム', href: '/' },
@@ -25,16 +27,16 @@ const jsonLd = {
       '@type': 'ListItem',
       position: 1,
       name: 'ホーム',
-      item: `${BASE_URL}/`, // 環境変数を使用
+      item: `${BASE_URL}/`,
     },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'お申し込み',
-        item: `${BASE_URL}/apply`, // 環境変数を使用
-      },
-    ],
-  };
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'お申し込み',
+      item: `${BASE_URL}/apply`,
+    },
+  ],
+};
 
 export default async function Apply({searchParams}: {searchParams: Promise<{brand: string, isCouponed: boolean}>}) {
   const resolvedSearchParams = await searchParams;
@@ -46,7 +48,6 @@ export default async function Apply({searchParams}: {searchParams: Promise<{bran
       rateUp: 0.5,
       isMain: true
     },
-    
   ];
 
   if(buyingRates.length <= 0) {
@@ -61,12 +62,16 @@ export default async function Apply({searchParams}: {searchParams: Promise<{bran
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* パンくずリスト */}
         <Breadcrumbs breadcrumbs={breadcrumbs} />
-        {/* Header */}
         <PageHeader title="お申し込み" />
-        {/* メイン */}
-        <ApplyComponent brand={resolvedSearchParams.brand} buyingRates={buyingRates} coupons={sampleCoupons} isCouponed={resolvedSearchParams.isCouponed || false} ad={""} affiliate={""} />
+        <ApplyComponent 
+          brand={resolvedSearchParams.brand} 
+          buyingRates={buyingRates} 
+          coupons={sampleCoupons} 
+          isCouponed={resolvedSearchParams.isCouponed || false} 
+          ad={""} 
+          affiliate={""} 
+        />
       </div>
     </div>
   );
