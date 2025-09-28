@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // 静的最適化を無効化
+  experimental: {
+    optimizeCss: false,
+  },
 }
 
 export default nextConfig

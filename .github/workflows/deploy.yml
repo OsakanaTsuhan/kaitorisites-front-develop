@@ -123,10 +123,11 @@ jobs:
         # GitHub Actions環境でのDocker buildコマンド（メモリ制限とビルド最適化）
         docker buildx build \
           --platform linux/amd64 \
-          --memory 4g \
-          --memory-swap 8g \
-          --build-arg NODE_OPTIONS="--max-old-space-size=4096" \
+          --memory 6g \
+          --memory-swap 12g \
+          --build-arg NODE_OPTIONS="--max-old-space-size=6144" \
           --build-arg BUILDKIT_INLINE_CACHE=1 \
+          --build-arg NODE_ENV=production \
           --tag $IMAGE_URI \
           --push \
           .
