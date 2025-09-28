@@ -9,7 +9,7 @@ WORKDIR /app
 
 # package.json と package-lock.json をコピー
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production
+RUN npm install --only=production
 
 # ビルド用ステージ
 FROM base AS builder
