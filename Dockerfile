@@ -1,3 +1,4 @@
+
 FROM node:23-alpine
 
 WORKDIR /app
@@ -12,6 +13,10 @@ COPY . .
 # 環境変数設定
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# ビルド時にAPIエラーを無視する設定
+ENV NEXT_BUILD_IGNORE_API_ERRORS=true
+ENV SKIP_ENV_VALIDATION=true
 
 # ビルド実行
 RUN npm run build
