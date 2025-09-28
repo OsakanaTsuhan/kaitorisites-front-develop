@@ -3,13 +3,12 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import PageHeader from "@/components/PageHeader";
 import { Metadata } from "next";
 import Script from "next/script";
-
+import { BASE_URL } from "@/util/appConst";
 export const metadata: Metadata = {
   title: '会社概要', 
   description: 'お魚通販.com株式会社の事業内容と会社概要です。',
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function AboutUs() {
   const breadcrumbs = [

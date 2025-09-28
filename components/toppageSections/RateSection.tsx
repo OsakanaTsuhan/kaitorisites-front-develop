@@ -4,6 +4,7 @@ import { BuyingRate } from '@/types/setting';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FormatRate } from '@/util/apply';
+import { LINK_LINK } from '@/util/appConst';
 
 const lineBuyingRates = [
   {
@@ -34,7 +35,7 @@ const lineBuyingRates = [
 ]
 
 const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates: BuyingRate[]}) => {
-  const LINK_LINK = process.env.NEXT_PUBLIC_LINK_LINK;
+
   const [showRepeatRate, setShowRepeatRate] = useState(false);
   const router = useRouter();
   useEffect(() => {

@@ -49,8 +49,8 @@ import { features } from '@/util/featurestep';
                             src={`${feature.characterImage}`}
                             alt={`${feature.point} character`}
                             className="mt-[-30px] w-30 h-30 rounded-full object-cover "
-                            width={300}
-                            height={300}
+                            width={1000}
+                            height={1000}
                           />
                         </div>
                       </div>

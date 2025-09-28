@@ -3,13 +3,13 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import PageHeader from "@/components/PageHeader";
 import { Metadata } from "next";
 import Script from "next/script";
+import { BASE_URL } from "@/util/appConst";
 
 export const metadata: Metadata = {
   title: '個人情報保護方針', 
   description: 'お魚通販.com株式会社の個人情報保護方針です。',
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function PrivacyPolicyPage() {
 

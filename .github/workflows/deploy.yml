@@ -1,0 +1,97 @@
+name: Deploy
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Create empty .env template
+      run: |
+        echo "BASIC_AUTH_ENABLED=" > .env
+        echo "BASIC_AUTH_USER=" > .env
+        echo "BASIC_AUTH_PASSWORD=" >> .env
+        echo "NEXT_PUBLIC_JWT_SECRET=" >> .env
+        echo "NEXT_PUBLIC_BACKEND_URL=" >> .env
+    
+    # 秘匿情報を環境変数として直接設定（ファイル作成なし）
+    - name: Load secrets from AWS Secrets Manager
+      run: |
+        # AWS Secrets Managerから秘匿情報を取得
+        secret_json=$(aws secretsmanager get-secret-value \
+          --secret-id kaitori-production \
+          --query SecretString \
+          --output text)
+
+        # 必要なキーのみを処理（ホワイトリスト方式）
+          expected_keys=(
+            "BASIC_AUTH_ENABLED"
+            "BASIC_AUTH_USER"
+            "BASIC_AUTH_PASSWORD"
+            "NEXT_PUBLIC_JWT_SECRET"
+            "NEXT_PUBLIC_BACKEND_URL"
+          )
+        
+        for key in "${expected_keys[@]}"; do
+          value=$(echo "$secret_json" | jq -r --arg k "$key" '.[$k] // empty')
+          
+          if [[ -n "$value" && "$value" != "null" ]]; then
+            # 値をマスク
+            echo "::add-mask::$value"
+            
+            # 環境変数として設定
+            echo "${key}=${value}" >> $GITHUB_ENV
+            
+            # ロードされたことを確認（値は表示しない）
+            echo "✓ ${key} loaded successfully"
+          else
+            echo "⚠️ Warning: ${key} not found in secrets"
+            exit 1
+          fi
+        done
+
+    # アプリケーションの設定ファイルが必要な場合の安全な作成方法
+    - name: Create application config (if needed)
+      run: |
+        # 必要な場合のみ、一時的な設定ファイルを作成
+        cat > .env << EOF
+        BASIC_AUTH_ENABLED=${BASIC_AUTH_ENABLED}
+        BASIC_AUTH_USER=${BASIC_AUTH_USER}
+        BASIC_AUTH_PASSWORD=${BASIC_AUTH_PASSWORD}
+        NEXT_PUBLIC_JWT_SECRET=${NEXT_PUBLIC_JWT_SECRET}
+        NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
+        EOF
+        
+        # ファイル権限を制限
+        chmod 600 .env
+
+    - name: Build, tag and push image to Amazon ECR
+      id: push-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: kaitori-front-develop
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker build -t $IMAGE_URI .
+        docker push $IMAGE_URI
+        echo "image_uri=$IMAGE_URI" >> $GITHUB_OUTPUT

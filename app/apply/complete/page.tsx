@@ -3,13 +3,13 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import PageHeader from "@/components/PageHeader";
 import { Metadata } from "next";
 import Script from "next/script";
+import { BASE_URL } from "@/util/appConst";
 
 export const metadata: Metadata = {
   title: 'お申し込み内容の確認', 
   description: 'お魚通販.com株式会社のお申し込み内容の確認です。',
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const breadcrumbs = [
   { label: 'ホーム', href: '/' },

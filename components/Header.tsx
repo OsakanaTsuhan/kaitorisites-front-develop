@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { LINK_LINK } from '@/util/appConst';
 
 const Header = () => {
-  const LINK_LINK = process.env.NEXT_PUBLIC_LINK_LINK;
   // current path
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);

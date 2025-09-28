@@ -3,13 +3,13 @@ import PageHeader from "@/components/PageHeader";
 import RulesComponent from "@/components/RulesComponent";
 import { Metadata } from "next";
 import Script from "next/script";
+import { BASE_URL } from "@/util/appConst";
 
 export const metadata: Metadata = {
   title: '利用規約', 
   description: 'お魚通販.com株式会社の利用規約です。',
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const breadcrumbs = [
   { label: 'ホーム', href: '/' },

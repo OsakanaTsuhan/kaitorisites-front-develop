@@ -4,13 +4,13 @@ import PageHeader from "@/components/PageHeader";
 import { getBuyingRate } from "@/lib/api";
 import { Metadata } from 'next';
 import Script from "next/script";
+import { BASE_URL } from "@/util/appConst";
 
 export const metadata: Metadata = {
   title: 'お申し込み', 
   description: 'お魚通販.com株式会社のお申し込みです。',
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const breadcrumbs = [
   { label: 'ホーム', href: '/' },

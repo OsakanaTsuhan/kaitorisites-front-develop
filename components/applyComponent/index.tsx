@@ -36,11 +36,15 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
 
   const SetFormData = () => {
     const defaultBrand = brand && brand.trim() !== '' ? brand : 'apple';
+    
+    // Always set the brand first
     setFormData({ ...formData, selectedBrand: defaultBrand, buyingRates: buyingRates});
+    
+    // Then handle coupon logic if needed
     if(isCouponed) {
       const couponCode = coupons.find(coupon => coupon.isMain === true)?.code;
       const couponRateUp = coupons.find(coupon => coupon.isMain === true)?.rateUp;
-      setFormData({ ...formData, couponCode: couponCode || '', couponRateUp: couponRateUp || 0 });
+      setFormData({ ...formData, selectedBrand: defaultBrand, couponCode: couponCode || '', couponRateUp: couponRateUp || 0 });
     }
     
   };

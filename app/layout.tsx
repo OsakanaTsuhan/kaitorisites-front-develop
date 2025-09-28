@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { ApplyFormProvider } from "@/context/ApplyFormContext";
+import { BASE_URL } from "@/util/appConst";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 
 const siteName = '買取スイート';
 const description = 'AppleギフトカードやAmazonギフト券など各種電子ギフト券を高換金率でスピード買取。手数料無料・最短即日振込で安心の現金化サービス。';
-const url = process.env.NEXT_PUBLIC_BASE_URL || 'https://kaitori-sweet.com';
+const url = BASE_URL;
 const imagesUrl = `${url}/images/og-image.jpg`;
 
 export const metadata: Metadata = {
