@@ -46,8 +46,7 @@ const BankSelector = ({ selectedBank, onBankChange, onClose }: { selectedBank: B
           <label htmlFor="account_type" className="block text-sm font-medium text-gray-700 mb-2">口座種別</label>
           <select
             id="account_type"
-            defaultValue="普通"
-            value={selectedBank.account_type || ''}
+            value={selectedBank.account_type || '普通'}
             onChange={(e) => onBankChange({ ...selectedBank, account_type: e.target.value })}
             className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-rose-500 focus:outline-none transition-colors"
           >

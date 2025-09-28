@@ -4,8 +4,6 @@ import RateSection from "@/components/toppageSections/RateSection";
 import SimulationSection from "@/components/toppageSections/SimulationSection";
 import GroupSitesSection from "@/components/toppageSections/GroupSitesSection";
 import { getBuyingRate } from "@/lib/api";
-// import BlogSection from "@/components/toppageSections/BlogSection";
-
 import HeroMobile from "@/components/toppageSections/HeroMobile";
 import HeroDesktop from "@/components/toppageSections/HeroDesktop";
 import FeatureSection from "@/components/toppageSections/FeatureSection";
@@ -36,13 +34,11 @@ export default async function Home() {
           <HeroMobile appleRate={buyingRates[0]} />
         </div>
         <BannerSection />
-        {/* <FeatureSection /> */}
         <RateSection isVisible={true} buyingRates={buyingRates} />
         <SimulationSection brandRates={buyingRates} />
         <StepSection />
         <FeatureSection />
         <GroupSitesSection />
-        {/* <BlogSection /> */}
       </div>
     </div>
     
