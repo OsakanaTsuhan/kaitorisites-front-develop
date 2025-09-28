@@ -13,12 +13,9 @@ import StepSection from "@/components/toppageSections/StepSection";
 
 export default async function Home() {
   const buyingRates = await getBuyingRate();
-
-  console.log(buyingRates);
   if(buyingRates.length <= 0) {
     return <div>No buying rates found</div>;
   }
-  
 
 
   return (
