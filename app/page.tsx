@@ -8,8 +8,9 @@ import HeroDesktop from "@/components/toppageSections/HeroDesktop";
 import FeatureSection from "@/components/toppageSections/FeatureSection";
 import StepSection from "@/components/toppageSections/StepSection";
 
-// ISR設定
-export const revalidate = 60
+// 完全にSSRに切り替え（静的生成を無効化）
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default async function Home() {
   const buyingRates = await getBuyingRate();
