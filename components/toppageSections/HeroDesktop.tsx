@@ -9,6 +9,8 @@ import {  } from '@/util/apply';
 const HeroDesktop = ({appleRate}: {appleRate: BuyingRate}) => {
   const [showRepeatRate, setShowRepeatRate] = useState(false);
 
+
+
   useEffect(() => {
     // 3秒おきにnew_userとrepeat_userの率を切り替える
     const interval = setInterval(() => {

@@ -4,9 +4,11 @@ import Image from 'next/image';
 import { BuyingRate } from '@/types/setting';
 import { coiny } from './font';
 import Link from 'next/link';
+import { LINK_LINK } from '@/util/appConst';
 
 const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
   const [showRepeatRate, setShowRepeatRate] = useState(false);
+  const [showBottomButton, setShowBottomButton] = useState(false);
 
   useEffect(() => {
     // 4秒おきにnew_userとrepeat_userの率を切り替える
@@ -15,6 +17,16 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
     }, 4000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      setShowBottomButton(scrollTop > 100); // Show button after scrolling 100px
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -65,7 +77,7 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
               alt="Hero Image" 
               width={200}
               height={200}
-              className="mx-auto object-contain w-[150px]"
+              className="mx-auto object-contain w-[180px]"
             />
         </div>
 
@@ -76,23 +88,23 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
               alt="Hero Image" 
               width={600}
               height={600}
-              className="relative w-80 h-80 object-contain max-w-[500px] mx-auto"
+              className="relative w-110 h-110 object-contain max-w-[500px] mx-auto"
             />
             <Image 
               src="/images/hero-text.png" 
               alt="Hero Image" 
               width={600}
               height={600}
-              className="w-[100px] h-[100px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 left-5"
+              className="w-[120px] h-[120px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 left-0"
             />
               <Image 
               src="/images/hero-line.png" 
               alt="Hero Image" 
               width={600}
               height={600}
-              className="w-[110px] h-[110px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 right-5"
+              className="w-[135px] h-[135px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 right-0"
             />
-            <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]">
               <div className={`${coiny.className} leading-none text-white
                   [-webkit-text-stroke:2px_#ff6b2e] [text-stroke:2px_#ff6b2e]
                   drop-shadow-[10px_8px_0_rgba(0,0,0,0.35)] flex items-center justify-center relative`}>
@@ -101,10 +113,10 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
                 <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                   !showRepeatRate ? 'opacity-100' : 'opacity-0'
                 }`}>
-                  <div className="text-[100px] sm:text-[180px]">{appleRate.new_user.toFixed(0)}</div>
+                  <div className="text-[140px] sm:text-[180px]">{appleRate.new_user.toFixed(0)}</div>
                   <div>
-                    <div className="text-[50px] sm:text-[80px]">{(appleRate.new_user.toFixed(1)).substring(2)}</div>
-                    <div className="text-[30px] sm:text-[60px]">%</div>
+                    <div className="text-[60px] sm:text-[80px]">{(appleRate.new_user.toFixed(1)).substring(2)}</div>
+                    <div className="text-[40px] sm:text-[60px]">%</div>
                   </div>
                 </div>
                 
@@ -112,29 +124,29 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
                 <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                   showRepeatRate ? 'opacity-100' : 'opacity-0'
                 }`}>
-                  <div className="text-[100px] sm:text-[180px]">{appleRate.repeat_user.toFixed(0)}</div>
+                  <div className="text-[140px] sm:text-[180px]">{appleRate.repeat_user.toFixed(0)}</div>
                   <div>
-                    <div className="text-[50px] sm:text-[80px]">{(appleRate.repeat_user.toFixed(1)).substring(2)}</div>
-                    <div className="text-[30px] sm:text-[60px]">%</div>
+                    <div className="text-[60px] sm:text-[80px]">{(appleRate.repeat_user.toFixed(1)).substring(2)}</div>
+                    <div className="text-[40px] sm:text-[60px]">%</div>
                   </div>
                 </div>
               </div>
               
                {/* Badge */}
-               <div className="bg-white text-center text-sm font-medium text-primary rounded-full px-8 py-2 flex items-center relative mt-12">
-                 <div className="w-1/4">
-                   <Image src="/images/brands/icon_apple.png" alt="Apple" width={1000} height={1000} className="w-6 h-6 object-contain rounded-full" />
+               <div className="bg-white text-center text-base font-medium  rounded-full px-8 py-1 flex items-center relative mt-14">
+                 <div className="w-1/3">
+                   <Image src="/images/brands/icon_apple.png" alt="Apple" width={1000} height={1000} className="w-10 h-10 object-contain rounded-full" />
                  </div>
                  
                  {/* New User Badge */}
-                 <div className={`w-3/4 text-left pl-2 transition-opacity text-primary duration-500 ${
+                 <div className={`w-2/3 text-left pl-2 transition-opacity font-bold text-[#35cca4] duration-500 ${
                    !showRepeatRate ? 'opacity-100' : 'opacity-0'
                  }`}>
                    初回限定
                  </div>
                  
                  {/* Repeat User Badge */}
-                 <div className={`absolute right-8 transition-opacity text-[#35cca4] duration-500 ${
+                 <div className={`absolute right-19 transition-opacity font-bold text-primary duration-500 ${
                    showRepeatRate ? 'opacity-100' : 'opacity-0'
                  }`}>
                    リピート
@@ -148,29 +160,31 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
           {/* Transfer Time Feature */}
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-2 mb-1 mx-6 border border-white/20">
             <div className="text-center text-white flex items-center justify-center">
-              <div className="text-base opacity-90">振込時間</div>
+              <div className="text-base opacity-90">お振込みまで</div>
               <div className="font-bold text-accent text-4xl mx-2">30</div>分
             </div>
           </div>
         </div>
 
         {/* Fixed Vertical Button - Right Side */}
-        <div className="fixed  right-0 z-50 md:hidden ">
-          <Link href="/apply?isCouponed=true" className="block">
-            <div className="bg-white text-primary rounded-l-2xl w-12 py-10">
+        <div className="fixed bottom-60 right-0 z-50 md:hidden ">
+          <Link href={LINK_LINK} className="block">
+            <div className="bg-line text-white rounded-l-lg w-10 pb-10 pt-6">
               <div className="transform rotate-270 text-center">
                 {/* <div className="text-sm font-bold whitespace-nowrap [writing-mode:vertical-rl]">申し込み</div> */}
-                <div className="text-lg font-bold whitespace-nowrap ml-[-15px]">COUPON</div>
+                <div className={`${coiny.className}  text-xl tracking-widest font-bold whitespace-nowrap ml-[-15px]`}>LINE</div>
               </div>
             </div>
           </Link>
         </div>
 
         {/* Fixed Bottom Button for Mobile */}
-        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden">
+        <div className={`fixed bottom-0 left-0 right-0 z-40 md:hidden transition-opacity duration-500 ease-in-out ${
+          showBottomButton ? 'opacity-100' : 'opacity-0'
+        }`}>
           <div className="bg-black/20 w-full p-1">
             <div className="flex justify-center">
-              <Link href="/apply" className="w-100">
+              <Link href={LINK_LINK} className="w-100">
                 <Image src="/images/line_footer.png" alt="Apply" width={500} height={500} className="w-full h-auto" />
               </Link>
             </div>

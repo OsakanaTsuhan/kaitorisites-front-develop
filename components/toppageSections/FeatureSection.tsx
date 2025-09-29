@@ -9,9 +9,9 @@ import { features } from '@/util/featurestep';
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-balance">
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 text-balance">
               買取スイートの
-              <span className="text-fruit-gradient">
+              <span className="block md:inline text-fruit-gradient">
                 4つの特徴
               </span>
             </h2>

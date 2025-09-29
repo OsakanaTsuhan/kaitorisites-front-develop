@@ -26,7 +26,7 @@ const RateDisplay = ({ rate, usageType, couponRateUp }: { rate: number, usageTyp
           </div>
         )}
         
-        <div className="text-sm text-gray-500">{usageType === 'new' ? '初めて' : 'リピート'}のご利用</div>
+        <div className="text-sm text-gray-500">{usageType === 'new' ? '初回' : 'リピート'}の買取率</div>
       </div>
     </div>
   );
