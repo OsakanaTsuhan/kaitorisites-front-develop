@@ -51,7 +51,7 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
         </div>
-        <div className="absolute bottom-50 right-0 star-rotate-reverse">
+        <div className="absolute bottom-20 right-0 star-rotate-reverse">
           <svg width="70" height="70" viewBox="0 0 24 24" className="star-outline">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
@@ -60,11 +60,11 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
       
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-16 right-8 w-8 h-5 bg-gradient-to-r from-pink-400/30 to-pink-600/30 rounded-full animate-bounce transform rotate-12"></div>
-        <div className="absolute top-40 left-12 w-8 h-4 bg-gradient-to-r from-orange-400/40 to-orange-600/40 rounded-full animate-bounce transform -rotate-12" style={{animationDelay: '0.5s'}}></div>
-        <div className="absolute bottom-32 right-16 w-8 h-5 bg-gradient-to-r from-purple-400/35 to-purple-600/35 rounded-full animate-bounce transform rotate-45" style={{animationDelay: '1s'}}></div>
-        <div className="absolute bottom-48 left-8 w-10 h-6 bg-gradient-to-r from-yellow-400/50 to-yellow-600/50 rounded-full animate-bounce transform -rotate-45" style={{animationDelay: '1.5s'}}></div>
-        <div className="absolute top-1/2 right-4 w-8 h-5 bg-gradient-to-r from-green-400/40 to-green-600/40 rounded-full animate-bounce transform rotate-12" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-20 right-8 w-8 h-5 bg-gradient-to-r from-pink-400/30 to-pink-600/30 rounded-full animate-bounce transform rotate-12"></div>
+        <div className="absolute top-45 left-12 w-8 h-4 bg-gradient-to-r from-orange-400/40 to-orange-600/40 rounded-full animate-bounce transform -rotate-12" style={{animationDelay: '0.5s'}}></div>
+        <div className="absolute bottom-38 right-6 w-8 h-5 bg-gradient-to-r from-purple-400/35 to-purple-600/35 rounded-full animate-bounce transform rotate-45" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-40 left-8 w-10 h-6 bg-gradient-to-r from-yellow-400/50 to-yellow-600/50 rounded-full animate-bounce transform -rotate-45" style={{animationDelay: '1.5s'}}></div>
+        <div className="absolute top-1/3 right-7 w-8 h-5 bg-gradient-to-r from-green-400/40 to-green-600/40 rounded-full animate-bounce transform rotate-12" style={{animationDelay: '2s'}}></div>
         <div className="absolute bottom-1/3 left-4 w-6 h-4 bg-gradient-to-r from-blue-400/45 to-blue-600/45 rounded-full animate-bounce transform -rotate-12" style={{animationDelay: '2.5s'}}></div>
       </div>
 
