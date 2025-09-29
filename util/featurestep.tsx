@@ -24,7 +24,7 @@ export const features = [
       gradient: "from-green-500 to-emerald-400",
       bgColor: "bg-green-50",
       borderColor: "border-green-200",
-      characterImage: "/images/feature4.webp",
+      characterImage: "/images/feature1.webp",
     },
     {
       point: "POINT4",
@@ -33,7 +33,7 @@ export const features = [
       gradient: "from-purple-500 to-violet-400",
       bgColor: "bg-purple-50",
       borderColor: "border-purple-200",
-      characterImage: "/images/feature1.webp",
+      characterImage: "/images/feature4.webp",
     },
   ]
 

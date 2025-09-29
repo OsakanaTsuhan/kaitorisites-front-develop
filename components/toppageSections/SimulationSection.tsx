@@ -4,7 +4,7 @@ import { BuyingRate } from '@/types/setting';
 import Image from 'next/image';
 import PageHeader from '../PageHeader';
 import Link from 'next/link';
-import { LINK_LINK } from '@/util/appConst';
+import { LINE_LINK } from '@/util/appConst';
 
 const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
   const [selectedBrand, setSelectedBrand] = useState('apple');
@@ -254,18 +254,21 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
          {/* Social Links */}
          <div className="mt-8 pt-6 border-t border-primary-light">
             <div className="flex space-x-4 mt-4 lg:hidden">
-              {LINK_LINK && (
-              <Link href={LINK_LINK} className="w-200  rounded-full flex items-center justify-center">
-                <Image src="/images/btn_line2.png" alt="X" width={200} height={200} />
+              {LINE_LINK && (
+              <Link href={LINE_LINK} className="w-200  rounded-full flex items-center justify-center">
+                <Image src="/images/btn_line2.png" alt="LINE mobile" width={200} height={200} />
               </Link>
               )}
               <Link href="/apply" className="w-200 rounded-full flex items-center justify-center">
-                <Image src="/images/btn_app.png" alt="Instagram" width={200} height={200} />
+                <Image src="/images/btn_app.png" alt="apply mobile" width={200} height={200} />
               </Link>
             </div>
-            <div className="hidden lg:flex mb-12 justify-center">
-              <Link href={LINK_LINK} className="w-200  rounded-full flex items-center justify-center">
-                <Image src="/images/banner/btn_app_v2.png" alt="X" width={1000} height={1000} className="mt-6 lg:mt-24" />
+            <div className="hidden lg:block mb-12 justify-center">
+            <Link href={LINE_LINK} className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">
+              <Image src="/images/banner/btn_line_v2.png" alt="LINE desktop" width={1000} height={1000} className="mt-6 lg:mt-24" />
+            </Link>
+              <Link href={LINE_LINK} className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">
+                <Image src="/images/banner/btn_app_v2.png" alt="apply desktop" width={1000} height={1000} className="mt-6 lg:mt-24" />
               </Link>
             </div>
           </div>

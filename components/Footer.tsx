@@ -14,9 +14,9 @@ const Footer = () => {
           
 
           {/* Services */}
-          <div className="space-y-4">
+          <div className="space-y-4 text-center lg:text-left">
             <h4 className="text-lg font-semibold text-black mb-4">サイトメニュー</h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3 px-5 lg:px-0">
               <li>
                 <Link href="/" className="text-black hover:opacity-80 flex items-center">
                 <span className="w-2 h-2 bg-pink-400 rounded-full mr-3"></span>
@@ -57,9 +57,9 @@ const Footer = () => {
           </div>
 
           {/* Company */}
-          <div className="space-y-4">
+          <div className="space-y-4 text-center lg:text-left">
             <h4 className="text-lg font-semibold text-black mb-4">厳選ランキング集</h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3 px-5 lg:px-0">
               <li>
                 <Link
                   href="https://kaitori-laboratory.com/giftcard-ranking/?_gl=1%2A5w0hj7%2A_gcl_au%2AMTk1MzYyMzczNC4xNzUyNzM4NDkz%2A_ga%2AOTcxNzkwODExLjE3NDQwOTI1NTE.%2A_ga_DLQ7YMGM6Z%2AczE3NTg3MDIzODckbzc2JGcxJHQxNzU4NzA0NjU2JGo0OSRsMCRoMA.."

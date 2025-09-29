@@ -1,11 +1,14 @@
 "use client"
 
   import { steps } from '@/util/featurestep';
+import BackGroundPattern from '../figures/BackGroundPattern';
 
   export default function StepSection() {
     return (
-      <section className="py-20 px-4 bg-primary">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-20 px-4 bg-primary relative">
+      {/* Background Pattern */}
+      <BackGroundPattern />
+        <div className="max-w-6xl mx-auto relative z-10">
           {/* Header */}
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 text-balance">
