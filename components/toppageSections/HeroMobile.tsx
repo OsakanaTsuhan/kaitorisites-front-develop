@@ -4,12 +4,13 @@ import Image from 'next/image';
 import { BuyingRate } from '@/types/setting';
 import { coiny } from './font';
 import Link from 'next/link';
-import { LINK_LINK } from '@/util/appConst';
+import { LINE_LINK } from '@/util/appConst';
+import { useRouter } from 'next/navigation';
 
 const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
   const [showRepeatRate, setShowRepeatRate] = useState(false);
   const [showBottomButton, setShowBottomButton] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     // 4秒おきにnew_userとrepeat_userの率を切り替える
     const interval = setInterval(() => {
@@ -50,7 +51,7 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
         </div>
-        <div className="absolute bottom-32 right-0 star-rotate-reverse">
+        <div className="absolute bottom-50 right-0 star-rotate-reverse">
           <svg width="70" height="70" viewBox="0 0 24 24" className="star-outline">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
@@ -104,7 +105,7 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
               height={600}
               className="w-[135px] h-[135px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 right-0"
             />
-            <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]">
+            <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]"  onClick={() => router.push('/apply')}>
               <div className={`${coiny.className} leading-none text-white
                   [-webkit-text-stroke:2px_#ff6b2e] [text-stroke:2px_#ff6b2e]
                   drop-shadow-[10px_8px_0_rgba(0,0,0,0.35)] flex items-center justify-center relative`}>
@@ -167,8 +168,8 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
         </div>
 
         {/* Fixed Vertical Button - Right Side */}
-        <div className="fixed bottom-60 right-0 z-50 md:hidden ">
-          <Link href={LINK_LINK} className="block">
+        <div className="fixed bottom-50 right-0 z-50 md:hidden ">
+          <Link href={LINE_LINK} className="block">
             <div className="bg-line text-white rounded-l-lg w-10 pb-10 pt-6">
               <div className="transform rotate-270 text-center">
                 {/* <div className="text-sm font-bold whitespace-nowrap [writing-mode:vertical-rl]">申し込み</div> */}
@@ -184,7 +185,7 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
         }`}>
           <div className="bg-black/20 w-full p-1">
             <div className="flex justify-center">
-              <Link href={LINK_LINK} className="w-100">
+              <Link href={LINE_LINK} className="w-100">
                 <Image src="/images/line_footer.png" alt="Apply" width={500} height={500} className="w-full h-auto" />
               </Link>
             </div>

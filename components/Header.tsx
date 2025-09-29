@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { LINK_LINK } from '@/util/appConst';
+import { LINE_LINK } from '@/util/appConst';
 
 const Header = () => {
   // current path
@@ -154,8 +154,8 @@ const Header = () => {
           {/* Social Links */}
           <div className="mt-8 pt-6 border-t border-primary-light">
             <div className="flex space-x-4 mt-4">
-              {LINK_LINK && (
-              <Link href={LINK_LINK} className="w-200  rounded-full flex items-center justify-center">
+              {LINE_LINK && (
+              <Link href={LINE_LINK} className="w-200  rounded-full flex items-center justify-center">
                 <Image src="/images/btn_line2.png" alt="X" width={200} height={200} />
               </Link>
               )}
