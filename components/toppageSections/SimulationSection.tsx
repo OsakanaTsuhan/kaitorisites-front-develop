@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { BuyingRate } from '@/types/setting';
 import Image from 'next/image';
 import PageHeader from '../PageHeader';
+import Link from 'next/link';
+import { LINK_LINK } from '@/util/appConst';
 
 const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
   const [selectedBrand, setSelectedBrand] = useState('apple');
@@ -74,13 +76,13 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
          <div className="text-3xl md:text-5xl font-bold text-center text-slate-900 mb-12 relative">
             <span className="text-gray-800">買取</span>
             <span className="text-fruit-gradient">シミュレーション</span>
-            <div className="absolute top-[-45px] right-[10px] lg:top-[-60px] lg:right-[200px] bg-[#15d600] text-white p-2 lg:p-3 rounded-full text-xs lg:text-sm font-semibold shadow-lg z-10 speech-bubble">
+            {/* <div className="absolute top-[-45px] right-[10px] lg:top-[-60px] lg:right-[200px] bg-[#15d600] text-white p-2 lg:p-3 rounded-full text-xs lg:text-sm font-semibold shadow-lg z-10 speech-bubble">
                 LINE
-            </div>
+            </div> */}
           </div>
-          <p className="text-base lg:text-lg text-center mb-18 text-gray-600">
+          {/* <p className="text-base lg:text-lg text-center mb-18 text-gray-600">
             LINE申込での買取額をシミュレーションしてみましょう
-          </p>
+          </p> */}
 
     
         {/* Simulation Form */}
@@ -158,9 +160,9 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
               {/* Minus Button */}
               <button
                 type="button"
-                onClick={() => setFaceValue(Math.max(1000, faceValue - 1000))}
+                onClick={() => setFaceValue(Math.max(10000, faceValue - 10000))}
                 className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center cursor-pointer"
-                disabled={faceValue <= 1000}
+                disabled={faceValue <= 10000}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
@@ -171,16 +173,16 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
               <div className="flex-1 relative">
                 <input
                   type="range"
-                  min="1000"
+                  min="10000"
                   max="500000"
-                  step="1000"
+                  step="10000"
                   value={faceValue}
                   onChange={(e) => setFaceValue(Number(e.target.value))}
                   className="w-full h-4 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-no-focus"
                   style={{
                     outline: 'none',
                     boxShadow: 'none',
-                    background: `linear-gradient(to right, #FF6E8A 0%, #FF6E8A ${((faceValue - 1000) / (500000 - 1000)) * 100}%, #e5e7eb ${((faceValue - 1000) / (500000 - 1000)) * 100}%, #e5e7eb 100%)`
+                    background: `linear-gradient(to right, #FF6E8A 0%, #FF6E8A ${((faceValue - 10000) / (500000 - 10000)) * 100}%, #e5e7eb ${((faceValue - 10000) / (500000 - 10000)) * 100}%, #e5e7eb 100%)`
                   }}
                 />
               </div>
@@ -188,7 +190,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
               {/* Plus Button */}
               <button
                 type="button"
-                onClick={() => setFaceValue(Math.min(500000, faceValue + 1000))}
+                onClick={() => setFaceValue(Math.min(500000, faceValue + 10000))}
                 className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center cursor-pointer"
                 disabled={faceValue >= 500000}
               >
@@ -198,7 +200,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
               </button>
             </div>
             <div className="flex justify-between text-sm text-gray-500 mt-1">
-              <span>¥1,000</span>
+              <span>¥10,000</span>
               <span>¥500,000</span>
             </div>
           </div>
@@ -232,10 +234,41 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
             )}
           </div>
           {/* warning */}
-            <div className="text-sm text-gray-500 mt-1 text-center">
+            
+           {/* Heart-shaped Speech Bubble */}
+            <div className="flex flex-col items-center space-y-4 lg:mt-6">
+              <div className="relative">
+                <div className="bg-line text-white px-6 py-3 lg:py-4 rounded-full text-base lg:text-xl font-bold shadow-lg max-w-xs text-center transform tracking-widest">
+                  LINE
+                </div>
+                <div className="absolute bottom-full left-1/3 transform -translate-x-1/2 translate-y-1">
+                  <div className="w-0 h-0 border-l-18 border-r-2 border-b-15 border-l-transparent border-r-transparent border-line"></div>
+                </div>
+              </div>
+            </div>
+            <div className="text-sm text-gray-500 text-center mt-6">
               ※表示価格はLINE申込みの場合です
             </div>
         </div>
+
+         {/* Social Links */}
+         <div className="mt-8 pt-6 border-t border-primary-light">
+            <div className="flex space-x-4 mt-4 lg:hidden">
+              {LINK_LINK && (
+              <Link href={LINK_LINK} className="w-200  rounded-full flex items-center justify-center">
+                <Image src="/images/btn_line2.png" alt="X" width={200} height={200} />
+              </Link>
+              )}
+              <Link href="/apply" className="w-200 rounded-full flex items-center justify-center">
+                <Image src="/images/btn_app.png" alt="Instagram" width={200} height={200} />
+              </Link>
+            </div>
+            <div className="hidden lg:flex mb-12 justify-center">
+              <Link href={LINK_LINK} className="w-200  rounded-full flex items-center justify-center">
+                <Image src="/images/banner/btn_app_v2.png" alt="X" width={1000} height={1000} className="mt-6 lg:mt-24" />
+              </Link>
+            </div>
+          </div>
 
       </div>
     </section>

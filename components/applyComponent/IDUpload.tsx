@@ -20,7 +20,7 @@ const IDUpload = ({ idImages, onIdImagesChange, usageType }: { idImages: IDImage
   return (
     <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-accent">
       <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-        身分証明書画像アップロード（初回のお客様のみ）
+        身分証明書の画像
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>

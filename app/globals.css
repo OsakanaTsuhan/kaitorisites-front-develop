@@ -14,6 +14,7 @@
   --color-accent:     #FFD32E;
   --color-gradation-from: #43FFCE;
   --color-gradation-to: #BFAEFF;
+  --color-line: #15d600;
 }
 
 @theme inline {

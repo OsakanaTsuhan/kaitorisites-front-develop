@@ -32,24 +32,24 @@ const BannerSection = () => {
 
         {/* Banner 2 */}
         <Link href="/apply?isCouponed=true" className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">
-          <Image src="/images/banner/coupon_repeat_v2.png" alt="Banner 1" width={1000} height={1000} className="mt-6 lg:mt-24" />
+          <Image src="/images/banner/coupon_repeat_v2.png" alt="Banner 2" width={1000} height={1000} className="mt-6 lg:mt-24" />
         </Link>
 
          {/* Banner 3 */}
          <Link target="_blank" href="https://kaitori-laboratory.com/kaitori-marathon/?_gl=1*ynjut0*_gcl_au*MTk1MzYyMzczNC4xNzUyNzM4NDkz*_ga*OTcxNzkwODExLjE3NDQwOTI1NTE.*_ga_DLQ7YMGM6Z*czE3NTg5NTUxOTYkbzgwJGcxJHQxNzU4OTU1NTM3JGo0MCRsMCRoMA.." className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">
-          <Image src="/images/banner/best_urawaza_2.png" alt="Banner 1" width={1000} height={1000} className="mt-6 lg:mt-24" />
+          <Image src="/images/banner/best_urawaza_2.png" alt="Banner 3" width={1000} height={1000} className="mt-6 lg:mt-24" />
         </Link>
 
         {/* Banner 4 */}
         {LINK_LINK && (
         <Link href={LINK_LINK} className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">
-          <Image src="/images/banner/btn_line_v2.png" alt="Banner 1" width={1000} height={1000} className="mt-6 lg:mt-24" />
+          <Image src="/images/banner/btn_line_v2.png" alt="Banner 4" width={1000} height={1000} className="mt-6 lg:mt-24" />
         </Link>
         )}
 
          {/* Banner 5 */}
          <Link href="/apply" className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">
-          <Image src="/images/banner/btn_app_v2.png" alt="Banner 1" width={1000} height={1000} className="mt-6 lg:mt-24" />
+          <Image src="/images/banner/btn_app_v2.png" alt="Banner 5" width={1000} height={1000} className="mt-6 lg:mt-24" />
         </Link>
       </div>
       {/* <Features /> */}

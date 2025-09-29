@@ -55,7 +55,7 @@ const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates:
         
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-balance">
             現在の<span className="text-fruit-gradient">買取率</span>
           </h2>
         </div>

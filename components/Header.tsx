@@ -125,7 +125,7 @@ const Header = () => {
               利用規約
             </Link>
             <Link 
-              href="/privacy" 
+              href="/privacypolicy" 
               className="flex items-center px-4 text-gray-700 hover:bg-orange-100 rounded-lg transition-colors"
               onClick={toggleMenu}
             >

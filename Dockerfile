@@ -3,7 +3,7 @@
 FROM node:23-alpine AS base
 
 # 必要なパッケージをインストール
-RUN apk add --no-cache libc6-compat curl
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # 依存関係のインストール
@@ -26,6 +26,9 @@ ENV NODE_ENV=production
 # Next.jsアプリケーションをビルド
 RUN npm run build
 
+# ビルド成果物を確認
+RUN ls -la .next/ && ls -la .next/standalone/
+
 # プロダクション用ステージ
 FROM base AS runner
 WORKDIR /app
@@ -41,15 +44,15 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-USER nextjs
-
+# ポート設定
 EXPOSE 3000
-
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# ヘルスチェックエンドポイントを追加
-HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD curl -f http://localhost:3000/api/health || exit 1
+# デバッグ用：ファイル確認
+RUN ls -la ./ && ls -la ./.next/
 
-CMD ["node", "server.js"]
+USER nextjs
+
+# 起動コマンド（デバッグ付き）
+CMD ["sh", "-c", "echo 'Starting Next.js on port $PORT' && node server.js"]

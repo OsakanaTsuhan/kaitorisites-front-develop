@@ -18,7 +18,7 @@ export default function GroupSitesSection() {
       {/* Background Pattern */}
       <BackGroundPattern />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" >
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-slate-900 mb-16">
+        <h2 className="text-3xl md:text-5xl font-bold text-center text-slate-900 mb-16">
         グループサイト
         </h2>
          <div className="mb-12 max-w-3xl mx-auto">
