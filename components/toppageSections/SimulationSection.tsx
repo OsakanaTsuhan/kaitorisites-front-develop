@@ -76,14 +76,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
          <div className="text-3xl md:text-5xl font-bold text-center text-slate-900 mb-12 relative">
             <span className="text-gray-800">買取</span>
             <span className="text-fruit-gradient">シミュレーション</span>
-            {/* <div className="absolute top-[-45px] right-[10px] lg:top-[-60px] lg:right-[200px] bg-[#15d600] text-white p-2 lg:p-3 rounded-full text-xs lg:text-sm font-semibold shadow-lg z-10 speech-bubble">
-                LINE
-            </div> */}
           </div>
-          {/* <p className="text-base lg:text-lg text-center mb-18 text-gray-600">
-            LINE申込での買取額をシミュレーションしてみましょう
-          </p> */}
-
     
         {/* Simulation Form */}
         <div className="bg-white border-8 border-primary rounded-2xl px-8 lg:px-24 py-16 lg:py-24 lg:pb-24 relative mt-36 lg:mt-72">

@@ -1,16 +1,16 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { BuyingRate, SiteSetting } from '@/types/setting';
 import { coiny } from './font';
 import Link from 'next/link';
 import { LINE_LINK, LINE_RATE_UP } from '@/util/appConst';
 import { useRouter } from 'next/navigation';
 
-const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetting: SiteSetting}) => {
+const HeroStatic = () => {
   const [showRepeatRate, setShowRepeatRate] = useState(false);
   const [showBottomButton, setShowBottomButton] = useState(false);
   const router = useRouter();
+  
   useEffect(() => {
     // 4秒おきにnew_userとrepeat_userの率を切り替える
     const interval = setInterval(() => {
@@ -30,12 +30,21 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Static data - fallback values
+  const appleRate = {
+    new_user: 94.5,
+    repeat_user: 89.5
+  };
+  
+  const siteSetting = {
+    transfer_time: 30
+  };
+
   return (
     <div className="relative h-auto bg-primary">
      
-
-       {/* Rotating Stars */}
-       <div className="absolute inset-0 pointer-events-none">
+      {/* Rotating Stars */}
+      <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-0 star-rotate">
           <svg width="150" height="150" viewBox="0 0 24 24" className="star-outline">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -119,7 +128,6 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
                     <div className="-mt-10 text-[80px] sm:text-[100px]">.
                       <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.new_user + LINE_RATE_UP).toFixed(1).substring(3)}</span>
                       </div>
-                    {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
                     <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
                   </div>
                 </div>
@@ -133,8 +141,6 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
                     <div className="-mt-10 text-[80px] sm:text-[100px]">.
                       <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.repeat_user + LINE_RATE_UP).toFixed(1).substring(3)}</span>
                       </div>
-                    {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
-
                     <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
                   </div>
                 </div>
@@ -152,13 +158,6 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
                  }`}>
                    <div className="w-full text-center">{showRepeatRate ? '2回目以降' : '初回'}</div>
                  </div>
-                 
-                 {/* Repeat User Badge */}
-                 {/* <div className={`absolute right-19 transition-opacity font-bold text-primary duration-500 ${
-                   showRepeatRate ? 'opacity-100' : 'opacity-0'
-                 }`}>
-                   2回目以降
-                 </div> */}
                </div>
             </div>
         </div>
@@ -181,7 +180,6 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
           <Link href={LINE_LINK} className="block">
             <div className="bg-line text-white rounded-l-lg w-10 pb-10 pt-6">
               <div className="transform rotate-270 text-center">
-                {/* <div className="text-sm font-bold whitespace-nowrap [writing-mode:vertical-rl]">申し込み</div> */}
                 <div className={`${coiny.className}  text-xl tracking-widest font-bold whitespace-nowrap ml-[-15px]`}>LINE</div>
               </div>
             </div>
@@ -204,4 +202,4 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
   );
 };
 
-export default HeroMobile;
+export default HeroStatic;

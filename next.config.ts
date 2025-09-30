@@ -14,10 +14,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
     // formats: ['image/avif', 'image/webp'],
   },
-  // 静的最適化を無効化
-  experimental: {
-    optimizeCss: false,
-  },
 }
 
 export default nextConfig
