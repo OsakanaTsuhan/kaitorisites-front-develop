@@ -17,6 +17,7 @@ export default async function Home() {
   try {
 
     const setting = await getSetting();
+    
     const buyingRates = setting.rate_setting;
     const siteSetting = setting.site_setting;
     
@@ -24,6 +25,7 @@ export default async function Home() {
       // フォールバック表示（SEO構造は維持）
       return <StaticFallbackHome />
     }
+    
 
     return (
       <div className="relative m-0 p-0 overflow-x-hidden">
@@ -37,7 +39,7 @@ export default async function Home() {
           <BannerSection />
           <RateSection isVisible={true} buyingRates={buyingRates} />
           <SimulationSection brandRates={buyingRates} />
-          <StepSection />
+          <StepSection siteSetting={siteSetting} />
           <FeatureSection />
           <BannerSection />
           <GroupSitesSection />
@@ -55,7 +57,6 @@ export default async function Home() {
         <div className="z-10">
           <HeroStatic  />
           <BannerSection />
-          <StepSection />
           <FeatureSection />
           <BannerSection />
           <GroupSitesSection />
