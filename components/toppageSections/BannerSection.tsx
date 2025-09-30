@@ -47,9 +47,9 @@ const BannerSection = () => {
         </Link>
 
         {/* Banner 4 */}
-        <Link href={LINE_LINK} className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">
+        {/* <Link href={LINE_LINK} className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">
           <Image src="/images/banner/btn_line_v2.png" alt="Banner 4" width={1000} height={1000} className="mt-6 lg:mt-24" />
-        </Link>
+        </Link> */}
 
          {/* Banner 5 */}
          <Link href="/apply" className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">

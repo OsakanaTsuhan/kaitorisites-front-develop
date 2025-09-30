@@ -67,9 +67,12 @@ const AboutUsComponent = () => {
             <h2 className="text-base sm:text-lg font-medium text-gray-500 tracking-wide mb-2 md:mb-0">お問い合わせ</h2>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl lg:text-4xl mb-3 sm:mb-4 font-mono tracking-wider">
-            042-732-3588
-            </div>
+            <a 
+              href="tel:042-732-3588"
+              className="text-2xl sm:text-3xl lg:text-4xl mb-3 sm:mb-4 font-mono tracking-wider hover:underline transition-colors duration-200 cursor-pointer"
+            >
+              042-732-3588
+            </a>
             <p className="text-sm sm:text-base lg:text-lg text-gray-600">受付時間：平日 9:00～19:00</p>
           </div>
         </div>
@@ -82,9 +85,12 @@ const AboutUsComponent = () => {
             <h2 className="text-base sm:text-lg font-medium text-gray-500 tracking-wide mb-2 md:mb-0">メールアドレス</h2>
           </div>
           <div>
-            <div className="text-base sm:text-lg lg:text-2xl font-light text-gray-900 font-mono break-all">
-            kaitori@kaitori-sweet.com
-            </div>
+            <a 
+              href="mailto:kaitori@kaitori-sweet.com"
+              className="text-base sm:text-lg lg:text-2xl font-light hover:underline transition-colors duration-200 cursor-pointer font-mono break-all"
+            >
+              kaitori@kaitori-sweet.com
+            </a>
           </div>
         </div>
 

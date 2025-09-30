@@ -37,22 +37,22 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
        {/* Rotating Stars */}
        <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-0 star-rotate">
-          <svg width="80" height="80" viewBox="0 0 24 24" className="star-outline">
+          <svg width="150" height="150" viewBox="0 0 24 24" className="star-outline">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
         </div>
-        <div className="absolute top-32 right-0 star-rotate-reverse">
-          <svg width="60" height="60" viewBox="0 0 24 24" className="star-outline">
+        <div className="absolute top-15 right-0 star-rotate-reverse">
+          <svg width="100" height="100" viewBox="0 0 24 24" className="star-outline">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
         </div>
-        <div className="absolute bottom-20 left-5 star-rotate">
-          <svg width="50" height="50" viewBox="0 0 24 24" className="star-outline">
+        <div className="absolute bottom-30 left-0 star-rotate">
+          <svg width="100" height="100" viewBox="0 0 24 24" className="star-outline">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
         </div>
-        <div className="absolute bottom-20 right-0 star-rotate-reverse">
-          <svg width="70" height="70" viewBox="0 0 24 24" className="star-outline">
+        <div className="absolute bottom-40 -right-5 star-rotate-reverse">
+          <svg width="120" height="120" viewBox="0 0 24 24" className="star-outline">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
         </div>
@@ -64,7 +64,7 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
         <div className="absolute top-45 left-12 w-8 h-4 bg-gradient-to-r from-orange-400/40 to-orange-600/40 rounded-full animate-bounce transform -rotate-12" style={{animationDelay: '0.5s'}}></div>
         <div className="absolute bottom-38 right-6 w-8 h-5 bg-gradient-to-r from-purple-400/35 to-purple-600/35 rounded-full animate-bounce transform rotate-45" style={{animationDelay: '1s'}}></div>
         <div className="absolute bottom-40 left-8 w-10 h-6 bg-gradient-to-r from-yellow-400/50 to-yellow-600/50 rounded-full animate-bounce transform -rotate-45" style={{animationDelay: '1.5s'}}></div>
-        <div className="absolute top-1/3 right-7 w-8 h-5 bg-gradient-to-r from-green-400/40 to-green-600/40 rounded-full animate-bounce transform rotate-12" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/3 right-7 w-8 h-5 bg-gradient-to-r from-yellow-400/40 to-yellow-600/40 rounded-full animate-bounce transform rotate-12" style={{animationDelay: '2s'}}></div>
         <div className="absolute bottom-1/3 left-4 w-6 h-4 bg-gradient-to-r from-blue-400/45 to-blue-600/45 rounded-full animate-bounce transform -rotate-12" style={{animationDelay: '2.5s'}}></div>
       </div>
 
@@ -105,7 +105,7 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
               height={600}
               className="w-[135px] h-[135px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 right-0"
             />
-            <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]"  onClick={() => router.push('/apply')}>
+            <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]"  onClick={() => router.push('/apply?isCouponed=true')}>
               <div className={`${coiny.className} leading-none text-white
                   [-webkit-text-stroke:2px_#ff6b2e] [text-stroke:2px_#ff6b2e]
                   drop-shadow-[10px_8px_0_rgba(0,0,0,0.35)] flex items-center justify-center relative`}>
@@ -116,7 +116,8 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
                 }`}>
                   <div className="text-[140px] sm:text-[180px]">{appleRate.new_user.toFixed(0)}</div>
                   <div>
-                    <div className="text-[60px] sm:text-[80px]">{(appleRate.new_user.toFixed(1)).substring(2)}</div>
+                    {/* <div className="text-[60px] sm:text-[80px]">{(appleRate.new_user.toFixed(1)).substring(2)}</div> */}
+                    <div className="text-[60px] sm:text-[80px]">.3</div>
                     <div className="text-[40px] sm:text-[60px]">%</div>
                   </div>
                 </div>
@@ -127,37 +128,39 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
                 }`}>
                   <div className="text-[140px] sm:text-[180px]">{appleRate.repeat_user.toFixed(0)}</div>
                   <div>
-                    <div className="text-[60px] sm:text-[80px]">{(appleRate.repeat_user.toFixed(1)).substring(2)}</div>
+                    {/* <div className="text-[60px] sm:text-[80px]">{(appleRate.repeat_user.toFixed(1)).substring(2)}</div> */}
+                    <div className="text-[60px] sm:text-[80px]">.3</div>
+
                     <div className="text-[40px] sm:text-[60px]">%</div>
                   </div>
                 </div>
               </div>
               
                {/* Badge */}
-               <div className="bg-white text-center text-base font-medium  rounded-full px-8 py-1 flex items-center relative mt-14">
-                 <div className="w-1/3">
+               <div className="bg-white text-center text-lg font-medium  rounded-full pl-4 py-1 flex items-center relative mt-14">
+                 <div className="w-1/4 flex justify-center">
                    <Image src="/images/brands/icon_apple.png" alt="Apple" width={1000} height={1000} className="w-10 h-10 object-contain rounded-full" />
                  </div>
                  
                  {/* New User Badge */}
-                 <div className={`w-2/3 text-left pl-2 transition-opacity font-bold text-[#35cca4] duration-500 ${
-                   !showRepeatRate ? 'opacity-100' : 'opacity-0'
+                 <div className={`w-2/4 pl-2 transition-opacity font-bold  duration-500 ${
+                   !showRepeatRate ? 'text-[#35cca4]' : 'text-primary'
                  }`}>
-                   初回限定
+                   <div className="w-full text-center">{showRepeatRate ? '2回目以降' : '初回'}</div>
                  </div>
                  
                  {/* Repeat User Badge */}
-                 <div className={`absolute right-19 transition-opacity font-bold text-primary duration-500 ${
+                 {/* <div className={`absolute right-19 transition-opacity font-bold text-primary duration-500 ${
                    showRepeatRate ? 'opacity-100' : 'opacity-0'
                  }`}>
-                   リピート
-                 </div>
+                   2回目以降
+                 </div> */}
                </div>
             </div>
         </div>
       </div>
         {/* Bottom Section - Transfer Time Only */}
-        <div className="flex-1 flex flex-col justify-end mt-3">
+        <div className="flex-1 flex flex-col justify-end mt-10">
           {/* Transfer Time Feature */}
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-2 mb-1 mx-6 border border-white/20">
             <div className="text-center text-white flex items-center justify-center">
@@ -168,7 +171,9 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
         </div>
 
         {/* Fixed Vertical Button - Right Side */}
-        <div className="fixed bottom-50 right-0 z-50 md:hidden ">
+        <div className={`fixed bottom-50 right-0 z-50 md:hidden ${
+          showBottomButton ? 'opacity-0' : 'opacity-100'
+        }`}>
           <Link href={LINE_LINK} className="block">
             <div className="bg-line text-white rounded-l-lg w-10 pb-10 pt-6">
               <div className="transform rotate-270 text-center">

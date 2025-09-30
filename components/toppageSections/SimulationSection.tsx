@@ -160,7 +160,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
               {/* Minus Button */}
               <button
                 type="button"
-                onClick={() => setFaceValue(Math.max(10000, faceValue - 10000))}
+                onClick={() => setFaceValue(Math.max(10000, faceValue - 1000))}
                 className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center cursor-pointer"
                 disabled={faceValue <= 10000}
               >
@@ -190,7 +190,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
               {/* Plus Button */}
               <button
                 type="button"
-                onClick={() => setFaceValue(Math.min(500000, faceValue + 10000))}
+                onClick={() => setFaceValue(Math.min(500000, faceValue + 1000))}
                 className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center cursor-pointer"
                 disabled={faceValue >= 500000}
               >

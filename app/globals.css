@@ -108,7 +108,7 @@ body {
 
 .star-outline {
   stroke: white;
-  stroke-width: 1;
+  stroke-width: 0.5;
   fill: none;
   filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
 }

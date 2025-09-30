@@ -180,7 +180,7 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
                 <li
                   key={bank.code}
                   onClick={() => handleMainBankSelect(bank.name)}
-                  className="flex items-center p-3 border rounded hover:bg-gray-100 cursor-pointer text-xs lg:text-sm"
+                  className="flex items-center p-1 lg:p-3 border rounded hover:bg-gray-100 cursor-pointer text-xs lg:text-sm"
                 >
                   <Image
                     src={`/img/bank/${bank.code}.png`}
@@ -195,7 +195,7 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
             </ul>
 
             {/* 注意書き */}
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-xs lg:text-sm text-gray-600 mb-4">
               <span className="text-red-500">※</span>
               上記以外の金融機関は以下より「金融機関名」または「金融機関コード」にて検索出来ます。
             </p>
@@ -206,7 +206,7 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
                 <li
                   key={type.id}
                   onClick={() => handleBankTypeSelect(type.id)}
-                  className="p-3 border rounded hover:bg-gray-100 cursor-pointer text-center"
+                  className="p-1 lg:p-3 border rounded hover:bg-gray-100 cursor-pointer text-center "
                 >
                   {type.name}
                 </li>
