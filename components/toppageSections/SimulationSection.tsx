@@ -4,7 +4,7 @@ import { BuyingRate } from '@/types/setting';
 import Image from 'next/image';
 import PageHeader from '../PageHeader';
 import Link from 'next/link';
-import { LINE_LINK } from '@/util/appConst';
+import { LINE_LINK, LINE_RATE_UP } from '@/util/appConst';
 
 const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
   const [selectedBrand, setSelectedBrand] = useState('apple');
@@ -23,7 +23,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
   // 率を小数点第一位まで表示する関数
   const formatRate = (rate: number | string): string => {
     const numRate = typeof rate === 'string' ? parseFloat(rate) : rate;
-    return numRate.toFixed(1);
+    return (numRate + LINE_RATE_UP).toFixed(1);
   };
 
   return (

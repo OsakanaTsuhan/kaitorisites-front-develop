@@ -48,6 +48,11 @@ export default async function Apply({searchParams}: {searchParams: Promise<{bran
       coupon_name: "激アツ！クーポン",
       rateUp: 1.0,
     },
+    {
+      coupon_code: "ln1",
+      coupon_name: "LINEクーポン",
+      rateUp: 1.0,
+    },
   ];
 
   if(buyingRates.length <= 0) {

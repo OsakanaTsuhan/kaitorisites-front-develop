@@ -46,7 +46,7 @@ const jsonLd = {
 
 export default function ContactCompletePage() {
   return (
-    <div className="min-h-screen bg-primary-light flex items-center justify-center px-4">
+    <div className="min-h-screen bg-primary-light py-16">
       <Script
           id="breadcrumbs-schema"
           type="application/ld+json"
