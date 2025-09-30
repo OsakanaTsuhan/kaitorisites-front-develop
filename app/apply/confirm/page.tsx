@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'お魚通販.com株式会社のお申し込み内容の確認です。',
 };
 
+// SSRを強制 + キャッシュ無効化
+export const dynamic = 'force-dynamic'
 
 const breadcrumbs = [
   { label: 'ホーム', href: '/' },

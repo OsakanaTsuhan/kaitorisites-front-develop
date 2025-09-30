@@ -151,3 +151,12 @@ body {
     grid-template-columns: 200px 1fr;
   }
 }
+
+.success-animation {
+  animation: successPulse 2s ease-in-out infinite;
+}
+
+@keyframes successPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}

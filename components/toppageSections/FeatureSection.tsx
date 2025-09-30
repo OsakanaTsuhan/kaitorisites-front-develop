@@ -33,9 +33,14 @@ import { features } from '@/util/featurestep';
                       >
                         {feature.point}
                       </span>
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 text-balance leading-tight">
-                            {feature.title}
-                        </h3>
+                      <div className="text-xl md:text-2xl font-bold text-gray-900 text-balance leading-tight mb-4">
+                        {feature.title.split('\n').map((line, index) => (
+                          <span key={index}>
+                            {line}
+                            {index < feature.title.split('\n').length - 1 && <><br className="md:hidden" /><span className="hidden md:inline"></span></>}
+                          </span>
+                      ))}
+                      </div>
                     </div>
                     <div className="flex-shrink-0 relative">
                       {/* Pop-out effect container */}
@@ -48,9 +53,20 @@ import { features } from '@/util/featurestep';
                           <Image
                             src={`${feature.characterImage}`}
                             alt={`${feature.point} character`}
-                            className="mt-[-30px] w-30 h-30 rounded-full object-cover "
+                            className="mt-[-30px] w-30 h-30 rounded-full object-contain"
                             width={1000}
                             height={1000}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                            quality={90}
+                          />
+                          <Image
+                            src={"/images/char-name.png"}
+                            alt={`character-name`}
+                            className="absolute -bottom-2 -right-5 w-13 h-13 rounded-full object-contain"
+                            width={1000}
+                            height={1000}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                            quality={90}
                           />
                         </div>
                       </div>

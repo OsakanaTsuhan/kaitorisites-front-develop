@@ -259,7 +259,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
                 <Image src="/images/btn_line2.png" alt="LINE mobile" width={200} height={200} />
               </Link>
               )}
-              <Link href="/apply" className="w-200 rounded-full flex items-center justify-center">
+              <Link href="/apply?isCouponed=true" className="w-200 rounded-full flex items-center justify-center">
                 <Image src="/images/btn_app.png" alt="apply mobile" width={200} height={200} />
               </Link>
             </div>

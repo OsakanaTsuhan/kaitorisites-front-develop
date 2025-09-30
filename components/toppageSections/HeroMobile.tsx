@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { BuyingRate } from '@/types/setting';
 import { coiny } from './font';
 import Link from 'next/link';
-import { LINE_LINK } from '@/util/appConst';
+import { LINE_LINK, LINE_RATE_UP } from '@/util/appConst';
 import { useRouter } from 'next/navigation';
 
 const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
@@ -60,12 +60,12 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
       
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-8 w-8 h-5 bg-gradient-to-r from-pink-400/30 to-pink-600/30 rounded-full animate-bounce transform rotate-12"></div>
-        <div className="absolute top-45 left-12 w-8 h-4 bg-gradient-to-r from-orange-400/40 to-orange-600/40 rounded-full animate-bounce transform -rotate-12" style={{animationDelay: '0.5s'}}></div>
-        <div className="absolute bottom-38 right-6 w-8 h-5 bg-gradient-to-r from-purple-400/35 to-purple-600/35 rounded-full animate-bounce transform rotate-45" style={{animationDelay: '1s'}}></div>
-        <div className="absolute bottom-40 left-8 w-10 h-6 bg-gradient-to-r from-yellow-400/50 to-yellow-600/50 rounded-full animate-bounce transform -rotate-45" style={{animationDelay: '1.5s'}}></div>
-        <div className="absolute top-1/3 right-7 w-8 h-5 bg-gradient-to-r from-yellow-400/40 to-yellow-600/40 rounded-full animate-bounce transform rotate-12" style={{animationDelay: '2s'}}></div>
-        <div className="absolute bottom-1/3 left-4 w-6 h-4 bg-gradient-to-r from-blue-400/45 to-blue-600/45 rounded-full animate-bounce transform -rotate-12" style={{animationDelay: '2.5s'}}></div>
+        <div className="absolute top-10 right-28 w-8 h-5 bg-gradient-to-r from-pink-400/30 to-pink-600/30 rounded-full animate-bounce transform rotate-12"></div>
+        <div className="absolute top-15 left-12 w-8 h-4 bg-gradient-to-r from-orange-400/40 to-orange-600/40 rounded-full animate-bounce transform -rotate-12" style={{animationDelay: '0.5s'}}></div>
+        <div className="absolute bottom-30 right-6 w-8 h-5 bg-gradient-to-r from-purple-400/35 to-purple-600/35 rounded-full animate-bounce transform rotate-45" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-20 left-8 w-10 h-6 bg-gradient-to-r from-yellow-400/50 to-yellow-600/50 rounded-full animate-bounce transform -rotate-45" style={{animationDelay: '1.5s'}}></div>
+        <div className="absolute top-45 right-10 w-8 h-5 bg-gradient-to-r from-yellow-400/40 to-yellow-600/40 rounded-full animate-bounce transform rotate-12" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-1/3 left-5 w-6 h-4 bg-gradient-to-r from-blue-400/45 to-blue-600/45 rounded-full animate-bounce transform -rotate-12" style={{animationDelay: '2.5s'}}></div>
       </div>
 
       {/* Content Stack - Completely different layout */}
@@ -96,14 +96,14 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
               alt="Hero Image" 
               width={600}
               height={600}
-              className="w-[120px] h-[120px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 left-0"
+              className="w-[120px] h-[120px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 left-0 md:left-20"
             />
               <Image 
               src="/images/hero-line.png" 
               alt="Hero Image" 
               width={600}
               height={600}
-              className="w-[135px] h-[135px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 right-0"
+              className="w-[135px] h-[135px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 right-0 md:right-20"
             />
             <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]"  onClick={() => router.push('/apply?isCouponed=true')}>
               <div className={`leading-none text-white
@@ -114,10 +114,10 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
                 <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                   !showRepeatRate ? 'opacity-100' : 'opacity-0'
                 }`}>
-                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{appleRate.new_user.toFixed(0)}</div>
+                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{(appleRate.new_user + LINE_RATE_UP).toFixed(0)}</div>
                   <div>
                     <div className="-mt-10 text-[80px] sm:text-[100px]">.
-                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.new_user.toFixed(1)).substring(3)}</span>
+                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.new_user + LINE_RATE_UP).toFixed(1).substring(3)}</span>
                       </div>
                     {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
                     <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
@@ -128,10 +128,10 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
                 <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                   showRepeatRate ? 'opacity-100' : 'opacity-0'
                 }`}>
-                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{appleRate.repeat_user.toFixed(0)}</div>
+                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{(appleRate.repeat_user + LINE_RATE_UP).toFixed(0)}</div>
                   <div>
                     <div className="-mt-10 text-[80px] sm:text-[100px]">.
-                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.repeat_user.toFixed(1)).substring(3)}</span>
+                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.repeat_user + LINE_RATE_UP).toFixed(1).substring(3)}</span>
                       </div>
                     {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
 
@@ -190,7 +190,7 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
 
         {/* Fixed Bottom Button for Mobile */}
         <div className={`fixed bottom-0 left-0 right-0 z-40 md:hidden transition-opacity duration-500 ease-in-out ${
-          showBottomButton ? 'opacity-100' : 'opacity-0'
+          showBottomButton ? 'block' : 'hidden'
         }`}>
           <div className="bg-black/20 w-full p-1">
             <div className="flex justify-center">

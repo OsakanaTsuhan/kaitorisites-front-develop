@@ -24,7 +24,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/apply" className="text-black hover:opacity-80 flex items-center">
+                <Link href="/apply?isCouponed=true" className="text-black hover:opacity-80 flex items-center">
                 <span className="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
                  お申込み
                 </Link>

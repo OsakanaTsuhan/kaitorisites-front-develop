@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     unoptimized: true,
+    // formats: ['image/avif', 'image/webp'],
   },
   // 静的最適化を無効化
   experimental: {

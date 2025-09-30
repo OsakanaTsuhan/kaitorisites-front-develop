@@ -144,15 +144,8 @@ const ContactComponent = () => {
 
   return (
   
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl py-8 px-4 lg:px-8 shadow-lg border border-orange-200">
-          <style jsx>{`
-          .text-fruit-gradient {
-            background: linear-gradient(45deg, #F871A0, #F97316);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-          }
-        `}</style>
-          <div className="space-y-6">
+        <div className="">
+          <div className="bg-white/90  shadow-lg border py-8 px-4 rounded-2xl lg:px-8  backdrop-blur-sm border-orange-200 space-y-6 mb-6">
             
             {/* 1. お名前 */}
             <div>
@@ -271,11 +264,18 @@ const ContactComponent = () => {
             </div>
 
             {/* 6. 送信ボタン */}
-            <div className="pt-4">
-              <button
+            {/* <div className="pt-4">
+             
+              
+            </div> */}
+
+          </div>
+
+          <div className="text-center pt-8">
+             <button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full px-8 py-4 bg-accent text-black font-bold rounded-full hover:opacity-80 transform cursor-pointer shadow-lg hover:shadow-xl disabled:opacity-50 disabled:transform-none text-lg"
+                className="px-12 py-4 bg-accent text-black font-bold rounded-full hover:opacity-80 cursor-pointer shadow-lg hover:shadow-xl text-lg"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center">
@@ -288,9 +288,7 @@ const ContactComponent = () => {
                 ) : (
                   '送信する'
                 )}
-              </button>
-            </div>
-
+                </button>
           </div>
             {/* AI Chatbot Component */}
         {/* <AIChatbotComponent 

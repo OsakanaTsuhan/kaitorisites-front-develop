@@ -18,7 +18,7 @@ const UsageTypeSelector = ({ usageType, onUsageTypeChange }: { usageType: UsageT
                 : 'border-gray-200 bg-white hover:border-gray-300'
           }`}
         >
-          <div className="text-base lg:text-lg font-semibold">初回</div>
+          <div className="text-base lg:text-lg ">初回</div>
         </button>
         <button
           onClick={() => onUsageTypeChange('repeat')}
@@ -28,7 +28,7 @@ const UsageTypeSelector = ({ usageType, onUsageTypeChange }: { usageType: UsageT
                 : 'border-gray-200 bg-white hover:border-gray-300'
           }`}
         >
-          <div className="text-base lg:text-lg font-semibold">2回目以降</div>
+          <div className="text-base lg:text-lg ">2回目以降</div>
         </button>
       </div>
     </div>
