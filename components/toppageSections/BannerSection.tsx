@@ -4,8 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import BackGroundPattern from '../figures/BackGroundPattern';
-import { LINE_LINK } from '@/util/appConst';
-
 const BannerSection = () => {
   
   return (

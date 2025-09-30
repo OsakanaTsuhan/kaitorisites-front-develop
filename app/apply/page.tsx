@@ -1,7 +1,7 @@
 import ApplyComponent from "@/components/applyComponent";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import PageHeader from "@/components/PageHeader";
-import { getBuyingRate } from "@/lib/api";
+import { getSetting } from "@/lib/api";
 import { Metadata } from 'next';
 import Script from "next/script";
 import { BASE_URL } from "@/util/appConst";
@@ -40,23 +40,12 @@ const jsonLd = {
 
 export default async function Apply({searchParams}: {searchParams: Promise<{brand: string, isCouponed: boolean, ad: string}>}) {
   const resolvedSearchParams = await searchParams;
-  const buyingRates = await getBuyingRate();
-
-  const sampleCoupons = [
-    {
-      coupon_code: "3abc7UP",
-      coupon_name: "激アツ！クーポン",
-      rateUp: 1.0,
-    },
-    {
-      coupon_code: "ln1",
-      coupon_name: "LINEクーポン",
-      rateUp: 1.0,
-    },
-  ];
+  const setting = await getSetting();
+  const buyingRates = setting.rate_setting;
+  const coupons = setting.coupons;
 
   if(buyingRates.length <= 0) {
-    return <div>No buying rates found</div>;
+    return <div>問題が発生しました。ページを更新してください。</div>;
   }
 
   return (
@@ -72,7 +61,7 @@ export default async function Apply({searchParams}: {searchParams: Promise<{bran
         <ApplyComponent 
           brand={resolvedSearchParams.brand} 
           buyingRates={buyingRates} 
-          coupons={sampleCoupons} 
+          coupons={coupons} 
           isCouponed={resolvedSearchParams.isCouponed || false} 
           ad={resolvedSearchParams.ad || ""} 
           affiliate={""} 

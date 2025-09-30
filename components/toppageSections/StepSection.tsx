@@ -67,64 +67,66 @@ const parseTextWithLinks = (text: string) => {
   
           {/* Steps - Desktop: Horizontal, Mobile: Vertical */}
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-start">
-            {steps.map((step, index) => (
-              <div key={index} className="flex flex-col lg:flex-row items-center">
-                {/* Step Card */}
-                <div className={`min-h-[350px] lg:min-h-[350px] relative overflow-hidden border-2 ${step.borderColor} shadow-lg bg-primary-light backdrop-blur-sm rounded-xl p-8 text-center w-full lg:w-96 ${index > 0 ? 'lg:ml-0' : ''}`}>
-                  {/* Step Number */}
-                  <div className={`inline-flex items-center justify-center px-2 py-1 rounded-xl bg-gradient-to-r ${step.gradient} text-white text-xl font-bold mb-6 shadow-lg`}>
-                    STEP<br/>{step.number}
-                  </div>
-                  
-  
-                  {/* Step Content */}
-                  <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
-                    {step.title.split('\n').map((line, index) => (
-                      <span key={index}>
-                        {line}
-                        {index < step.title.split('\n').length - 1 && <><br className="lg:hidden" /><span className="hidden lg:inline"> </span></>}
-                      </span>
-                    ))}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed text-left">
-                    {parseTextWithLinks(step.description).map((line, index) => (
-                      <span key={index}>
-                        {line.parts.map((part, partIndex) => (
-                          part.type === 'link' ? (
-                            <a 
-                              key={partIndex}
-                              href={part.url} 
-                              rel="noopener noreferrer"
-                              className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
-                            >
-                              {part.content}
-                            </a>
-                          ) : (
-                            <span key={partIndex}>{part.content}</span>
-                          )
-                        ))}
-                        {index < parseTextWithLinks(step.description).length - 1 && <><br className="lg:hidden" /><span className="hidden lg:inline"> </span></>}
-                      </span>
-                    ))}
-                  </p>
+            {/* Step 1 */}
+            <div className="flex flex-col lg:flex-row items-center">
+              <div className="min-h-[350px] lg:min-h-[350px] relative overflow-hidden border-2 border-pink-200 shadow-lg bg-primary-light backdrop-blur-sm rounded-xl p-8 text-center w-full lg:w-96">
+                <div className="inline-flex items-center justify-center px-2 py-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xl font-bold mb-6 shadow-lg">
+                  STEP<br/>01
                 </div>
-  
-                {/* Arrow */}
-                {index < steps.length - 1 && (
-                  <>
-                    {/* Desktop Arrow - Horizontal */}
-                    <div className="hidden lg:block mx-6">
-                      <div className="w-0 h-0 border-l-[32px] border-primary-light border-t-[20px] border-t-transparent border-b-[20px] border-b-transparent"></div>
-                    </div>
-
-                    {/* Mobile Arrow - Vertical */}
-                    <div className="lg:hidden flex justify-center my-6">
-                      <div className="w-0 h-0 border-t-[32px] border-t-primary-light border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent"></div>
-                    </div>
-                  </>
-                )}
+                <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
+                  買取率・振込時間を確認
+                </h3>
+                <p className="text-gray-600 leading-relaxed text-left">
+                  Appleギフトカードなどの買取率は、このページにある[【現在の買取率】](/#rate-section)欄にて確認いただけます。買取率は日々変動いたします。
+                </p>
               </div>
-            ))}
+              
+              {/* Arrow */}
+              <div className="hidden lg:block mx-6">
+                <div className="w-0 h-0 border-l-[32px] border-primary-light border-t-[20px] border-t-transparent border-b-[20px] border-b-transparent"></div>
+              </div>
+              <div className="lg:hidden flex justify-center my-6">
+                <div className="w-0 h-0 border-t-[32px] border-t-primary-light border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent"></div>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex flex-col lg:flex-row items-center">
+              <div className="min-h-[350px] lg:min-h-[350px] relative overflow-hidden border-2 border-pink-200 shadow-lg bg-primary-light backdrop-blur-sm rounded-xl p-8 text-center w-full lg:w-96">
+                <div className="inline-flex items-center justify-center px-2 py-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xl font-bold mb-6 shadow-lg">
+                  STEP<br/>02
+                </div>
+                <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
+                  申込フォームに必要項目を入力
+                </h3>
+                <p className="text-gray-600 leading-relaxed text-left">
+                  ギフト券の情報（種類や金額）、お名前、メールアドレス、お電話番号、そして買取代金のお振込み先となる銀行口座情報をご入力ください。初めてご利用になるお客様は、本人確認のため、運転免許証などの写真の添付をお願いしております。
+                </p>
+              </div>
+              
+              {/* Arrow */}
+              <div className="hidden lg:block mx-6">
+                <div className="w-0 h-0 border-l-[32px] border-primary-light border-t-[20px] border-t-transparent border-b-[20px] border-b-transparent"></div>
+              </div>
+              <div className="lg:hidden flex justify-center my-6">
+                <div className="w-0 h-0 border-t-[32px] border-t-primary-light border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent"></div>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex flex-col lg:flex-row items-center">
+              <div className="min-h-[350px] lg:min-h-[350px] relative overflow-hidden border-2 border-pink-200 shadow-lg bg-primary-light backdrop-blur-sm rounded-xl p-8 text-center w-full lg:w-96">
+                <div className="inline-flex items-center justify-center px-2 py-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xl font-bold mb-6 shadow-lg">
+                  STEP<br/>03
+                </div>
+                <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
+                  ギフト券買取代金のご入金を確認
+                </h3>
+                <p className="text-gray-600 leading-relaxed text-left">
+                  振込完了のメールが届きましたら、お客様の銀行口座をご確認ください。金融機関によっては、着金にお時間がかかる場合がございます。
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

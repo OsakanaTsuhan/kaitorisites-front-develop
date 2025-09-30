@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { BuyingRate } from '@/types/setting';
+import { BuyingRate, SiteSetting } from '@/types/setting';
 import { coiny } from './font';
 import {  } from '@/util/apply';
 import { LINE_RATE_UP } from '@/util/appConst';
 
-const HeroDesktop = ({appleRate}: {appleRate: BuyingRate}) => {
+const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetting: SiteSetting}) => {
   const [showRepeatRate, setShowRepeatRate] = useState(false);
 
 
@@ -215,7 +215,7 @@ const HeroDesktop = ({appleRate}: {appleRate: BuyingRate}) => {
                <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/20">
                  <div className="text-center text-white flex items-center justify-center">
                    <div className="text-base opacity-90">お振込みまで</div>
-                   <div className="font-bold text-accent text-6xl mx-2">30</div>分
+                   <div className="font-bold text-accent text-6xl mx-2">{siteSetting.transfer_time || 30}</div>分
                  </div>
                </div>
              </div>
