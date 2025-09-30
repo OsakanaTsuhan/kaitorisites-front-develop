@@ -46,29 +46,6 @@ export async function submitApplication(formData: FormState, finalRate: number) 
     multipartData.append('back_file', formData.idImages.back, formData.idImages.back.name);
   }
 
-//   const submitData = {
-//     "declared_repeat": formData.usageType === 'new' ? 1 : 2,
-//     "site": "site17",
-//     "brand": formData.selectedBrand,
-//     "total_amount": totalAmount,
-//     "transfer_amount": transferAmount,
-//     "name": formData.personalInfo.name,
-//     "mail": formData.personalInfo.email,
-//     "tel": formData.personalInfo.phone,
-//     "bank": formData.bankInfo.bank,
-//     "branch_name": formData.bankInfo.branch_name,
-//       "branch_no": formData.bankInfo.branch_no,
-//     "bank_no": formData.bankInfo.bank_no,
-//     "bank_name": formData.bankInfo.bank_name,
-//     "id_url": formData.idImages.front ? URL.createObjectURL(formData.idImages.front) : "",
-//     "id_url2": formData.idImages.back ? URL.createObjectURL(formData.idImages.back) : "",
-//     "coupon": formData.couponCode,
-//     "remarks": formData.remarks,
-//     "ad": formData.ad,
-//     "affiliate": formData.affiliate,
-//     "ip": formData.ip,
-//     "gifts": gifts
-// }
 
   try {
     const result = await secureApiCall<ContactApiResponse>('/apply', {

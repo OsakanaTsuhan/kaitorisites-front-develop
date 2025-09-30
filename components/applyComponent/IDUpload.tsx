@@ -60,7 +60,7 @@ const IDUpload = ({ idImages, onIdImagesChange, usageType }: { idImages: IDImage
           </div>
         </div>
         <p className="text-xs text-gray-500 mt-2">
-          ※ 免許証の方で住所変更のある場合は裏面もお送りください
+          ※ 免許証で住所変更のある方は裏面もお送りください
         </p>
       </div>
       

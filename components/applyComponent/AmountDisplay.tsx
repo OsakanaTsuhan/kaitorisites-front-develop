@@ -101,7 +101,7 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm font-semibold text-green-600">
-                    +{coupons.find(coupon => coupon.coupon_code === couponCode)?.rateUp}% クーポン適用済み ✓
+                    +{(coupons.find(coupon => coupon.coupon_code === couponCode)?.rateUp || 0).toFixed(1)}% クーポン適用済み ✓
                     </div>
                     <div className="text-sm text-gray-600">
                       クーポン: {coupons.find(coupon => coupon.coupon_code === couponCode)?.coupon_code}

@@ -98,9 +98,9 @@ const ApplicationConfirmComponent = () => {
   return (
     
     <div className="space-y-8">
-      <div className="text-xl text-gray-600 mt-6 w-full text-center">
+      <div className="text-lg lg:text-xl text-gray-600 mt-6 w-full text-center">
         <div className="font-semibold text-rose-600 my-2">お申し込みはまだ完了していません</div>
-        ご入力いただいたお申込内容をご確認いただき、問題ないようでしたら「申し込む」ボタンを押してください。内容を修正したい場合は「修正する」ボタンを押してください。
+        <span className="text-sm lg:text-base">ご入力いただいたお申込内容をご確認いただき、問題ないようでしたら「申し込む」ボタンを押してください。内容を修正したい場合は「修正する」ボタンを押してください。</span>
       </div>
     <style jsx>{`
     .text-fruit-gradient {
@@ -125,7 +125,7 @@ const ApplicationConfirmComponent = () => {
             </div>
           </div>
           <div className="text-center p-4 bg-gray-50 rounded-xl">
-            <div className="text-sm text-gray-600 mb-1">利用回数</div>
+            <div className="text-sm text-gray-600 mb-1">ご利用回数</div>
             <div className="text-lg font-semibold text-gray-800">
               {formData.usageType === 'new' ? '初回' : '2回目以降'}
             </div>
@@ -358,7 +358,7 @@ const ApplicationConfirmComponent = () => {
         <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
           利用規約への同意
         </h3>
-        <div className="flex items-center space-x-7">
+        <div className="text-sm lg:text-base flex items-center space-x-5">
           <input
             type="checkbox"
             id="terms-agreement"
@@ -368,7 +368,7 @@ const ApplicationConfirmComponent = () => {
           />
           <label htmlFor="terms-agreement" className="text-gray-700">
             <Link href="/rules" target="_blank" className="font-semibold text-rose-600 hover:text-rose-700 underline">利用規約</Link>と
-            <Link href="/privacy" target="_blank" className="font-semibold text-rose-600 hover:text-rose-700 underline">個人情報保護方針</Link>
+            <Link href="/privacypolicy" target="_blank" className="font-semibold text-rose-600 hover:text-rose-700 underline">個人情報保護方針</Link>
             に同意する
           </label>
           

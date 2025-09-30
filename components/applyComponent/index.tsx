@@ -167,8 +167,8 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
       hasErrors = true;
     }
     
-    if (formData.usageType === 'new' && (!formData.idImages.front || !formData.idImages.back)) {
-      newErrors.idImages = '身分証明書の表面・裏面をアップロードしてください';
+    if (formData.usageType === 'new' && (!formData.idImages.front)) {
+      newErrors.idImages = '身分証明書の表面をアップロードしてください';
       hasErrors = true;
     }
 

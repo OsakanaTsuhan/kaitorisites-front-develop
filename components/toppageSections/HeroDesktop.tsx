@@ -214,7 +214,7 @@ const HeroDesktop = ({appleRate}: {appleRate: BuyingRate}) => {
              <div className="absolute bottom-[-100px] w-full mx-auto">
                <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/20">
                  <div className="text-center text-white flex items-center justify-center">
-                   <div className="text-base opacity-90">振込時間</div>
+                   <div className="text-base opacity-90">お振込みまで</div>
                    <div className="font-bold text-accent text-6xl mx-2">30</div>分
                  </div>
                </div>
