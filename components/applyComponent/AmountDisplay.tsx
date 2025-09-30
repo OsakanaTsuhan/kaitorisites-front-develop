@@ -18,7 +18,7 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
   const handleCouponApply = () => {
     if (coupons.find(coupon => coupon.coupon_code === couponCode)) {
       onCouponCodeChange(couponCode);
-      onCouponRateUpChange(coupons.find(coupon => coupon.coupon_code === couponCode)?.rateUp || 0);
+      onCouponRateUpChange(coupons.find(coupon => coupon.coupon_code === couponCode)?.rate_up || 0);
       setCouponError('');
     } else if (couponCode.trim() === '') {
       setCouponError('クーポンコードを入力してください');
@@ -59,7 +59,7 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
             {totalAmount.toLocaleString()}円 × {formatRate(finalRate)}%
             {couponRateUp > 0 && (
               <div className="text-xs text-gray-500 mt-1">
-                クーポン適用: +{coupons.find(coupon => coupon.coupon_code === couponCode)?.rateUp}%
+                クーポン適用: +{coupons.find(coupon => coupon.coupon_code === couponCode)?.rate_up}%
               </div>
             )}
           </div>
@@ -101,7 +101,7 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm font-semibold text-green-600">
-                    +{(coupons.find(coupon => coupon.coupon_code === couponCode)?.rateUp || 0).toFixed(1)}% クーポン適用済み ✓
+                    +{(coupons.find(coupon => coupon.coupon_code === couponCode)?.rate_up || 0).toFixed(1)}% クーポン適用済み ✓
                     </div>
                     <div className="text-sm text-gray-600">
                       クーポン: {coupons.find(coupon => coupon.coupon_code === couponCode)?.coupon_code}

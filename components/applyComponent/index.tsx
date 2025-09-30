@@ -43,17 +43,15 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
 
   const SetFormData = () => {
     const defaultBrand = brand && brand.trim() !== '' ? brand : 'apple';
-    
-    // Always set the brand first
-    setFormData({ ...formData, selectedBrand: defaultBrand, buyingRates: buyingRates});
-    
     // Then handle coupon logic if needed
     if(ad) {
-      setFormData({ ...formData, selectedBrand: defaultBrand, couponCode: "ln1", couponRateUp: LINE_RATE_UP || 0 });
+      setFormData({ ...formData, selectedBrand: defaultBrand, couponCode: "ln1", couponRateUp: LINE_RATE_UP || 0, buyingRates: buyingRates });
     }else if(isCouponed) {
       const couponCode = coupons.find(coupon => mainCoupon === coupon.coupon_code)?.coupon_code;
-      const couponRateUp = coupons.find(coupon => mainCoupon === coupon.coupon_code)?.rateUp;
-      setFormData({ ...formData, selectedBrand: defaultBrand, couponCode: couponCode || '', couponRateUp: couponRateUp || 0 });
+      const couponRateUp = coupons.find(coupon => mainCoupon === coupon.coupon_code)?.rate_up;
+      setFormData({ ...formData, selectedBrand: defaultBrand, couponCode: couponCode || '', couponRateUp: couponRateUp || 0, buyingRates: buyingRates });
+    } else {
+      setFormData({ ...formData, selectedBrand: defaultBrand, buyingRates: buyingRates });
     }
     
   };
@@ -180,6 +178,7 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
       return;
     }
 
+
     // フォームデータ作成 - rateは計算値を使用
     const submitData: FormState = {
       selectedBrand: formData.selectedBrand,
@@ -195,7 +194,7 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
       affiliate: affiliate || '',
       ip: ipaddress,
       remarks: formData.remarks,
-      buyingRates: buyingRates
+      buyingRates: formData.buyingRates
     };
 
     if(submitData.bankInfo.account_type === '') {

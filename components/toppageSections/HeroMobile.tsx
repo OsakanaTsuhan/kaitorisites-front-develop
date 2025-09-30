@@ -79,6 +79,7 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
               width={200}
               height={200}
               className="mx-auto object-contain w-[200px]"
+              priority
             />
         </div>
 
@@ -90,6 +91,7 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
               width={600}
               height={600}
               className="relative w-110 h-110 object-contain max-w-[500px] mx-auto"
+              priority
             />
             <Image 
               src="/images/hero-text.png" 
@@ -97,6 +99,7 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
               width={600}
               height={600}
               className="w-[120px] h-[120px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 left-0 md:left-20"
+              priority
             />
               <Image 
               src="/images/hero-line.png" 
@@ -104,6 +107,7 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
               width={600}
               height={600}
               className="w-[135px] h-[135px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 right-0 md:right-20"
+              priority
             />
             <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]"  onClick={() => router.push('/apply?isCouponed=true')}>
               <div className={`leading-none text-white
@@ -143,7 +147,7 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
                {/* Badge */}
                <div className="bg-white text-center text-lg font-medium  rounded-full pl-4 py-1 flex items-center relative mt-14">
                  <div className="w-1/4 flex justify-center">
-                   <Image src="/images/brands/icon_apple.png" alt="Apple" width={1000} height={1000} className="w-10 h-10 object-contain rounded-full" />
+                   <Image src="/images/brands/icon_apple.png" alt="Apple" width={1000} height={1000} className="w-10 h-10 object-contain rounded-full" priority />
                  </div>
                  
                  {/* New User Badge */}
@@ -195,7 +199,7 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
           <div className="bg-black/20 w-full p-1">
             <div className="flex justify-center">
               <Link href={LINE_LINK} className="w-100">
-                <Image src="/images/line_footer.png" alt="Apply" width={500} height={500} className="w-full h-auto" />
+                <Image src="/images/line_footer.png" alt="Apply" width={500} height={500} className="w-full h-auto" priority />
               </Link>
             </div>
           </div>
