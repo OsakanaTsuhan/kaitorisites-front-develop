@@ -23,6 +23,6 @@ export type SiteSetting = {
   export type Coupon = {
     coupon_code: string;
     coupon_name: string;
-    rateUp: number;
+    rate_up: number;
   };
   

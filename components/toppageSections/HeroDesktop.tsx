@@ -113,6 +113,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                  width={1500}
                  height={1500}
                  className="w-[1500px] h-[1500px] ml-[-450px] object-contain z-15"
+                 priority
                />
                <Image 
                 src="/images/char-name.png" 
@@ -120,6 +121,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                 width={100}
                 height={100}
                 className="absolute w-[100px] h-[100px] ml-[250px] -left-100 bottom-130 object-contain"
+                priority
               />
              </div>
          </div>
@@ -134,6 +136,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                width={600}
                height={600}
                className="absolute top-[-180px] left-1/2 transform -translate-x-1/2 w-[320px] h-[320px] object-contain z-10"
+               priority
              />
              
              {/* Main Background Image */}
@@ -145,6 +148,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                className="w-[600px] h-[600px] mt-10 object-contain"
                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                quality={90}
+               priority
              />
              
              {/* Left Decoration */}
@@ -154,6 +158,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                width={180}
                height={180}
                className="absolute top-2/5 left-[-120px] w-[180px] h-[180px] object-contain transform -translate-y-1/2"
+               priority
              />
              
              {/* Right Decoration */}
@@ -163,6 +168,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                width={180}
                height={180}
                className="absolute top-2/5 right-[-100px] w-[180px] h-[180px] object-contain transform -translate-y-1/2"
+               priority
              />
              
              {/* Rate Display */}
@@ -202,7 +208,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                {/* Badge */}
                <div className="w-[250px] bg-white text-center text-xl  rounded-full px-4 py-1 flex items-center relative mt-18">
                  <div className="w-1/4 flex justify-center">
-                   <Image src="/images/brands/icon_apple.png" alt="Apple" width={1000} height={1000} className="w-12 h-12 object-contain rounded-full" />
+                   <Image src="/images/brands/icon_apple.png" alt="Apple" width={1000} height={1000} className="w-12 h-12 object-contain rounded-full" priority />
                  </div>
                  
                  {/* New User Badge */}
@@ -237,6 +243,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                 className="w-[1000px] h-[1000px] ml-[250px] object-contain"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                 quality={90}
+                priority
               />
               <Image 
                 src="/images/char-name.png" 
@@ -244,6 +251,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                 width={100}
                 height={100}
                 className="absolute w-[100px] h-[100px] ml-[250px] -right-50 bottom-80 object-contain"
+                priority
               />
            </div>
          </div>        

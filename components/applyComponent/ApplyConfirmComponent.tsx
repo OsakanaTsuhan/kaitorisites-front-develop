@@ -81,7 +81,7 @@ const ApplicationConfirmComponent = () => {
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
   const currentCards = formData.giftCards.slice(startIndex, endIndex);
-
+console.log(formData.buyingRates)
 
   // 金額計算（クーポン適用考慮）
   const totalAmount = formData.giftCards.reduce((sum, card) => sum + parseInt(card.amount), 0);
