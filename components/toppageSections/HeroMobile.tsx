@@ -78,7 +78,7 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
               alt="Hero Image" 
               width={200}
               height={200}
-              className="mx-auto object-contain w-[180px]"
+              className="mx-auto object-contain w-[200px]"
             />
         </div>
 
@@ -106,7 +106,7 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
               className="w-[135px] h-[135px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 right-0"
             />
             <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]"  onClick={() => router.push('/apply?isCouponed=true')}>
-              <div className={`${coiny.className} leading-none text-white
+              <div className={`leading-none text-white
                   [-webkit-text-stroke:2px_#ff6b2e] [text-stroke:2px_#ff6b2e]
                   drop-shadow-[10px_8px_0_rgba(0,0,0,0.35)] flex items-center justify-center relative`}>
                 
@@ -114,11 +114,13 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
                 <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                   !showRepeatRate ? 'opacity-100' : 'opacity-0'
                 }`}>
-                  <div className="text-[140px] sm:text-[180px]">{appleRate.new_user.toFixed(0)}</div>
+                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{appleRate.new_user.toFixed(0)}</div>
                   <div>
-                    {/* <div className="text-[60px] sm:text-[80px]">{(appleRate.new_user.toFixed(1)).substring(2)}</div> */}
-                    <div className="text-[60px] sm:text-[80px]">.3</div>
-                    <div className="text-[40px] sm:text-[60px]">%</div>
+                    <div className="-mt-10 text-[80px] sm:text-[100px]">.
+                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.new_user.toFixed(1)).substring(3)}</span>
+                      </div>
+                    {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
+                    <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
                   </div>
                 </div>
                 
@@ -126,12 +128,14 @@ const HeroMobile = ({appleRate}: {appleRate: BuyingRate}) => {
                 <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                   showRepeatRate ? 'opacity-100' : 'opacity-0'
                 }`}>
-                  <div className="text-[140px] sm:text-[180px]">{appleRate.repeat_user.toFixed(0)}</div>
+                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{appleRate.repeat_user.toFixed(0)}</div>
                   <div>
-                    {/* <div className="text-[60px] sm:text-[80px]">{(appleRate.repeat_user.toFixed(1)).substring(2)}</div> */}
-                    <div className="text-[60px] sm:text-[80px]">.3</div>
+                    <div className="-mt-10 text-[80px] sm:text-[100px]">.
+                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.repeat_user.toFixed(1)).substring(3)}</span>
+                      </div>
+                    {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
 
-                    <div className="text-[40px] sm:text-[60px]">%</div>
+                    <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
                   </div>
                 </div>
               </div>
