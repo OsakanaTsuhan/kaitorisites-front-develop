@@ -13,8 +13,6 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
   const newUserLineRate = appleRate.new_user + LINE_RATE_UP;
   const repeatUserLineRate = appleRate.repeat_user + LINE_RATE_UP;
 
-  console.log(siteSetting.transfer_time);
-
 
   useEffect(() => {
     // 3秒おきにnew_userとrepeat_userの率を切り替える
