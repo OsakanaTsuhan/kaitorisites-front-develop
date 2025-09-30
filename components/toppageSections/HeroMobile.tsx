@@ -10,6 +10,10 @@ import { useRouter } from 'next/navigation';
 const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetting: SiteSetting}) => {
   const [showRepeatRate, setShowRepeatRate] = useState(false);
   const [showBottomButton, setShowBottomButton] = useState(false);
+
+  const newUserLineRate = appleRate.new_user + LINE_RATE_UP;
+  const repeatUserLineRate = appleRate.repeat_user + LINE_RATE_UP;
+
   const router = useRouter();
   useEffect(() => {
     // 4秒おきにnew_userとrepeat_userの率を切り替える
@@ -118,10 +122,10 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
                 <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                   !showRepeatRate ? 'opacity-100' : 'opacity-0'
                 }`}>
-                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{(appleRate.new_user + LINE_RATE_UP).toFixed(0)}</div>
+                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{Math.floor(newUserLineRate)}</div>
                   <div>
                     <div className="-mt-10 text-[80px] sm:text-[100px]">.
-                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.new_user + LINE_RATE_UP).toFixed(1).substring(3)}</span>
+                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{String(newUserLineRate).split('.')[1]}</span>
                       </div>
                     {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
                     <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
@@ -132,10 +136,10 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
                 <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                   showRepeatRate ? 'opacity-100' : 'opacity-0'
                 }`}>
-                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{(appleRate.repeat_user + LINE_RATE_UP).toFixed(0)}</div>
+                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{Math.floor(newUserLineRate)}</div>
                   <div>
                     <div className="-mt-10 text-[80px] sm:text-[100px]">.
-                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.repeat_user + LINE_RATE_UP).toFixed(1).substring(3)}</span>
+                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{String(newUserLineRate).split('.')[1]}</span>
                       </div>
                     {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
 
@@ -168,7 +172,7 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
         </div>
       </div>
         {/* Bottom Section - Transfer Time Only */}
-        <div className="flex-1 flex flex-col justify-end mt-10">
+        <div className="flex-1 flex flex-col px-4 justify-end mt-10">
           {/* Transfer Time Feature */}
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-2 mb-1 mx-6 border border-white/20">
             <div className="text-center text-white flex items-center justify-center">
