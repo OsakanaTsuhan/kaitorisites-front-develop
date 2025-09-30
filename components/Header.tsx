@@ -109,7 +109,7 @@ const Header = () => {
               ホーム
             </Link>
             <Link 
-              href="/apply" 
+              href="/apply?isCouponed=true" 
               className="flex items-center px-4 text-gray-700 hover:bg-orange-100 rounded-lg transition-colors"
               onClick={toggleMenu}
             >

@@ -12,22 +12,6 @@ const ContactCompleteComponent = () => {
   return (
 
     <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl border border-orange-200">
-      <style jsx>{`
-      .text-fruit-gradient {
-        background: linear-gradient(45deg, #F871A0, #F97316);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      
-      .success-animation {
-        animation: successPulse 2s ease-in-out infinite;
-      }
-      
-      @keyframes successPulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-      }
-    `}</style>
         {/* Success Icon */}
       <div className="success-animation mb-8">
         <div className="w-24 h-24 mx-auto mb-6 bg-green-100 rounded-full flex items-center justify-center">
@@ -47,7 +31,7 @@ const ContactCompleteComponent = () => {
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <button
           onClick={handleBackToHome}
-          className="px-8 py-4 bg-accent text-black font-semibold rounded-full hover:bg-gray-600 transition-all duration-300 shadow-lg"
+          className="px-8 py-4 bg-accent text-black font-semibold rounded-full cursor-pointer duration-300 shadow-lg"
         >
           ホームに戻る
         </button>

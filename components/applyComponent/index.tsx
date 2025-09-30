@@ -12,19 +12,17 @@ import RemarksForm from './RemarksForm';
 import { useRouter } from 'next/navigation';
 import { useApplyForm, FormState } from '@/context/ApplyFormContext';
 import { BankInfo, GiftCard, IDImages, PersonalInfo, UsageType } from '@/types/apply';
-import { BuyingRate } from '@/types/setting';
+import { BuyingRate, Coupon } from '@/types/setting';
 import { GiftCardValidation } from '@/util/giftCodeValidation';
 import { calcRate } from '@/util/apply';
 import BankModal from './BankModal';
+import { LINE_RATE_UP } from '@/util/appConst';
+import { getUserIP } from '@/lib/getUserIP';
 
-type Coupon = {
-  code: string;
-  rateUp: number;
-  isMain: boolean;
-};
 
 const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}: {brand: string | null | undefined, buyingRates: BuyingRate[], coupons: Coupon[], ad: string, affiliate: string, isCouponed: boolean}) => {
-  const ipaddress = '123.13.123.123';
+  const mainCoupon = process.env.NEXT_PUBLIC_MAIN_COUPON || '3abc7UP';
+  const [ipaddress, setIpaddress] = useState<string>('unknown');
   const router = useRouter();
   const { formData, setFormData } = useApplyForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,7 +30,16 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
   
   useEffect(() => {
     SetFormData();
-  }, [brand, isCouponed])
+  }, [brand, isCouponed, ad])
+
+  useEffect(() => {
+    // Get user's IP address
+    const fetchIP = async () => {
+      const ip = await getUserIP();
+      setIpaddress(ip);
+    };
+    fetchIP();
+  }, []);
 
   const SetFormData = () => {
     const defaultBrand = brand && brand.trim() !== '' ? brand : 'apple';
@@ -41,9 +48,11 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
     setFormData({ ...formData, selectedBrand: defaultBrand, buyingRates: buyingRates});
     
     // Then handle coupon logic if needed
-    if(isCouponed) {
-      const couponCode = coupons.find(coupon => coupon.isMain === true)?.code;
-      const couponRateUp = coupons.find(coupon => coupon.isMain === true)?.rateUp;
+    if(ad) {
+      setFormData({ ...formData, selectedBrand: defaultBrand, couponCode: "ln1", couponRateUp: LINE_RATE_UP || 0 });
+    }else if(isCouponed) {
+      const couponCode = coupons.find(coupon => mainCoupon === coupon.coupon_code)?.coupon_code;
+      const couponRateUp = coupons.find(coupon => mainCoupon === coupon.coupon_code)?.rateUp;
       setFormData({ ...formData, selectedBrand: defaultBrand, couponCode: couponCode || '', couponRateUp: couponRateUp || 0 });
     }
     
@@ -199,156 +208,157 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
   return (
 
   <div className="space-y-8">
-  <style jsx>{`
-    .text-fruit-gradient {
-      background: linear-gradient(45deg, #F871A0, #F97316);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  `}</style>
-    {/* 1. 券種選択 */}
-    <div>
-      <BrandTypeSelector 
-        selectedBrand={formData.selectedBrand} 
-        onBrandChange={setSelectedBrand}
-        buyingRates={buyingRates}
-      />
-      {errors.brand && (
-        <div className="mt-2 text-red-600 text-sm flex items-center">
-          <span className="mr-1">⚠️</span>
-          {errors.brand}
-        </div>
-      )}
-    </div>
-    
-    {/* 2. 利用回数選択 */}
-    <UsageTypeSelector 
-      usageType={formData.usageType} 
-      onUsageTypeChange={setUsageType} 
-    />
-    
-    {/* 3. 買取率表示 */}
-    <RateDisplay 
-      rate={currentRate}
-      usageType={formData.usageType}
-      couponRateUp={formData.couponRateUp}
-    />
-    
-    {/* 4. ギフト券番号と額面入力 */}
-    <div>
-      <GiftCardForm 
-        giftCards={formData.giftCards} 
-        onGiftCardsChange={setGiftCards} 
-      />
-      {errors.giftCards && (
-        <div className="mt-2 text-red-600 text-sm flex items-center">
-          <span className="mr-1">⚠️</span>
-          {errors.giftCards}
-        </div>
-      )}
-    </div>
-    
-    {/* 5. 額面合計表示 買取額表示 */}
-    <AmountDisplay 
-      totalAmount={totalAmount} 
-      buybackAmount={buybackAmount}
-      rate={currentRate}
-      couponRateUp={formData.couponRateUp}
-      onCouponRateUpChange={setCouponRateUp}
-      onCouponCodeChange={setCouponCode}
-      couponCode={formData.couponCode}
-    />
-    
-    {/* 6. 個人情報入力 */}
-    <div>
-      <PersonalInfoForm 
-        personalInfo={formData.personalInfo} 
-        onPersonalInfoChange={setPersonalInfo}
-      />
-      {(errors.personalInfo.name || errors.personalInfo.email || errors.personalInfo.phone) && (
-        <div className="mt-2 space-y-1">
-          {errors.personalInfo.name && (
-            <div className="text-red-600 text-sm flex items-center">
-              <span className="mr-1">⚠️</span>
-              {errors.personalInfo.name}
-            </div>
-          )}
-          {errors.personalInfo.email && (
-            <div className="text-red-600 text-sm flex items-center">
-              <span className="mr-1">⚠️</span>
-              {errors.personalInfo.email}
-            </div>
-          )}
-          {errors.personalInfo.phone && (
-            <div className="text-red-600 text-sm flex items-center">
-              <span className="mr-1">⚠️</span>
-              {errors.personalInfo.phone}
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-    
-    {/* 8. 振込先銀行選択 */}
-    <div>
-      <BankSelector
-          selectedBank={formData.bankInfo}
-          onBankChange={setSelectedBank}
-          onClose={() => setIsOpen(true)}
+    <style jsx>{`
+      .text-fruit-gradient {
+        background: linear-gradient(45deg, #F871A0, #F97316);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    `}</style>
+      {/* 1. 券種選択 */}
+      <div>
+        <BrandTypeSelector 
+          selectedBrand={formData.selectedBrand} 
+          onBrandChange={setSelectedBrand}
+          buyingRates={buyingRates}
         />
-        <BankModal
-          onBankChange={setSelectedBank}
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-        />
-      {errors.bank && (
-        <div className="mt-2 text-red-600 text-sm flex items-center">
-          <span className="mr-1">⚠️</span>
-          {errors.bank}
-        </div>
-      )}
-    </div>
-    
-    {/* 9. 身分証アップロード（初回のみ） */}
-    <div>
-      <IDUpload 
-        idImages={formData.idImages} 
-        onIdImagesChange={setIdImages}
+        {errors.brand && (
+          <div className="mt-2 text-red-600 text-sm flex items-center">
+            <span className="mr-1">⚠️</span>
+            {errors.brand}
+          </div>
+        )}
+      </div>
+      
+      {/* 2. 利用回数選択 */}
+      <UsageTypeSelector 
+        usageType={formData.usageType} 
+        onUsageTypeChange={setUsageType} 
+      />
+      
+      {/* 3. 買取率表示 */}
+      <RateDisplay 
+        rate={currentRate}
         usageType={formData.usageType}
+        couponRateUp={formData.couponRateUp}
       />
-      {errors.idImages && (
-        <div className="mt-2 text-red-600 text-sm flex items-center">
-          <span className="mr-1">⚠️</span>
-          {errors.idImages}
-        </div>
-      )}
+      
+      {/* 4. ギフト券番号と額面入力 */}
+      <div>
+        <GiftCardForm 
+          giftCards={formData.giftCards} 
+          onGiftCardsChange={setGiftCards} 
+        />
+        {errors.giftCards && (
+          <div className="mt-2 text-red-600 text-sm flex items-center">
+            <span className="mr-1">⚠️</span>
+            {errors.giftCards}
+          </div>
+        )}
+      </div>
+      
+      {/* 5. 額面合計表示 買取額表示 */}
+      <AmountDisplay 
+        totalAmount={totalAmount} 
+        buybackAmount={buybackAmount}
+        rate={currentRate}
+        couponRateUp={formData.couponRateUp}
+        onCouponRateUpChange={setCouponRateUp}
+        onCouponCodeChange={setCouponCode}
+        couponCode={formData.couponCode}
+        coupons={coupons}
+      />
+      
+      {/* 6. 個人情報入力 */}
+      <div>
+        <PersonalInfoForm 
+          personalInfo={formData.personalInfo} 
+          onPersonalInfoChange={setPersonalInfo}
+        />
+        {(errors.personalInfo.name || errors.personalInfo.email || errors.personalInfo.phone) && (
+          <div className="mt-2 space-y-1">
+            {errors.personalInfo.name && (
+              <div className="text-red-600 text-sm flex items-center">
+                <span className="mr-1">⚠️</span>
+                {errors.personalInfo.name}
+              </div>
+            )}
+            {errors.personalInfo.email && (
+              <div className="text-red-600 text-sm flex items-center">
+                <span className="mr-1">⚠️</span>
+                {errors.personalInfo.email}
+              </div>
+            )}
+            {errors.personalInfo.phone && (
+              <div className="text-red-600 text-sm flex items-center">
+                <span className="mr-1">⚠️</span>
+                {errors.personalInfo.phone}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      
+      {/* 8. 振込先銀行選択 */}
+      <div>
+        <BankSelector
+            selectedBank={formData.bankInfo}
+            onBankChange={setSelectedBank}
+            onClose={() => setIsOpen(true)}
+          />
+          <BankModal
+            onBankChange={setSelectedBank}
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+          />
+        {errors.bank && (
+          <div className="mt-2 text-red-600 text-sm flex items-center">
+            <span className="mr-1">⚠️</span>
+            {errors.bank}
+          </div>
+        )}
+      </div>
+      
+      {/* 9. 身分証アップロード（初回のみ） */}
+      <div>
+        <IDUpload 
+          idImages={formData.idImages} 
+          onIdImagesChange={setIdImages}
+          usageType={formData.usageType}
+        />
+        {errors.idImages && (
+          <div className="mt-2 text-red-600 text-sm flex items-center">
+            <span className="mr-1">⚠️</span>
+            {errors.idImages}
+          </div>
+        )}
+      </div>
+      
+      {/* 10. クーポンコード入力 - AmountDisplayで設定するためコメントアウト */}
+      {/* <CouponForm 
+        couponCode={formData.couponCode || ''}
+        couponRateUp={formData.couponRateUp || 0}
+        onCouponCodeChange={setCouponCode}
+        onCouponRateUpChange={setCouponRateUp}
+      /> */}
+      
+      {/* 11. 備考欄 */}
+      <RemarksForm 
+        remarks={formData.remarks}
+        onRemarksChange={setRemarks}
+      />
+      
+      {/* 12. 内容確認ボタン */}
+      <div className="text-center pt-8">
+        <button
+            onClick={handleConfirm}
+            className="px-12 py-4 bg-accent text-black font-bold rounded-full hover:opacity-80 cursor-pointer shadow-lg hover:shadow-xl text-lg"
+            disabled={isSubmitting}
+        >
+          {isSubmitting ? '確認中...' : '内容確認画面へ進む'}
+        </button>
+      </div>
     </div>
-    
-    {/* 10. クーポンコード入力 - AmountDisplayで設定するためコメントアウト */}
-    {/* <CouponForm 
-      couponCode={formData.couponCode || ''}
-      couponRateUp={formData.couponRateUp || 0}
-      onCouponCodeChange={setCouponCode}
-      onCouponRateUpChange={setCouponRateUp}
-    /> */}
-    
-    {/* 11. 備考欄 */}
-    <RemarksForm 
-      remarks={formData.remarks}
-      onRemarksChange={setRemarks}
-    />
-    
-    {/* 12. 内容確認ボタン */}
-    <div className="text-center pt-8 mb-24">
-      <button
-          onClick={handleConfirm}
-          className="px-12 py-4 bg-accent text-black font-bold rounded-full hover:opacity-80 cursor-pointer shadow-lg hover:shadow-xl text-lg"
-          disabled={isSubmitting}
-      >
-        {isSubmitting ? '確認中...' : '内容確認画面へ進む'}
-      </button>
-    </div>
-  </div>
   );
 };
 

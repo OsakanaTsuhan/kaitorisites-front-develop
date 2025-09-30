@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Coupon } from '@/types/setting';
 
-const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCouponRateUpChange, onCouponCodeChange, couponCode }: { totalAmount: number, buybackAmount: number, rate: number, couponRateUp: number, onCouponRateUpChange: (rateUp: number) => void, onCouponCodeChange: (code: string) => void, couponCode: string }) => {
+const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCouponRateUpChange, onCouponCodeChange, couponCode, coupons }: { totalAmount: number, buybackAmount: number, rate: number, couponRateUp: number, onCouponRateUpChange: (rateUp: number) => void, onCouponCodeChange: (code: string) => void, couponCode: string, coupons: Coupon[] }) => {
  
   const [couponError, setCouponError] = useState('');
 
@@ -15,9 +16,9 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
 
   // クーポンコード検証
   const handleCouponApply = () => {
-    if (couponCode === '123456') {
+    if (coupons.find(coupon => coupon.coupon_code === couponCode)) {
       onCouponCodeChange(couponCode);
-      onCouponRateUpChange(0.5);
+      onCouponRateUpChange(coupons.find(coupon => coupon.coupon_code === couponCode)?.rateUp || 0);
       setCouponError('');
     } else if (couponCode.trim() === '') {
       setCouponError('クーポンコードを入力してください');
@@ -58,7 +59,7 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
             {totalAmount.toLocaleString()}円 × {formatRate(finalRate)}%
             {couponRateUp > 0 && (
               <div className="text-xs text-gray-500 mt-1">
-                クーポン適用: +0.5%
+                クーポン適用: +{coupons.find(coupon => coupon.coupon_code === couponCode)?.rateUp}%
               </div>
             )}
           </div>
@@ -100,10 +101,10 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm font-semibold text-green-600">
-                    +0.5% クーポン適用済み ✓
+                    +{coupons.find(coupon => coupon.coupon_code === couponCode)?.rateUp}% クーポン適用済み ✓
                     </div>
-                    <div className="text-xs text-gray-600">
-                      クーポン: {couponCode}
+                    <div className="text-sm text-gray-600">
+                      クーポン: {coupons.find(coupon => coupon.coupon_code === couponCode)?.coupon_code}
                     </div>
                   </div>
                   <button

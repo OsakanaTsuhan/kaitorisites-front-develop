@@ -7,3 +7,10 @@ export type BuyingRate = {
     brand_name: string;
   };
   
+
+  export type Coupon = {
+    coupon_code: string;
+    coupon_name: string;
+    rateUp: number;
+  };
+  

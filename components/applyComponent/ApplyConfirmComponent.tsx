@@ -98,7 +98,7 @@ const ApplicationConfirmComponent = () => {
   return (
     
     <div className="space-y-8">
-      <div className="text-xl text-gray-600 mt-6">
+      <div className="text-xl text-gray-600 mt-6 w-full text-center">
         <div className="font-semibold text-rose-600 my-2">お申し込みはまだ完了していません</div>
         ご入力いただいたお申込内容をご確認いただき、問題ないようでしたら「申し込む」ボタンを押してください。内容を修正したい場合は「修正する」ボタンを押してください。
       </div>
@@ -127,7 +127,7 @@ const ApplicationConfirmComponent = () => {
           <div className="text-center p-4 bg-gray-50 rounded-xl">
             <div className="text-sm text-gray-600 mb-1">利用回数</div>
             <div className="text-lg font-semibold text-gray-800">
-              {formData.usageType === 'new' ? '初回利用' : 'リピート利用'}
+              {formData.usageType === 'new' ? '初回' : '2回目以降'}
             </div>
           </div>
           <div className="text-center p-4 bg-gray-50 rounded-xl">

@@ -4,38 +4,30 @@ import { BuyingRate } from '@/types/setting';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FormatRate } from '@/util/apply';
-import { LINK_LINK } from '@/util/appConst';
+import { LINE_LINK, LINE_RATE_UP } from '@/util/appConst';
 
-const lineBuyingRates = [
-  {
-    brand: 'apple',
-    brand_name: 'Apple',
-    new_user: 95.5,
-    repeat_user: 90.5
-  },
-  {
-    brand: 'amazon',
-    brand_name: 'Amazon',
-    new_user: 95.5,
-    repeat_user: 90.5
-  },
-  {
-    brand: 'rakuten',
-    brand_name: 'Rakuten',
-    new_user: 95.5,
-    repeat_user: 90.5
-  },
-  {
-    brand: 'googleplay',
-    brand_name: 'Google Play',
-    new_user: 95.5,
-    repeat_user: 90.5
-  },
+// Function to create LINE rates with 1% rate up
+const createLineRates = (buyingRates: BuyingRate[]) => {
+  const targetBrands = ['apple', 'amazon', 'rakuten', 'googleplay'];
   
-]
+  return targetBrands.map(brand => {
+    const originalRate = buyingRates.find(rate => rate.brand === brand);
+    if (originalRate) {
+      return {
+        brand: originalRate.brand,
+        brand_name: originalRate.brand_name,
+        new_user: originalRate.new_user + LINE_RATE_UP, // Add 1% rate up
+        repeat_user: originalRate.repeat_user + LINE_RATE_UP // Add 1% rate up
+      };
+    }
+    return null;
+  }).filter((rate): rate is NonNullable<typeof rate> => rate !== null);
+};
 
 const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates: BuyingRate[]}) => {
 
+  const lineBuyingRates = createLineRates(buyingRates);
+  
   const [showRepeatRate, setShowRepeatRate] = useState(false);
   const router = useRouter();
   useEffect(() => {
@@ -48,7 +40,7 @@ const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates:
   }, []);
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-primary-light">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-primary-light" id="rate-section">
       {/* Custom fruit colors */}
 
       <div className="max-w-7xl mx-auto">
@@ -76,7 +68,7 @@ const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates:
               onClick={() => {
                 // router.push(`/apply?brand=${rate.brand}`);
                 // router.push(`/apply?brand=${rate.brand}`);
-                router.push(LINK_LINK || '');
+                router.push(LINE_LINK || '');
               }}
             >
                 <div className="absolute top-[-10px] right-[-10px] bg-[#15d600] text-white p-2 lg:p-3 rounded-full text-xs lg:text-sm font-semibold shadow-lg z-10 speech-bubble">

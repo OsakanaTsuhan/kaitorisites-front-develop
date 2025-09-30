@@ -38,15 +38,15 @@ const jsonLd = {
   ],
 };
 
-export default async function Apply({searchParams}: {searchParams: Promise<{brand: string, isCouponed: boolean}>}) {
+export default async function Apply({searchParams}: {searchParams: Promise<{brand: string, isCouponed: boolean, ad: string}>}) {
   const resolvedSearchParams = await searchParams;
   const buyingRates = await getBuyingRate();
 
   const sampleCoupons = [
     {
-      code: "123456",
-      rateUp: 0.5,
-      isMain: true
+      coupon_code: "3abc7UP",
+      coupon_name: "激アツ！クーポン",
+      rateUp: 1.0,
     },
   ];
 
@@ -69,7 +69,7 @@ export default async function Apply({searchParams}: {searchParams: Promise<{bran
           buyingRates={buyingRates} 
           coupons={sampleCoupons} 
           isCouponed={resolvedSearchParams.isCouponed || false} 
-          ad={""} 
+          ad={resolvedSearchParams.ad || ""} 
           affiliate={""} 
         />
       </div>
