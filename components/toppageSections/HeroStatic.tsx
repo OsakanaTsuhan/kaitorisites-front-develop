@@ -7,19 +7,8 @@ import { LINE_LINK, LINE_RATE_UP } from '@/util/appConst';
 import { useRouter } from 'next/navigation';
 
 const HeroStatic = () => {
-  const [showRepeatRate, setShowRepeatRate] = useState(false);
-  const [showBottomButton, setShowBottomButton] = useState(false);
   const router = useRouter();
-  
-  useEffect(() => {
-    // 4秒おきにnew_userとrepeat_userの率を切り替える
-    const interval = setInterval(() => {
-      setShowRepeatRate(prev => !prev);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
+  const [showBottomButton, setShowBottomButton] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -29,17 +18,6 @@ const HeroStatic = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Static data - fallback values
-  const appleRate = {
-    new_user: 94.5,
-    repeat_user: 89.5
-  };
-  
-  const siteSetting = {
-    transfer_time: 30
-  };
-
   return (
     <div className="relative h-auto bg-primary">
      
@@ -120,26 +98,11 @@ const HeroStatic = () => {
                   drop-shadow-[10px_8px_0_rgba(0,0,0,0.35)] flex items-center justify-center relative`}>
                 
                 {/* New User Rate */}
-                <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
-                  !showRepeatRate ? 'opacity-100' : 'opacity-0'
-                }`}>
-                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{(appleRate.new_user + LINE_RATE_UP).toFixed(0)}</div>
+                <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 'opacity-100'`}>
+                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>-</div>
                   <div>
                     <div className="-mt-10 text-[80px] sm:text-[100px]">.
-                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.new_user + LINE_RATE_UP).toFixed(1).substring(3)}</span>
-                      </div>
-                    <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
-                  </div>
-                </div>
-                
-                {/* Repeat User Rate */}
-                <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
-                  showRepeatRate ? 'opacity-100' : 'opacity-0'
-                }`}>
-                  <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{(appleRate.repeat_user + LINE_RATE_UP).toFixed(0)}</div>
-                  <div>
-                    <div className="-mt-10 text-[80px] sm:text-[100px]">.
-                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{(appleRate.repeat_user + LINE_RATE_UP).toFixed(1).substring(3)}</span>
+                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>-</span>
                       </div>
                     <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
                   </div>
@@ -153,10 +116,8 @@ const HeroStatic = () => {
                  </div>
                  
                  {/* New User Badge */}
-                 <div className={`w-2/4 pl-2 transition-opacity font-bold  duration-500 ${
-                   !showRepeatRate ? 'text-[#35cca4]' : 'text-primary'
-                 }`}>
-                   <div className="w-full text-center">{showRepeatRate ? '2回目以降' : '初回'}</div>
+                 <div className={`w-2/4 pl-2 transition-opacity font-bold  duration-500 text-[#35cca4]`}>
+                   <div className="w-full text-center">初回</div>
                  </div>
                </div>
             </div>
@@ -168,7 +129,7 @@ const HeroStatic = () => {
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-2 mb-1 mx-6 border border-white/20">
             <div className="text-center text-white flex items-center justify-center">
               <div className="text-base opacity-90">お振込みまで</div>
-              <div className="font-bold text-accent text-4xl mx-2">{siteSetting.transfer_time || 30}</div>分
+              <div className="font-bold text-accent text-4xl mx-2">30</div>分
             </div>
           </div>
         </div>

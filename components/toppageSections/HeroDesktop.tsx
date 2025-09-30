@@ -10,6 +10,10 @@ import { LINE_RATE_UP } from '@/util/appConst';
 const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetting: SiteSetting}) => {
   const [showRepeatRate, setShowRepeatRate] = useState(false);
 
+  const newUserLineRate = appleRate.new_user + LINE_RATE_UP;
+  const repeatUserLineRate = appleRate.repeat_user + LINE_RATE_UP;
+
+  console.log(siteSetting.transfer_time);
 
 
   useEffect(() => {
@@ -171,10 +175,10 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                   <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                     !showRepeatRate ? 'opacity-100' : 'opacity-0'
                   }`}>
-                    <div className={`${coiny.className} text-[180px]`}>{(appleRate.new_user + LINE_RATE_UP).toFixed(0)}</div>
+                    <div className={`${coiny.className} text-[180px]`}>{Math.floor(newUserLineRate)}</div>
                     <div>
                       <div className="text-[60px]">.
-                        <span  className={`${coiny.className} text-[80px]`}>{(appleRate.new_user + LINE_RATE_UP).toFixed(1).substring(3)}</span>
+                        <span  className={`${coiny.className} text-[80px]`}>{String(newUserLineRate).split('.')[1]}</span>
                       </div>
                       <div className={`${coiny.className} text-[60px]`}>%</div>
                     </div>
@@ -184,10 +188,10 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                   <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                     showRepeatRate ? 'opacity-100' : 'opacity-0'
                   }`}>
-                    <div className={`${coiny.className} text-[180px]`}>{(appleRate.repeat_user + LINE_RATE_UP).toFixed(0)}</div>
+                    <div className={`${coiny.className} text-[180px]`}>{Math.floor(repeatUserLineRate)}</div>
                     <div>
                       <div className="text-[60px]">.
-                        <span  className={`${coiny.className} text-[80px]`}>{(appleRate.repeat_user + LINE_RATE_UP).toFixed(1).substring(3)}</span>
+                        <span  className={`${coiny.className} text-[80px]`}>{String(repeatUserLineRate).split('.')[1]}</span>
                       </div>
                       <div className={`${coiny.className} text-[60px]`}>%</div>
                     </div>

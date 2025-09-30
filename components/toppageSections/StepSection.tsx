@@ -1,50 +1,10 @@
 "use client"
 
-  import { steps } from '@/util/featurestep';
 import BackGroundPattern from '../figures/BackGroundPattern';
+import { SiteSetting } from '@/types/setting';
+import Link from 'next/link';
 
-// Function to parse text with links
-const parseTextWithLinks = (text: string) => {
-  // Split by line breaks first
-  return text.split('\n').map((line, lineIndex) => {
-    // Check if line contains link pattern [text](url)
-    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-    const parts = [];
-    let lastIndex = 0;
-    let match;
-
-    while ((match = linkRegex.exec(line)) !== null) {
-      // Add text before the link
-      if (match.index > lastIndex) {
-        parts.push({
-          type: 'text',
-          content: line.slice(lastIndex, match.index)
-        });
-      }
-      
-      // Add the link
-      parts.push({
-        type: 'link',
-        content: match[1],
-        url: match[2]
-      });
-      
-      lastIndex = match.index + match[0].length;
-    }
-    
-    // Add remaining text
-    if (lastIndex < line.length) {
-      parts.push({
-        type: 'text',
-        content: line.slice(lastIndex)
-      });
-    }
-    
-    return { lineIndex, parts };
-  });
-};
-
-  export default function StepSection() {
+  export default function StepSection({siteSetting}: {siteSetting: SiteSetting}) {
     return (
       <section className="py-20 px-4 bg-primary relative">
       {/* Background Pattern */}
@@ -74,10 +34,11 @@ const parseTextWithLinks = (text: string) => {
                   STEP<br/>01
                 </div>
                 <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
-                  買取率・振込時間を確認
+                買取率・振込時間を確認
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-left">
-                  Appleギフトカードなどの買取率は、このページにある[【現在の買取率】](/#rate-section)欄にて確認いただけます。買取率は日々変動いたします。
+                Appleギフトカードなどの買取率は、このページにある<Link href="#rate-section" className="text-primary border-b border-primary font-bold">【現在の買取率】</Link>欄にてご確認いただけます。相場によって買取率は日々変動いたしますので、最新の情報をご確認ください。<br />
+                また、現在お振込みにかかる時間は<span className="text-primary font-bold">{siteSetting.transfer_time || 30}分</span>です。
                 </p>
               </div>
               
