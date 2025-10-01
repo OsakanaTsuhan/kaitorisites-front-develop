@@ -7,21 +7,18 @@ import Image from "next/image";
 import Link from 'next/link';
 import BackGroundPattern from '../figures/BackGroundPattern';
 import { sites } from '@/util/groupsites';
-import PageHeader from '../PageHeader';
-
-
 
 
 export default function GroupSitesSection() {
   return (
-    <section className="lg:py-16 bg-primary relative overflow-hidden  -mt-1">
+    <section className="pb-16 lg:py-16 bg-primary relative overflow-hidden  -mt-1">
       {/* Background Pattern */}
       <BackGroundPattern />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" >
         <h2 className="text-3xl md:text-5xl font-bold text-center text-slate-900 mb-16">
         グループサイト
         </h2>
-         <div className="mb-16 w-full">
+         <div className="mb-12 w-full">
           <Link
               href={`https://kaitori-laboratory.com/giftcard-ranking`}
               target="_blank"
@@ -35,8 +32,8 @@ export default function GroupSitesSection() {
                   <p className="text-xl lg:text-4xl font-bold ">買取サイト</p>
                   <p className="text-xl lg:text-4xl font-bold ">ランキング</p>
                   <p className="text-base lg:text-3xl font-semibold ">2025/10/01 最新</p>
-                  <div className="mt-1 lg:mt-4 relative bg-[#ff4870] text-white font-bold text-base lg:text-xl px-8 lg:px-12 py-1 lg:py-3 rounded-full  flex items-center gap-3 border-b-4 lg:border-b-8 border-b-[#dd2950]">
-                    <span className="">最新ランキングをチェック</span>
+                  <div className="mt-2 lg:mt-4 relative bg-[#ff4870] text-white font-bold text-base lg:text-xl px-8 lg:px-12 py-1 lg:py-3 rounded-full  flex items-center gap-3 border-b-4 lg:border-b-8 border-b-[#dd2950]">
+                    <span className="text-sm lg:text-xl">最新ランキングをチェック</span>
                     <svg
                       className="w-4 lg:w-6 h-4 lg:h-6 bg-white rounded-full p-1 text-[#ff4870]"
                       fill="none"
