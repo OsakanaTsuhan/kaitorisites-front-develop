@@ -63,6 +63,7 @@ const GiftCardForm = ({ giftCards, onGiftCardsChange }: { giftCards: GiftCard[],
                   placeholder="例) 10000"
                   value={card.amount}
                   onChange={(e) => updateGiftCard(index, 'amount', e.target.value)}
+                  onWheel={(e) => e.currentTarget.blur()}
                   className="w-full px-2 lg:px-4 py-2 lg:py-3 border-2 border-gray-200 rounded-xl focus:border-rose-500 focus:outline-none transition-colors"
                 />
               </div>

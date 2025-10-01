@@ -188,7 +188,7 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
       personalInfo: formData.personalInfo,
       bankInfo: formData.bankInfo,
       idImages: formData.usageType === 'new' ? formData.idImages : { front: null, back: null },
-      couponRateUp: formData.couponRateUp || 0, // デフォルト値を設定
+      couponRateUp: coupons.find(coupon => coupon.coupon_code === formData.couponCode)?.rate_up || 0, // デフォルト値を設定
       couponCode: formData.couponCode || '',
       ad: ad || '',
       affiliate: affiliate || '',
@@ -239,7 +239,7 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
       <RateDisplay 
         rate={currentRate}
         usageType={formData.usageType}
-        couponRateUp={formData.couponRateUp}
+        couponRateUp={coupons.find(coupon => coupon.coupon_code === formData.couponCode)?.rate_up || 0}
       />
       
       {/* 4. ギフト券番号と額面入力 */}
@@ -261,8 +261,6 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
         totalAmount={totalAmount} 
         buybackAmount={buybackAmount}
         rate={currentRate}
-        couponRateUp={formData.couponRateUp}
-        onCouponRateUpChange={setCouponRateUp}
         onCouponCodeChange={setCouponCode}
         couponCode={formData.couponCode}
         coupons={coupons}

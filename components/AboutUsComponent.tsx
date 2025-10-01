@@ -114,7 +114,7 @@ const AboutUsComponent = () => {
             <h2 className="text-base sm:text-lg font-medium text-gray-500 tracking-wide mb-2 md:mb-0">営業時間</h2>
           </div>
           <div>
-            <p className="text-base sm:text-lg font-light text-gray-800 mb-2">年中無休 24時間受付</p>
+            <p className="text-base sm:text-lg font-light text-gray-800 mb-2">年中無休 24時間営業</p>
             <p className="text-sm sm:text-base text-gray-500">土日祝日のお振込みも可能です</p>
           </div>
         </div>

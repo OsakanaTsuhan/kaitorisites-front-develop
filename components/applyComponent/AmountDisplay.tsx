@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Coupon } from '@/types/setting';
 
-const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCouponRateUpChange, onCouponCodeChange, couponCode, coupons }: { totalAmount: number, buybackAmount: number, rate: number, couponRateUp: number, onCouponRateUpChange: (rateUp: number) => void, onCouponCodeChange: (code: string) => void, couponCode: string, coupons: Coupon[] }) => {
+const AmountDisplay = ({ totalAmount, buybackAmount, rate, onCouponCodeChange, couponCode, coupons }: { totalAmount: number, buybackAmount: number, rate: number, onCouponCodeChange: (code: string) => void, couponCode: string, coupons: Coupon[] }) => {
  
+  const [coupon, setCoupon] = useState("");
   const [couponError, setCouponError] = useState('');
 
+  const couponRateUp = coupons.find(coupon => coupon.coupon_code === couponCode)?.rate_up || 0;
   // クーポン適用後の買取率と買取額を計算
   const finalRate = couponRateUp > 0 ? rate + couponRateUp : rate;
   const finalBuybackAmount = couponRateUp > 0 ? Math.floor(totalAmount * (finalRate / 100)) : buybackAmount;
@@ -16,11 +18,10 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
 
   // クーポンコード検証
   const handleCouponApply = () => {
-    if (coupons.find(coupon => coupon.coupon_code === couponCode)) {
-      onCouponCodeChange(couponCode);
-      onCouponRateUpChange(coupons.find(coupon => coupon.coupon_code === couponCode)?.rate_up || 0);
+    if (coupons.find(c => c.coupon_code === coupon)) {
+      onCouponCodeChange(coupon);
       setCouponError('');
-    } else if (couponCode.trim() === '') {
+    } else if (coupon.trim() === '') {
       setCouponError('クーポンコードを入力してください');
     } else {
       setCouponError('無効なクーポンコードです');
@@ -29,7 +30,6 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
 
   // クーポンリセット
   const handleCouponReset = () => {
-    onCouponRateUpChange(0);
     onCouponCodeChange('');
     setCouponError('');
   };
@@ -61,6 +61,7 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
               <div className="text-xs text-gray-500 mt-1">
                 クーポン適用: +{coupons.find(coupon => coupon.coupon_code === couponCode)?.rate_up}%
               </div>
+             
             )}
           </div>
         </div>
@@ -76,8 +77,9 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
               <div className="flex lg:flex-row flex-col gap-2">
                 <input
                   type="text"
-                  value={couponCode}
-                  onChange={(e) => onCouponCodeChange(e.target.value)}
+                  value={coupon}
+                  // onChange={(e) => onCouponCodeChange(e.target.value)}
+                  onChange={(e) => setCoupon(e.target.value)}
                   placeholder="クーポンコードを入力"
                   className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none transition-colors"
                 />
@@ -109,7 +111,7 @@ const AmountDisplay = ({ totalAmount, buybackAmount, rate, couponRateUp, onCoupo
                   </div>
                   <button
                     onClick={handleCouponReset}
-                    className="text-xs text-gray-500 hover:text-gray-700 underline"
+                    className="text-xs text-gray-500 hover:text-gray-700 underline cursor-pointer"
                   >
                     解除
                   </button>

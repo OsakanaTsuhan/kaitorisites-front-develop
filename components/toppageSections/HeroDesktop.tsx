@@ -173,7 +173,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
              <div className="absolute top-4/5 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                <div className={` leading-none text-white
                    [-webkit-text-stroke:2px_#ff6b2e] [text-stroke:2px_#ff6b2e]
-                   drop-shadow-[10px_8px_0_rgba(0,0,0,0.35)] flex items-center justify-center relative`}>
+                   flex items-center justify-center relative`}>
                   
                   {/* New User Rate */}
                   <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
