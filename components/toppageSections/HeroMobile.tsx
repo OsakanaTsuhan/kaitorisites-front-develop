@@ -203,7 +203,7 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
           <div className="bg-black/20 w-full p-1">
             <div className="flex justify-center">
               <Link href={LINE_LINK} className="w-100">
-                <Image src="/images/line_footer.png" alt="Apply" width={500} height={500} className="w-full h-auto" priority />
+                <Image src="/images/line_footer.webp" alt="Apply" width={500} height={500} className="w-full h-auto" priority />
               </Link>
             </div>
           </div>
