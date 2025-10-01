@@ -3,7 +3,7 @@ export default function Square() {
         <>
             {/* Blue Square - Back Layer */}
             <svg 
-            className="absolute top-16 left-[-70px] lg:left-16 lg:w-80 lg:h-80 w-40 h-40 transform rotate-45" 
+            className="absolute top-28 left-[-50px] lg:left-16 lg:w-80 lg:h-80 w-40 h-40 transform rotate-45" 
             viewBox="0 0 320 320"
             >
             <defs>
@@ -17,7 +17,7 @@ export default function Square() {
             
             {/* Blue Square - Front Layer */}
             <div 
-            className="absolute top-12 left-[-60px] lg:left-12 lg:w-80 lg:h-80 w-40 h-40 transform rotate-45" 
+            className="absolute top-20 left-[-50px] lg:left-12 lg:w-80 lg:h-80 w-40 h-40 transform rotate-45" 
             style={{
                 border: '8px solid #3B82F6',
                 backgroundColor: 'transparent'

@@ -115,7 +115,7 @@ const Footer = () => {
 
           {/* image */}
           <div className="space-y-4 w-full h-full">
-            <Image src="/images/footer.png" alt="Footer Image" width={1000} height={1000} className="w-[500px] h-[300px] object-contain" />
+            <Image src="/images/footer.webp" alt="Footer Image" width={1000} height={1000} className="w-[500px] h-[300px] object-contain" />
           </div>
 
         </div>

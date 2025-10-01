@@ -13,12 +13,12 @@ const BannerSection = () => {
       <div className="max-w-4xl mx-auto space-y-8 relative pt-12">
         {/* Banner 1 */}
         
-        <div className="mb-0 w-full text-center text-primary-light flex items-end justify-center">
+        <div className="mb-2 w-full text-center text-primary-light flex items-end justify-center">
           <div className="flex items-center justify-center space-x-2">
             <div className="w-0.5 h-4 lg:w-1 lg:h-8 bg-primary-light rotate-130 mt-4 lg:mt-8 rounded-full"></div>
             <div className="w-0.5 h-8 lg:w-1 lg:h-16 bg-primary-light rotate-155  rounded-full"></div>
           </div>
-          <div className="mx-5 text-base md:text-2xl lg:text-4xl font-bold">口コミを投稿してクーポン GET </div>
+          <div className="mx-5 text-lg md:text-2xl lg:text-4xl font-bold">口コミを投稿してクーポン GET </div>
           <div className="flex items-center justify-center space-x-2">
             <div className="w-0.5 h-8 lg:w-1 lg:h-16 bg-primary-light rotate-35 rounded-full"></div>
             <div className="w-0.5 h-4 lg:w-1 lg:h-8 bg-primary-light rotate-50 mt-4  lg:mt-8 -ml-0.5 rounded-full"></div>

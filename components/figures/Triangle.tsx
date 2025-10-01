@@ -3,7 +3,7 @@ export default function Triangle() {
         <>
             {/* Yellow Triangle - Back Layer */}
             <svg 
-            className="absolute bottom-10 left-10 lg:left-24 lg:w-80 lg:h-80 w-40 h-40 transform rotate-45" 
+            className="absolute bottom-20 left-10 lg:left-24 lg:w-80 lg:h-80 w-40 h-40 transform rotate-45" 
             viewBox="0 0 320 320"
             >
             <defs>
@@ -20,7 +20,7 @@ export default function Triangle() {
             
             {/* Yellow Triangle - Front Layer */}
             <svg 
-            className="absolute bottom-0 left-14 lg:left-20 lg:w-80 lg:h-80 w-40 h-40 transform rotate-45" 
+            className="absolute bottom-10 left-14 lg:left-20 lg:w-80 lg:h-80 w-40 h-40 transform rotate-45" 
             viewBox="0 0 320 320"
             >
             <polygon 

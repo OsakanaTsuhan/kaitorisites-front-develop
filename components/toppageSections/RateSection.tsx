@@ -123,7 +123,7 @@ const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates:
                 key={index}
                 className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-orange-100 group cursor-pointer"
                 onClick={() => {
-                  router.push(`/apply?brand=${rate.brand}`);
+                  router.push(`/apply?brand=${rate.brand}&isCouponed=true`);
                 }}
               >
                 {/* Brand Header */}
