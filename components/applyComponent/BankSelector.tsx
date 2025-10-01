@@ -43,7 +43,8 @@ const BankSelector = ({ selectedBank, onBankChange, onClose }: { selectedBank: B
           />
           </div>
           <div>
-          <label htmlFor="account_type" className="block text-sm font-medium text-gray-700 mb-2">口座種別</label>
+          
+          {/* <label htmlFor="account_type" className="block text-sm font-medium text-gray-700 mb-2">口座種別</label>
           <select
             id="account_type"
             value={selectedBank.account_type || '普通'}
@@ -52,7 +53,7 @@ const BankSelector = ({ selectedBank, onBankChange, onClose }: { selectedBank: B
           >
             <option value="普通">普通</option>
             <option value="当座">当座</option>
-          </select>
+          </select> */}
           </div>
           <div>
           <label htmlFor="bank_no" className="block text-sm font-medium text-gray-700 mb-2">口座番号</label>
@@ -76,6 +77,9 @@ const BankSelector = ({ selectedBank, onBankChange, onClose }: { selectedBank: B
             placeholder="ヤマダタロウ"
           />
         </div>
+        {/* <p className="text-xs text-gray-500 mt-2">
+          ※ 普通口座以外をご希望の場合はお問い合わせください
+        </p> */}
       </div>
     </div>
   );

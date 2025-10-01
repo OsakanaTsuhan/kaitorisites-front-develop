@@ -53,7 +53,7 @@ import { features } from '@/util/featurestep';
                           <Image
                             src={`${feature.characterImage}`}
                             alt={`${feature.point} character`}
-                            className="mt-[-30px] w-30 h-30 rounded-full object-contain"
+                            className="mt-[-45px] w-33 rounded-full object-contain"
                             width={1000}
                             height={1000}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"

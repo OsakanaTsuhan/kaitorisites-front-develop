@@ -14,7 +14,7 @@ import PageHeader from '../PageHeader';
 
 export default function GroupSitesSection() {
   return (
-    <section className="py-16 bg-primary relative overflow-hidden">
+    <section className="py-16 bg-primary relative overflow-hidden  -mt-1">
       {/* Background Pattern */}
       <BackGroundPattern />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" >
