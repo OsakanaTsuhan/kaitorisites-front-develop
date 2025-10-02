@@ -61,7 +61,7 @@ const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates:
           {lineBuyingRates.map((rate, index) => (
             <div
               key={index}
-              className="relative rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-orange-100 group cursor-pointer"
+              className="relative rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-accent group cursor-pointer"
               style={{
                 background: 'linear-gradient(to bottom, #86efac, white)'
               }}
@@ -77,7 +77,7 @@ const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates:
               {/* Brand Header */}
               <div className="flex items-center justify-center mb-4">
                 <div className="relative w-10 h-10 mr-3 rounded-full overflow-hidden shadow-md">
-                  <Image src={`/images/brands/icon_${rate.brand}.png`} alt={`${rate.brand} logo`} width={1000} height={1000} />
+                  <Image src={`/images/brands/icon_${rate.brand}.webp`} alt={`${rate.brand} logo`} width={1000} height={1000} />
                 </div>
                 <div className="flex flex-col items-start">
                   <h3 className="font-semibold text-gray-800 text-sm sm:text-base group-hover:text-primary transition-colors">
@@ -121,7 +121,7 @@ const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates:
             {buyingRates.map((rate, index) => (
               <div
                 key={index}
-                className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-orange-100 group cursor-pointer"
+                className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-accent group cursor-pointer"
                 onClick={() => {
                   router.push(`/apply?brand=${rate.brand}&isCouponed=true`);
                 }}
@@ -129,7 +129,7 @@ const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates:
                 {/* Brand Header */}
                 <div className="flex items-center justify-center mb-4">
                   <div className="relative w-10 h-10 mr-3 rounded-full overflow-hidden shadow-md">
-                    <Image src={`/images/brands/icon_${rate.brand}.png`} alt={`${rate.brand} logo`} width={1000} height={1000} />
+                    <Image src={`/images/brands/icon_${rate.brand}.webp`} alt={`${rate.brand} logo`} width={1000} height={1000} />
                   </div>
                   <div className="flex flex-col items-start">
                     <h3 className="font-semibold text-gray-800 text-sm sm:text-base group-hover:text-primary transition-colors">

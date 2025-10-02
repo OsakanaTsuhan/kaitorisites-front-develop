@@ -4,7 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { ApplyFormProvider } from "@/context/ApplyFormContext";
-import { BASE_URL } from "@/util/appConst";
+import { BASE_URL, SITE_NAME } from "@/util/appConst";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +16,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteName = '買取スイート';
 const description = 'AppleギフトカードやAmazonギフト券など各種電子ギフト券を高換金率でスピード買取。手数料無料・最短即日振込で安心の現金化サービス。';
 const url = BASE_URL;
 const imagesUrl = `${url}/images/og-image.jpg`;
@@ -25,16 +24,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(url), // 相対URLを絶対URLに変換するためのベースUR
   title: {
     // サイト全体のデフォルトタイトル（トップページ用）
-    default: siteName, 
+    default: SITE_NAME, 
     // 各ページのタイトルに付与するテンプレート
-    template: '%s | ' + siteName, 
+    template: '%s | ' + SITE_NAME, 
   },
   description: description,
   openGraph: {
-    title: siteName,
+    title: SITE_NAME,
     description: description,
     url: url,
-    siteName: siteName,
+    siteName: SITE_NAME,
     locale: 'ja_JP',
     type: 'website',
     images: [
@@ -42,13 +41,13 @@ export const metadata: Metadata = {
         url: imagesUrl,
         width: 1200,
         height: 630,
-        alt: siteName,
+        alt: SITE_NAME,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteName,
+    title: SITE_NAME,
     description: description,
     site: '@your_twitter_handle',
     creator: '@your_twitter_handle',

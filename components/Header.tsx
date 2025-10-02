@@ -36,7 +36,7 @@ const Header = () => {
             <div>
                 {(isScrolled || (!isScrolled && pathname !== '/')) && (
                   <Link href="/" className="relative text-gray-700 hover:text-pink-500 font-medium transition-colors group">
-                    <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
+                    <Image src="/images/logo.webp" alt="Logo" width={100} height={100} />
                   </Link>
                 )}
             </div>
@@ -63,7 +63,7 @@ const Header = () => {
       {/* Mobile Hamburger Menu */}
       <div className="fixed top-4 right-4 z-50 md:hidden">
         <button 
-          className="bg-white rounded-xl shadow-lg border border-orange-200 p-3 hover:shadow-xl transition-shadow"
+          className="bg-white rounded-xl shadow-lg border border-accent p-3 hover:shadow-xl transition-shadow"
           onClick={toggleMenu}
         >
           <div className="w-6 h-6 flex flex-col justify-center space-y-1">
@@ -90,7 +90,7 @@ const Header = () => {
             <div className="flex items-center space-x-2"></div>
             <button 
               onClick={toggleMenu}
-              className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
+              className="p-2 text-gray-700 transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -156,11 +156,11 @@ const Header = () => {
             <div className="flex space-x-4 mt-4">
               {LINE_LINK && (
               <Link href={LINE_LINK} className="w-200  rounded-full flex items-center justify-center">
-                <Image src="/images/btn_line2.png" alt="X" width={200} height={200} />
+                <Image src="/images/btn_line.webp" alt="LINE mobile" width={200} height={200} />
               </Link>
               )}
               <Link href="/apply" className="w-200 rounded-full flex items-center justify-center">
-                <Image src="/images/btn_app.png" alt="Instagram" width={200} height={200} />
+                <Image src="/images/btn_app.webp" alt="apply mobile" width={200} height={200} />
               </Link>
             </div>
           </div>

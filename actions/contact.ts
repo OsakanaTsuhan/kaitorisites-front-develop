@@ -1,9 +1,9 @@
 'use server';
 
 import { ContactType } from '@/types/contact';
-  import { secureApiCall } from '@/lib/jwt';
-  import { ContactApiResponse, ContactResponse } from './response';
-
+import { secureApiCall } from '@/lib/jwt';
+import { ContactApiResponse, ContactResponse } from './response';
+import { SITE_NO } from '@/util/appConst';
 
 
 export async function submitContact({
@@ -14,7 +14,7 @@ export async function submitContact({
     message
 }: ContactType): Promise<ContactResponse> {
   try {
-    const result = await secureApiCall<ContactApiResponse>('/contact', {
+    const result = await secureApiCall<ContactApiResponse>('/contact?site=' + SITE_NO, {
       method: 'POST',
       body: JSON.stringify({
         name,

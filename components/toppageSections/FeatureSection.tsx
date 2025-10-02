@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { features } from '@/util/featurestep';
+import { SITE_NAME } from '@/util/appConst';
   
   export default function FeatureSection() {
     return (
@@ -10,7 +11,7 @@ import { features } from '@/util/featurestep';
           {/* Header */}
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 text-balance">
-              買取スイートの
+              {SITE_NAME}の
               <span className="block md:inline text-fruit-gradient">
                 4つの特徴
               </span>
@@ -60,7 +61,7 @@ import { features } from '@/util/featurestep';
                             quality={90}
                           />
                           <Image
-                            src={"/images/char-name.png"}
+                            src={"/images/char-name.webp"}
                             alt={`character-name`}
                             className="absolute -bottom-2 -right-5 w-13 h-13 rounded-full object-contain"
                             width={1000}

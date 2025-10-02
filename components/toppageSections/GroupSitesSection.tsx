@@ -25,7 +25,7 @@ export default function GroupSitesSection() {
               rel="noopener noreferrer"
               className="block mx-auto relative w-full h-50 lg:w-160 lg:h-80 rounded-lg hover:opacity-80 transition-opacity duration-300 text-center bg-primary"
             >
-              <Image src={`images/group/curtain_bg2_pc.webp`} alt={`otkg`} fill className="w-full h-full object-contain" />
+              <Image src={`/images/group/curtain_bg2_pc.webp`} alt="ranking page" fill className="w-full h-full object-contain" />
               <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
                 <div className="text-gray-600 lg:space-y-2">
                   <p className="text-base lg:text-3xl font-semibold">Appleギフトカード</p>
@@ -62,7 +62,7 @@ export default function GroupSitesSection() {
               className="block  rounded-lg hover:opacity-80 transition-opacity duration-300 text-center p-1 sm:p-4"
             >
               <Image 
-                src={`/images/group/${site.site}.png`} 
+                src={`/images/group/${site.site}.webp`} 
                 alt={site.name} 
                 width={200} 
                 height={200} 

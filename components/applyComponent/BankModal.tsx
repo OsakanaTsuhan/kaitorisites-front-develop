@@ -1,56 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { BankInfo } from '@/types/apply';
-import { GetBanksOptions } from '@/util/bankoptions';
-import { BankArray } from '@/util/bankArray';
-import { BankOption } from '@/util/bankoptions';
+import { Bank, dakutenChars, hiraganaChars, mainBanks } from '@/types/bank';
+import { bankTypes } from '@/types/bank';
 
 
-
-// メイン銀行のデータ
-const mainBanks: BankOption[] = [
-  { code: '9900', name: 'ゆうちょ銀行' },
-  { code: '0036', name: '楽天銀行' },
-  { code: '0005', name: '三菱UFJ銀行' },
-  { code: '0033', name: 'PayPay銀行' },
-  { code: '0038', name: '住信SBIネット銀行' },
-  { code: '0009', name: '三井住友銀行' },
-  { code: '0001', name: 'みずほ銀行' },
-  { code: '0010', name: 'りそな銀行' },
-  { code: '0017', name: '埼玉りそな銙' },
-  { code: '0039', name: 'auじぶん銀行' },
-  { code: '0034', name: 'セブン銀行' },
-];
-
-// その他の金融機関タイプ
-const bankTypes = [
-  { id: 'etc', name: 'その他銀行' },
-  { id: 'shinkin', name: '信用金庫' },
-  { id: 'shinkumi', name: '信用組合' },
-  { id: 'nokyo', name: '農協' },
-  { id: 'gyokyo', name: '漁協' },
-  { id: 'roukin', name: '労働金庫' },
-];
-
-// ひらがな文字のリスト
-const hiraganaChars = [
-  ['あ', 'い', 'う', 'え', 'お'],
-  ['か', 'き', 'く', 'け', 'こ'],
-  ['さ', 'し', 'す', 'せ', 'そ'],
-  ['た', 'ち', 'つ', 'て', 'と'],
-  ['な', 'に', 'ぬ', 'ね', 'の'],
-  ['は', 'ひ', 'ふ', 'へ', 'ほ'],
-  ['ま', 'み', 'む', 'め', 'も'],
-  ['や', '', 'ゆ', '', 'よ'],
-  ['ら', 'り', 'る', 'れ', 'ろ'],
-  ['わ', 'を', 'ん'],
-];
-
-const dakutenChars = [
-  ['が', 'ぎ', 'ぐ', 'げ', 'ご', 'ざ', 'じ', 'ず', 'ぜ', 'ぞ'],
-  ['だ', 'で', 'ど', 'ば', 'び', 'ぶ', 'べ', 'ぼ'],
-  ['ぱ', 'ぴ', 'ぷ', 'ぺ', 'ぽ'],
-];
 
 type ViewMode = 'main' | 'kana' | 'results';
 
@@ -59,7 +13,7 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
   const [selectedBankType, setSelectedBankType] = useState<string>('');
   const [bankCode, setBankCode] = useState<string>('');
   const [bankCodeError, setBankCodeError] = useState<string>('');
-  const [searchResults, setSearchResults] = useState<BankOption[]>([]);
+  const [searchResults, setSearchResults] = useState<Bank[]>([]);
   const [searchChar, setSearchChar] = useState<string>('');
 
   // モーダルが閉じられた時の初期化
@@ -91,22 +45,29 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
   // 銀行タイプの選択（その他銀行、信用金庫など）
   const handleBankTypeSelect = (typeId: string) => {
     const bankType = bankTypes.find(type => type.id === typeId);
-    setSelectedBankType(bankType?.name || '');
+    setSelectedBankType(bankType?.b_type || '');
     setViewMode('kana');
   };
 
   // ひらがな文字による検索
-  const handleCharacterSearch = (char: string, genre: string) => {
-    setSearchChar(char);
- 
-    const banksOptions: BankOption[] = GetBanksOptions(char, genre);
+  const handleCharacterSearch = async (b_kana: string, b_type: string) => {
+    setSearchChar(b_kana);
 
+    console.log(b_type, b_kana);
+ 
+    const response = await fetch(`/api/banks?b_type=${b_type}&b_kana=${b_kana}`);
+    
+    const data = await response.json();
+    console.log(data);
+    const banksOptions = data.items;
     setSearchResults(banksOptions);
     setViewMode('results');
   };
 
+
+
   // 金融機関コードによる検索
-  const handleCodeSearch = () => {
+  const handleCodeSearch = async () => {
     setBankCodeError('');
     if (!bankCode) {
       setBankCodeError('金融機関コードを入力してください');
@@ -117,35 +78,29 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
       return;
     }
 
-    const bk_name = BankArray[bankCode];
-    setSearchResults([{ code: bankCode, name: bk_name || '' }]);
+    const response = await fetch(`/api/banks?b_code=${bankCode}`);
+    console.log(response);
+    const data = await response.json();
+    const banksOptions = data.items;
+    setSearchResults(banksOptions);
     setViewMode('results');
-    // const foundBank: BankInfo = {
-    //   bank: bk_name || '',
-    //   branch_name: '',
-    //   branch_no: '',
-    //   account_type: '',
-    //   bank_no: bankCode,
-    //   bank_name: ''
-    // };
     
-    // onBankChange(foundBank);
-    // onClose();
   };
+  
 
   // 検索結果から銀行を選択
-  const handleResultBankSelect = (code: string) => {
-    const bk_name = BankArray[code];
-    onBankChange({
-      bank: bk_name || '',
-      branch_name: '',
-      branch_no: '',
-      account_type: '',
-      bank_no: '',
-      bank_name: ''
-    });
-    onClose();
-  };
+  // const handleResultBankSelect = (code: string) => {
+  //   const bk_name = BankArray[code];
+  //   onBankChange({
+  //     bank: bk_name || '',
+  //     branch_name: '',
+  //     branch_no: '',
+  //     account_type: '',
+  //     bank_no: '',
+  //     bank_name: ''
+  //   });
+  //   onClose();
+  // };
 
   // 戻るボタンの処理
   const handleBack = () => {
@@ -164,7 +119,7 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
         {/* 閉じるボタン */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-2xl text-gray-500 hover:text-gray-700"
+          className="absolute top-4 right-4 text-2xl text-gray-500 hover:text-gray-700 cursor-pointer"
         >
           ×
         </button>
@@ -178,18 +133,18 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
             <ul className="space-y-2 mb-6 grid grid-cols-2 gap-2">
               {mainBanks.map((bank) => (
                 <li
-                  key={bank.code}
-                  onClick={() => handleMainBankSelect(bank.name)}
+                  key={bank.b_code}
+                  onClick={() => handleMainBankSelect(bank.b_name)}
                   className="flex items-center p-1 lg:p-3 border rounded hover:bg-gray-100 cursor-pointer text-xs lg:text-sm"
                 >
                   <Image
-                    src={`/img/bank/${bank.code}.png`}
-                    alt=""
+                    src={`/images/bank/${bank.b_code}.webp`}
+                    alt={bank.b_name}
                     width={24}
                     height={24}
                     className="mr-3"
                   />
-                  {bank.name}
+                  {bank.b_name}
                 </li>
               ))}
             </ul>
@@ -220,13 +175,13 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
                   <span className="text-red-500 text-sm">{bankCodeError}</span>
                 )}
               </div>
-              <label className="inline-block mr-2">金融機関コード：</label>
               <input
                 type="text"
                 value={bankCode}
                 onChange={(e) => setBankCode(e.target.value)}
                 className="border rounded px-2 py-1 mr-2"
                 maxLength={4}
+                placeholder="金融機関コード"
               />
               <button
                 onClick={handleCodeSearch}
@@ -244,25 +199,25 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
             <div className="flex items-center mb-4">
               <button
                 onClick={handleBack}
-                className="text-blue-500 hover:text-blue-700 mr-4"
+                className="text-blue-500 hover:text-blue-700 mr-4 cursor-pointer"
               >
                 戻る
               </button>
-              <h2 className="text-xl font-bold">{selectedBankType}</h2>
+              <h2 className="text-base lg:text-xl font-bold">{bankTypes.find(type => type.b_type === selectedBankType)?.name}</h2>
             </div>
 
             {/* ひらがな文字グリッド */}
             <div className="space-y-4">
               {hiraganaChars.map((row, rowIndex) => (
                 <div key={rowIndex} className="flex justify-center space-x-2">
-                  {row.map((char, charIndex) => (
-                    <div key={charIndex} className="w-10 h-10">
-                      {char && (
+                  {row.map((b_kana, b_kanaIndex) => (
+                    <div key={b_kanaIndex} className="w-10 h-10">
+                      {b_kana && (
                         <button
-                          onClick={() => handleCharacterSearch(char, selectedBankType)}
+                          onClick={() => handleCharacterSearch(b_kana, selectedBankType)}
                           className="w-full h-full border rounded hover:bg-gray-100 cursor-pointer text-center"
                         >
-                          {char}
+                          {b_kana}
                         </button>
                       )}
                     </div>
@@ -274,13 +229,13 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
               <div className="mt-6 space-y-2">
                 {dakutenChars.map((row, rowIndex) => (
                   <div key={rowIndex} className="flex justify-center space-x-2">
-                    {row.map((char, charIndex) => (
+                    {row.map((b_kana, b_kanaIndex) => (
                       <button
-                        key={charIndex}
-                        onClick={() => handleCharacterSearch(char, selectedBankType)}
+                        key={b_kanaIndex}
+                        onClick={() => handleCharacterSearch(b_kana, selectedBankType)}
                         className="w-10 h-10 border rounded hover:bg-gray-100 cursor-pointer text-center"
                       >
-                        {char}
+                        {b_kana}
                       </button>
                     ))}
                   </div>
@@ -296,7 +251,7 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
             <div className="flex items-center mb-4">
               <button
                 onClick={handleBack}
-                className="text-blue-500 hover:text-blue-700 mr-4"
+                className="text-blue-500 hover:text-blue-700 mr-4 cursor-pointer"
               >
                 戻る
               </button>
@@ -311,11 +266,11 @@ const BankModal = ({ onBankChange, isOpen, onClose }: { onBankChange: (bank: Ban
               <ul className="space-y-2">
                 {searchResults.map((bank) => (
                   <li
-                    key={bank.code}
-                    onClick={() => handleResultBankSelect(bank.code)}
+                    key={bank.b_code}
+                    onClick={() => handleMainBankSelect(bank.b_name)}
                     className="p-3 border rounded hover:bg-gray-100 cursor-pointer"
                   >
-                    {bank.name}
+                    {bank.b_name}
                   </li>
                 ))}
               </ul>

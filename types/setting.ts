@@ -1,6 +1,6 @@
 export type Setting = {
   rate_setting: BuyingRate[];
-  site_setting: SiteSetting;
+  site_setting: SiteSetting[];
   coupons: Coupon[];
   };
 

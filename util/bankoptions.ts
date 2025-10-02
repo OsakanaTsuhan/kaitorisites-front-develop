@@ -1,8 +1,4 @@
 // 型定義
-export interface BankOption {
-    name: string;
-    code: string;
-}
 
 export const GetBanksOptions = (char: string, genre: string) => {
     const banksOptions: Record<string, Record<string, BankOption[]>> = {

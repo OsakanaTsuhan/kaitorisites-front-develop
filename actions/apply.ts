@@ -3,6 +3,7 @@
 import { FormState } from '@/context/ApplyFormContext';
 import { secureApiCall } from '@/lib/jwt';
 import { ContactApiResponse } from './response';
+import { SITE_NO } from '@/util/appConst';
 
 // フォームデータを引数として受け取る
 export async function submitApplication(formData: FormState, finalRate: number) {
@@ -17,7 +18,7 @@ export async function submitApplication(formData: FormState, finalRate: number) 
 
   const multipartData = new FormData();
   multipartData.append('declared_repeat', formData.usageType === 'new' ? "1" : "2");
-  multipartData.append('site', 'site17');
+  multipartData.append('site', SITE_NO);
   // brand name's first letter to uppercase
   multipartData.append('brand', formData.selectedBrand.charAt(0).toUpperCase() + formData.selectedBrand.slice(1));
   multipartData.append('total_amount', totalAmount.toString());

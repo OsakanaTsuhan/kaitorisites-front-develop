@@ -29,11 +29,6 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
   return (
     <section className="lg:pt-16 pb-16 px-4 sm:px-6 lg:px-8 bg-primary-light">
       <style jsx>{`
-        .text-fruit-gradient {
-          background: linear-gradient(to bottom, #FF6E8A, #ff99ad);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
         .slider-no-focus:focus {
           outline: none !important;
           box-shadow: none !important;
@@ -44,7 +39,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
           width: 40px !important;
           height: 40px !important;
           border-radius: 50% !important;
-          background: url('/images/brands/icon_${selectedBrand}.png') center/contain no-repeat !important;
+          background: url('/images/brands/icon_${selectedBrand}.webp') center/contain no-repeat !important;
           background-color: white !important;
        
           cursor: pointer !important;
@@ -55,7 +50,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
           width: 40px !important;
           height: 40px !important;
           border-radius: 50% !important;
-          background: url('/images/brands/icon_${selectedBrand}.png') center/contain no-repeat !important;
+          background: url('/images/brands/icon_${selectedBrand}.webp') center/contain no-repeat !important;
           background-color: white !important;
           border: 3px solid #ec4899 !important;
           cursor: pointer !important;
@@ -81,7 +76,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
         {/* Simulation Form */}
         <div className="bg-white border-8 border-primary rounded-2xl px-8 lg:px-24 py-16 lg:py-24 lg:pb-24 relative mt-36 lg:mt-72">
           <div className="w-full flex justify-center absolute lg:top-[-325px] top-[-198px] left-0 right-0 z-0">
-            <Image src="/images/simulation_v2.png" alt="Banner 1" width={300} height={300} className="w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] object-contain" />
+            <Image src="/images/simulation_v2.webp" alt="Banner 1" width={300} height={300} className="w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] object-contain" />
           </div>
           
           {/* 券種選択 */}
@@ -99,7 +94,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
                 <div className="flex items-center">
                   <div className="relative w-8 h-8 lg:w-10 lg:h-10 mr-3 lg:mr-4 rounded-full overflow-hidden">
                     <Image 
-                      src={`/images/brands/icon_${selectedBrand}.png`} 
+                      src={`/images/brands/icon_${selectedBrand}.webp`} 
                       alt={`${selectedBrand} logo`} 
                       width={32} 
                       height={32}
@@ -128,7 +123,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
                     >
                       <div className="relative w-8 h-8 mr-3 rounded-full overflow-hidden">
                         <Image 
-                          src={`/images/brands/icon_${brandRate.brand}.png`} 
+                          src={`/images/brands/icon_${brandRate.brand}.webp`} 
                           alt={`${brandRate.brand} logo`} 
                           width={32} 
                           height={32}
@@ -249,19 +244,19 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
             <div className="flex space-x-4 mt-4 lg:hidden">
               {LINE_LINK && (
               <Link href={LINE_LINK} className="w-200  rounded-full flex items-center justify-center">
-                <Image src="/images/btn_line2.png" alt="LINE mobile" width={200} height={200} />
+                <Image src="/images/btn_line.webp" alt="LINE mobile" width={200} height={200} />
               </Link>
               )}
               <Link href="/apply?isCouponed=true" className="w-200 rounded-full flex items-center justify-center">
-                <Image src="/images/btn_app.png" alt="apply mobile" width={200} height={200} />
+                <Image src="/images/btn_app.webp" alt="apply mobile" width={200} height={200} />
               </Link>
             </div>
             <div className="hidden lg:block mb-12 justify-center">
             <Link href={LINE_LINK} className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">
-              <Image src="/images/banner/btn_line_v2.png" alt="LINE desktop" width={1000} height={1000} className="mt-6 lg:mt-24" />
+              <Image src="/images/banner/btn_line_v2.webp" alt="LINE desktop" width={1000} height={1000} className="mt-6 lg:mt-24" />
             </Link>
               <Link href={LINE_LINK} className="relative group cursor-pointer hover:opacity-80 transition-opacity duration-300">
-                <Image src="/images/banner/btn_app_v2.png" alt="apply desktop" width={1000} height={1000} className="mt-6 lg:mt-24" />
+                <Image src="/images/banner/btn_app_v2.webp" alt="apply desktop" width={1000} height={1000} className="mt-6 lg:mt-24" />
               </Link>
             </div>
           </div>
