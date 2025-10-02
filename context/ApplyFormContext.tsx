@@ -3,7 +3,7 @@
 
 import { IDImages, UsageType } from '@/types/apply';
 import { BuyingRate } from '@/types/setting';
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 
 
 type GiftCard = {
@@ -42,6 +42,7 @@ export type FormState = {
 type ApplyFormContextType = {
   formData: FormState;
   setFormData: (data: Partial<FormState>) => void;
+  resetFormData: () => void;
 };
 
 const ApplyFormContext = createContext<ApplyFormContextType | undefined>(undefined);
@@ -79,8 +80,37 @@ export function ApplyFormProvider({ children }: { children: ReactNode }) {
     setFormDataState(prev => ({ ...prev, ...data }));
   };
 
+  const resetFormData = useCallback(() => {
+    setFormDataState({
+      selectedBrand: '',
+      usageType: 'new',
+      giftCards: Array(5).fill({ code: '', amount: '' }),
+      personalInfo: {
+        name: '',
+        email: '',
+        phone: ''
+      },
+      bankInfo: {
+        bank: '',
+        branch_name: '',
+        branch_no: '',
+        account_type: '',
+        bank_no: '',
+        bank_name: '',
+      },
+      idImages: { front: null, back: null },
+      couponRateUp: 0.0,
+      couponCode: '',
+      ad: '',
+      affiliate: '',
+      ip: '',
+      remarks: '',
+      buyingRates: []
+    });
+  }, []);
+
   return (
-    <ApplyFormContext.Provider value={{ formData, setFormData }}>
+    <ApplyFormContext.Provider value={{ formData, setFormData, resetFormData }}>
       {children}
     </ApplyFormContext.Provider>
   );

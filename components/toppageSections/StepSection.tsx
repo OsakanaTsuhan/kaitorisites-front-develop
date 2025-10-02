@@ -30,16 +30,16 @@ import Link from 'next/link';
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-start">
             {/* Step 1 */}
             <div className="flex flex-col lg:flex-row items-center">
-              <div className="min-h-[350px] lg:min-h-[350px] relative overflow-hidden border-2 border-pink-200 shadow-lg bg-primary-light backdrop-blur-sm rounded-xl p-8 text-center w-full lg:w-96">
+              <div className="min-h-[350px] lg:min-h-[450px] relative overflow-hidden border-2 border-pink-200 shadow-lg bg-primary-light backdrop-blur-sm rounded-xl p-8 text-center w-full lg:w-96">
                 <div className="inline-flex items-center justify-center px-2 py-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xl font-bold mb-6 shadow-lg">
                   STEP<br/>01
                 </div>
                 <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
-                買取率・振込時間を確認
+                買取率・振込時間をご確認
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-left">
                 Appleギフトカードなどの買取率は、このページにある<Link href="#rate-section" className="text-primary border-b border-primary font-bold">【現在の買取率】</Link>欄にてご確認いただけます。相場によって買取率は日々変動いたしますので、最新の情報をご確認ください。<br />
-                また、現在お振込みにかかる時間は<span className="text-primary font-bold">{siteSetting.transfer_time || 30}分</span>です。
+                また、現在お振込みにかかる目安時間は<span className="text-primary font-bold">{siteSetting.transfer_time || 30}分</span>です。
                 </p>
               </div>
               
@@ -54,15 +54,16 @@ import Link from 'next/link';
 
             {/* Step 2 */}
             <div className="flex flex-col lg:flex-row items-center">
-              <div className="min-h-[350px] lg:min-h-[350px] relative overflow-hidden border-2 border-pink-200 shadow-lg bg-primary-light backdrop-blur-sm rounded-xl p-8 text-center w-full lg:w-96">
+              <div className="min-h-[350px] lg:min-h-[450px] relative overflow-hidden border-2 border-pink-200 shadow-lg bg-primary-light backdrop-blur-sm rounded-xl p-8 text-center w-full lg:w-96">
                 <div className="inline-flex items-center justify-center px-2 py-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xl font-bold mb-6 shadow-lg">
                   STEP<br/>02
                 </div>
                 <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
-                  申込フォームに必要項目を入力
+                申込フォームに必要項目をご入力
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-left">
-                  ギフト券の情報（種類や金額）、お名前、メールアドレス、お電話番号、そして買取代金のお振込み先となる銀行口座情報をご入力ください。初めてご利用になるお客様は、本人確認のため、運転免許証などの写真の添付をお願いしております。
+                申込フォームにギフト券の情報（種類や金額）や買取代金のお振込みに必要となる銀行口座の情報など必要項目をご入力ください。スマートフォンさえあればお申込み可能で、操作に慣れている方なら数分で完了します。初めてのご利用の場合は身分証の提出をお願いしております。<br />
+                お申込みが完了しますと、それをお知らせするメールが届きますのでご確認ください。
                 </p>
               </div>
               
@@ -77,15 +78,15 @@ import Link from 'next/link';
 
             {/* Step 3 */}
             <div className="flex flex-col lg:flex-row items-center">
-              <div className="min-h-[350px] lg:min-h-[350px] relative overflow-hidden border-2 border-pink-200 shadow-lg bg-primary-light backdrop-blur-sm rounded-xl p-8 text-center w-full lg:w-96">
+              <div className="min-h-[350px] lg:min-h-[450px] relative overflow-hidden border-2 border-pink-200 shadow-lg bg-primary-light backdrop-blur-sm rounded-xl p-8 text-center w-full lg:w-96">
                 <div className="inline-flex items-center justify-center px-2 py-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xl font-bold mb-6 shadow-lg">
                   STEP<br/>03
                 </div>
                 <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
-                  ギフト券買取代金のご入金を確認
+                ギフト券買取代金のご入金をご確認
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-left">
-                  振込完了のメールが届きましたら、お客様の銀行口座をご確認ください。金融機関によっては、着金にお時間がかかる場合がございます。
+                振込完了のメールが届きましたら、ご入金の合図です。お客様の銀行口座をご確認いただき、お取引完了となります。<br />ほとんどの場合は深夜や休日でも着金いたしますが、万が一遅い場合など、ご不明な点やご質問がございましたら<Link href="/contact" className="text-primary border-b border-primary font-bold">お問い合わせ</Link>まで遠慮なくご連絡ください。誠意をもって対応いたします。
                 </p>
               </div>
             </div>

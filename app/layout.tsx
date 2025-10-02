@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { ApplyFormProvider } from "@/context/ApplyFormContext";
+import RouteResetHandler from "@/components/RouteResetHandler";
 import { BASE_URL, SITE_NAME } from "@/util/appConst";
 
 const geistSans = Geist({
@@ -72,7 +73,8 @@ export default function RootLayout({
       >
         <Header />
         <ApplyFormProvider>
-        {children}
+          <RouteResetHandler />
+          {children}
         </ApplyFormProvider>
         <Footer />
       </body>

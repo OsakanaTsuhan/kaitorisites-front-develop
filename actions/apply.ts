@@ -40,10 +40,10 @@ export async function submitApplication(formData: FormState, finalRate: number) 
   multipartData.append('ip', formData.ip);
   multipartData.append('gifts', JSON.stringify(gifts));
 
-  if (formData.idImages.front) {
+  if (formData.idImages.front && formData.usageType === 'new') {
     multipartData.append('front_file', formData.idImages.front, formData.idImages.front.name);
   }
-  if (formData.idImages.back) {
+  if (formData.idImages.back && formData.usageType === 'new') {
     multipartData.append('back_file', formData.idImages.back, formData.idImages.back.name);
   }
 
