@@ -1,17 +1,12 @@
 "use client"
+import { SITE_NAME } from "@/util/appConst";
+
 export default function RulesComponent() {
   return (
    
-    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-orange-200">
-    <style jsx>{`
-    .text-fruit-gradient {
-      background: linear-gradient(45deg, #F871A0, #F97316);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  `}</style>
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-accent">
       <div className="text-gray-600 mb-6">
-      買取スイート（以下、当サービス）は、ステークホルダーの皆様から取得した個人情報の重要性を認識し、保護することを当サービスの事業活動の基本であると共に経営上の最重要な課題の一つと考えています。 皆様へ安心・安全・信頼のサービスを提供していくため、以下のような基本方針を定め全社員に周知徹底を図り、これを遵守しています。
+      {SITE_NAME}（以下、当サービス）は、ステークホルダーの皆様から取得した個人情報の重要性を認識し、保護することを当サービスの事業活動の基本であると共に経営上の最重要な課題の一つと考えています。 皆様へ安心・安全・信頼のサービスを提供していくため、以下のような基本方針を定め全社員に周知徹底を図り、これを遵守しています。
       </div>
       <div className="mb-6">
         <h3 className="text-lg font-bold mb-2">1.基本方針</h3>

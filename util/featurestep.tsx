@@ -1,3 +1,5 @@
+import { SITE_NAME } from "./appConst";
+
 export const features = [
     {
       point: "POINT1",
@@ -20,7 +22,7 @@ export const features = [
     {
       point: "POINT3",
       title: "いつでもOK、\n24時間365日営業",
-      description: "土日祝日や夜間早朝でもお申込みOKです。正月やゴールデンウィークなど、いつでも「買取スイート」にお任せください",
+      description: "土日祝日や夜間早朝でもお申込みOKです。正月やゴールデンウィークなど、いつでも「" + SITE_NAME + "」にお任せください",
       gradient: "from-green-500 to-emerald-400",
       bgColor: "bg-green-50",
       borderColor: "border-green-200",

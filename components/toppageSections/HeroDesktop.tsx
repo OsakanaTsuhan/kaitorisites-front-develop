@@ -8,6 +8,7 @@ import {  } from '@/util/apply';
 import { LINE_RATE_UP } from '@/util/appConst';
 
 const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetting: SiteSetting}) => {
+
   const [showRepeatRate, setShowRepeatRate] = useState(false);
 
   const newUserLineRate = appleRate.new_user + LINE_RATE_UP;
@@ -24,7 +25,6 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
   }, []);
   return (
     <div className="relative h-auto bg-primary mb-0">
-    {/* <div className="relative h-auto mb-0 bg-cover bg-center bg-no-repeat" style={{backgroundImage: 'url(/images/background.jpg)'}}> */}
       {/* Custom styles */}
       <style jsx>{`
         
@@ -107,14 +107,14 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
              <div className="relative w-full h-300px flex items-center justify-center">
                <Image 
                  src="/images/hero-cheer.webp" 
-                 alt="Hero Image" 
+                 alt="Hero Left Image" 
                  width={1500}
                  height={1500}
                  className="w-[1500px] h-[1500px] ml-[-450px] object-contain z-15"
                  priority
                />
                <Image 
-                src="/images/char-name.png" 
+                src="/images/char-name.webp" 
                 alt="character-name" 
                 width={100}
                 height={100}
@@ -129,7 +129,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
            <div className="relative group">
              {/* Main Logo */}
              <Image 
-               src="/images/logo.png" 
+               src="/images/logo.webp" 
                alt="Hero Logo" 
                width={600}
                height={600}
@@ -139,7 +139,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
              
              {/* Main Background Image */}
              <Image 
-               src="/images/hero-rate__bg.png" 
+               src="/images/hero-rate__bg.webp" 
                alt="Hero Background" 
                width={400}
                height={400}
@@ -151,7 +151,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
              
              {/* Left Decoration */}
              <Image 
-               src="/images/hero-text.png" 
+               src="/images/hero-text.webp" 
                alt="Hero Text" 
                width={180}
                height={180}
@@ -161,7 +161,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
              
              {/* Right Decoration */}
              <Image 
-               src="/images/hero-line.png" 
+               src="/images/hero-line.webp" 
                alt="Hero Line" 
                width={180}
                height={180}
@@ -206,7 +206,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                {/* Badge */}
                <div className="w-[250px] bg-white text-center text-xl  rounded-full px-4 py-1 flex items-center relative mt-18">
                  <div className="w-1/4 flex justify-center">
-                   <Image src="/images/brands/icon_apple.png" alt="Apple" width={1000} height={1000} className="w-12 h-12 object-contain rounded-full" priority />
+                   <Image src="/images/brands/icon_apple.webp" alt="Apple" width={1000} height={1000} className="w-12 h-12 object-contain rounded-full" priority />
                  </div>
                  
                  {/* New User Badge */}
@@ -235,7 +235,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
            <div className="relative text-center">
             <Image 
                 src="/images/hero-point.webp" 
-                alt="Hero Image" 
+                alt="Hero Right Image" 
                 width={700}
                 height={700}
                 className="w-[1000px] h-[1000px] ml-[250px] object-contain"
@@ -244,7 +244,7 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
                 priority
               />
               <Image 
-                src="/images/char-name.png" 
+                src="/images/char-name.webp" 
                 alt="character-name" 
                 width={100}
                 height={100}

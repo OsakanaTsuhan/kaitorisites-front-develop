@@ -31,15 +31,15 @@ export default async function Home() {
       <div className="relative m-0 p-0 overflow-x-hidden">
         <div className="z-10">
           <div className="hidden lg:block">
-            <HeroDesktop appleRate={buyingRates[0]} siteSetting={siteSetting} />
+            <HeroDesktop appleRate={buyingRates[0]} siteSetting={siteSetting[0]} />
           </div>
           <div className="lg:hidden">
-            <HeroMobile appleRate={buyingRates[0]} siteSetting={siteSetting} />
+            <HeroMobile appleRate={buyingRates[0]} siteSetting={siteSetting[0]} />
           </div>
           <BannerSection />
           <RateSection isVisible={true} buyingRates={buyingRates} />
           <SimulationSection brandRates={buyingRates} />
-          <StepSection siteSetting={siteSetting} />
+          <StepSection siteSetting={siteSetting[0]} />
           <FeatureSection />
           <BannerSection />
           <GroupSitesSection />

@@ -5,7 +5,7 @@ import React from 'react';
 
 const RemarksForm = ({ remarks, onRemarksChange }: { remarks: string, onRemarksChange: (remarks: string) => void }) => {
   return (
-    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-orange-200">
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-accent">
       <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
         備考
       </h3>

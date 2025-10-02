@@ -23,7 +23,7 @@ const BrandTypeSelector = ({ selectedBrand, onBrandChange, buyingRates }: { sele
             }`}
           >
             <div className="relative w-8 h-8 lg:w-10 lg:h-10 mr-2 lg:mr-3 rounded-full overflow-hidden shadow-md">
-              <Image src={`/images/brands/icon_${brand.brand}.png`} alt={`${brand.brand} logo`} width={1000} height={1000} className="w-full h-full object-cover" />
+              <Image src={`/images/brands/icon_${brand.brand}.webp`} alt={`${brand.brand} logo`} width={1000} height={1000} className="w-full h-full object-cover" />
             </div>
             <div className="text-sm font-medium">{brand.brand_name}</div>
           </button>

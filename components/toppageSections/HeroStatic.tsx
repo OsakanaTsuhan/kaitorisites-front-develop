@@ -61,7 +61,7 @@ const HeroStatic = () => {
         {/* Top Section - Badge and Title */}
         <div className="flex-1 flex flex-col justify-center text-center pt-8">
             <Image 
-              src="/images/logo.png" 
+              src="/images/logo.webp" 
               alt="Hero Image" 
               width={200}
               height={200}
@@ -72,21 +72,21 @@ const HeroStatic = () => {
         {/* Middle Section - Horizontal Image with Side Elements */}
         <div className="flex-1 flex items-center justify-center">
           <Image 
-              src="/images/hero-rate__bg.png" 
+              src="/images/hero-rate__bg.webp" 
               alt="Hero Image" 
               width={600}
               height={600}
               className="relative w-110 h-110 object-contain max-w-[500px] mx-auto"
             />
             <Image 
-              src="/images/hero-text.png" 
+              src="/images/hero-text.webp" 
               alt="Hero Image" 
               width={600}
               height={600}
               className="w-[120px] h-[120px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 left-0 md:left-20"
             />
               <Image 
-              src="/images/hero-line.png" 
+              src="/images/hero-line.webp" 
               alt="Hero Image" 
               width={600}
               height={600}
@@ -112,7 +112,7 @@ const HeroStatic = () => {
                {/* Badge */}
                <div className="bg-white text-center text-lg font-medium  rounded-full pl-4 py-1 flex items-center relative mt-14">
                  <div className="w-1/4 flex justify-center">
-                   <Image src="/images/brands/icon_apple.png" alt="Apple" width={1000} height={1000} className="w-10 h-10 object-contain rounded-full" />
+                   <Image src="/images/brands/icon_apple.webp" alt="Apple" width={1000} height={1000} className="w-10 h-10 object-contain rounded-full" />
                  </div>
                  
                  {/* New User Badge */}
@@ -154,7 +154,7 @@ const HeroStatic = () => {
           <div className="bg-black/20 w-full p-1">
             <div className="flex justify-center">
               <Link href={LINE_LINK} className="w-100">
-                <Image src="/images/line_footer.png" alt="Apply" width={500} height={500} className="w-full h-auto" />
+                <Image src="/images/line_footer.webp" alt="Apply" width={500} height={500} className="w-full h-auto" />
               </Link>
             </div>
           </div>

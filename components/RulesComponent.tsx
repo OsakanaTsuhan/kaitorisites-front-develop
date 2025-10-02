@@ -2,14 +2,7 @@
 export default function RulesComponent() {
   return (
    
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-orange-200">
-        <style jsx>{`
-        .text-fruit-gradient {
-          background: linear-gradient(45deg, #F871A0, #F97316);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-      `}</style>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-accent">
           <div className="text-gray-600 mb-6">
           本規約は、お魚通販.com株式会社（以下「当社」）が提供する買取サービス（以下「本サービス」）における利用条件を定めるものです。本サービスを利用するお客様（以下「お客様」）には本規約に従い本サービスをご利用いただきます。また、当社ホームページより買取りのお申込みをいただくか、買取目的物（以下「商品」）をお送りいただいた時点で本規約に同意したものといたします。
           </div>

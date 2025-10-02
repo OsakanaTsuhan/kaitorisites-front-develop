@@ -119,7 +119,7 @@ console.log(formData.buyingRates)
             <div className="text-sm text-gray-600 mb-1">券種</div>
             <div className="text-lg font-semibold text-gray-800 flex items-center justify-center">
               <div className="w-10 h-10 mr-2">
-              <Image src={`/images/brands/icon_${formData.selectedBrand}.png`} alt={formData.selectedBrand} width={100} height={100} />
+              <Image src={`/images/brands/icon_${formData.selectedBrand}.webp`} alt={formData.selectedBrand} width={100} height={100} />
               </div>
               <div className="text-lg font-semibold text-gray-800">{formData.buyingRates.find(rate => rate.brand === formData.selectedBrand)?.brand_name}</div>
             </div>

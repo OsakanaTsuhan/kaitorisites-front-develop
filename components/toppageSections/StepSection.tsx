@@ -2,6 +2,7 @@
 
 import BackGroundPattern from '../figures/BackGroundPattern';
 import { SiteSetting } from '@/types/setting';
+import { SITE_NAME } from '@/util/appConst';
 import Link from 'next/link';
 
   export default function StepSection({siteSetting}: {siteSetting: SiteSetting}) {
@@ -13,7 +14,7 @@ import Link from 'next/link';
           {/* Header */}
           <div className="text-center mb-8">
             <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6 text-balance">
-               買取スイートの
+               {SITE_NAME}の
               <span className="block lg:inline text-fruit-light-gradient">
               買取3ステップ
               </span>

@@ -9,7 +9,7 @@ const PersonalInfoForm = ({ personalInfo, onPersonalInfoChange }: { personalInfo
   };
 
   return (
-    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-orange-200">
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-accent">
       <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
         お客様情報入力
       </h3>

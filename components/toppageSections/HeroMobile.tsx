@@ -78,8 +78,8 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
         {/* Top Section - Badge and Title */}
         <div className="flex-1 flex flex-col justify-center text-center pt-8">
             <Image 
-              src="/images/logo.png" 
-              alt="Hero Image" 
+              src="/images/logo.webp" 
+              alt="Hero Logo" 
               width={200}
               height={200}
               className="mx-auto object-contain w-[200px]"
@@ -90,24 +90,24 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
         {/* Middle Section - Horizontal Image with Side Elements */}
         <div className="flex-1 flex items-center justify-center">
           <Image 
-              src="/images/hero-rate__bg.png" 
-              alt="Hero Image" 
+              src="/images/hero-rate__bg.webp" 
+              alt="Hero Background" 
               width={600}
               height={600}
               className="relative w-110 h-110 object-contain max-w-[500px] mx-auto"
               priority
             />
             <Image 
-              src="/images/hero-text.png" 
-              alt="Hero Image" 
+              src="/images/hero-text.webp" 
+              alt="Hero Left Image" 
               width={600}
               height={600}
               className="w-[120px] h-[120px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 left-0 md:left-20"
               priority
             />
               <Image 
-              src="/images/hero-line.png" 
-              alt="Hero Image" 
+              src="/images/hero-line.webp" 
+              alt="Hero Right Image" 
               width={600}
               height={600}
               className="w-[135px] h-[135px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 right-0 md:right-20"
@@ -151,7 +151,7 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
                {/* Badge */}
                <div className="bg-white text-center text-lg font-medium  rounded-full pl-4 py-1 flex items-center relative mt-14">
                  <div className="w-1/4 flex justify-center">
-                   <Image src="/images/brands/icon_apple.png" alt="Apple" width={1000} height={1000} className="w-10 h-10 object-contain rounded-full" priority />
+                   <Image src="/images/brands/icon_apple.webp" alt="Apple" width={1000} height={1000} className="w-10 h-10 object-contain rounded-full" priority />
                  </div>
                  
                  {/* New User Badge */}
