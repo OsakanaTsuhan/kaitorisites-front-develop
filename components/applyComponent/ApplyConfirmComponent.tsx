@@ -75,16 +75,20 @@ const ApplicationConfirmComponent = () => {
     );
   }
 
+  // 空のギフトカードをフィルタリング
+  const validGiftCards = formData.giftCards.filter(card => 
+    card.code.trim() !== '' && card.amount.trim() !== ''
+  );
+
   // ページネーション計算
-  const totalCards = formData.giftCards.length;
+  const totalCards = validGiftCards.length;
   const totalPages = Math.ceil(totalCards / cardsPerPage);
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
-  const currentCards = formData.giftCards.slice(startIndex, endIndex);
-console.log(formData.buyingRates)
+  const currentCards = validGiftCards.slice(startIndex, endIndex);
 
   // 金額計算（クーポン適用考慮）
-  const totalAmount = formData.giftCards.reduce((sum, card) => sum + parseInt(card.amount), 0);
+  const totalAmount = validGiftCards.reduce((sum, card) => sum + parseInt(card.amount), 0);
   const selectedRate = formData.buyingRates.find((rate: BuyingRate) => rate.brand === formData.selectedBrand);
   
   const finalRate = calcRate(selectedRate, formData.usageType) + (formData.couponRateUp || 0);
@@ -388,7 +392,7 @@ console.log(formData.buyingRates)
           } ${isSubmitting ? 'opacity-50 transform-none' : ''}`}
         >
           {isSubmitting ? (
-            <span className="flex items-center">
+            <span className="flex items-center justify-center">
               <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>

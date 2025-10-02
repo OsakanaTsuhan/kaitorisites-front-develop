@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { features } from '@/util/featurestep';
+import { features } from '@/util/features';
 import { SITE_NAME } from '@/util/appConst';
   
   export default function FeatureSection() {

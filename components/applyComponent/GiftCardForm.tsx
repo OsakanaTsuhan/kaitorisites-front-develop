@@ -11,7 +11,7 @@ const GiftCardForm = ({ giftCards, onGiftCardsChange }: { giftCards: GiftCard[],
   ];
 
   const addGiftCard = () => {
-    onGiftCardsChange([...giftCards, { code: '', amount: '' }]);
+    onGiftCardsChange([...displayCards, { code: '', amount: '' }]);
   };
 
   const updateGiftCard = (index: number, field: string, value: string) => {
@@ -26,12 +26,6 @@ const GiftCardForm = ({ giftCards, onGiftCardsChange }: { giftCards: GiftCard[],
     );
     
     onGiftCardsChange(filtered);
-  };
-
-  const removeGiftCard = (index: number) => {
-    if (giftCards.length > 1) {
-      onGiftCardsChange(giftCards.filter((_, i) => i !== index));
-    }
   };
 
   return (
