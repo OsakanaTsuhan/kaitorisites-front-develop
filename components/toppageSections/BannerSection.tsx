@@ -12,7 +12,6 @@ const BannerSection = () => {
       <BackGroundPattern />
       <div className="max-w-4xl mx-auto space-y-8 relative pt-12">
         {/* Banner 1 */}
-        
         <div className="mb-2 w-full text-center text-primary-light flex items-end justify-center">
           <div className="flex items-center justify-center space-x-2">
             <div className="w-0.5 h-4 lg:w-1 lg:h-8 bg-primary-light rotate-130 mt-4 lg:mt-8 rounded-full"></div>

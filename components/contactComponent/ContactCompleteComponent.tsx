@@ -8,9 +8,7 @@ const ContactCompleteComponent = () => {
     router.push('/');
   };
 
-
   return (
-
     <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl border border-orange-200 text-center">
         {/* Success Icon */}
       <div className="success-animation mb-8">

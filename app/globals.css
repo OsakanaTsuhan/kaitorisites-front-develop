@@ -87,13 +87,12 @@ body {
   border-top: 8px solid #15d600;
 }
 
-
 .star-rotate {
-  animation: rotate 6s linear infinite;
+  animation: rotate 8s linear infinite;
 }
 
 .star-rotate-reverse {
-  animation: rotate-reverse 8s linear infinite;
+  animation: rotate-reverse 10s linear infinite;
 }
 
 @keyframes rotate {
@@ -108,7 +107,7 @@ body {
 
 .star-outline {
   stroke: white;
-  stroke-width: 0.5;
+  stroke-width: 1;
   fill: none;
   filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
 }
