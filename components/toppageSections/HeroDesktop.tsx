@@ -25,37 +25,6 @@ const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetti
   }, []);
   return (
     <div className="relative h-auto bg-primary mb-0">
-      {/* Custom styles */}
-      <style jsx>{`
-        
-        .star-rotate {
-          animation: rotate 8s linear infinite;
-        }
-        
-        .star-rotate-reverse {
-          animation: rotate-reverse 10s linear infinite;
-        }
-        
-        @keyframes rotate {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        
-        @keyframes rotate-reverse {
-          from { transform: rotate(360deg); }
-          to { transform: rotate(0deg); }
-        }
-        
-        .star-outline {
-          stroke: white;
-          stroke-width: 1;
-          fill: none;
-          filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
-        }
-      `}</style>
-      
-     
-
       {/* Main Content - Vertically Centered */}
       <div className="relative z-10 max-w-7xl mx-auto h-screen  flex items-center justify-between bg-primary">
        {/* Rotating Stars - 4 Large Stars Scattered */}

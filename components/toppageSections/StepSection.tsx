@@ -34,7 +34,7 @@ import Link from 'next/link';
                 <div className="inline-flex items-center justify-center px-2 py-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xl font-bold mb-6 shadow-lg">
                   STEP<br/>01
                 </div>
-                <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-lg lg:text-lg font-bold text-gray-900lg mb-4">
                 買取率・振込時間をご確認
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-left">
@@ -58,7 +58,7 @@ import Link from 'next/link';
                 <div className="inline-flex items-center justify-center px-2 py-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xl font-bold mb-6 shadow-lg">
                   STEP<br/>02
                 </div>
-                <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-lg lg:text-lg font-bold text-gray-900lg mb-4">
                 申込フォームに必要項目をご入力
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-left">
@@ -82,7 +82,7 @@ import Link from 'next/link';
                 <div className="inline-flex items-center justify-center px-2 py-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xl font-bold mb-6 shadow-lg">
                   STEP<br/>03
                 </div>
-                <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-lg lg:text-lg font-bold text-gray-900lg mb-4">
                 ギフト券買取代金のご入金をご確認
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-left">

@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useApplyForm, FormState } from '@/context/ApplyFormContext';
 import { BankInfo, GiftCard, IDImages, PersonalInfo, UsageType } from '@/types/apply';
 import { BuyingRate, Coupon } from '@/types/setting';
-import { GiftCardValidation } from '@/util/giftCodeValidation';
+import { validateGiftCards } from '@/util/giftCodeValidation';
 import { calcRate } from '@/util/apply';
 import BankModal from './BankModal';
 import { LINE_RATE_UP } from '@/util/appConst';
@@ -42,16 +42,19 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
   }, []);
 
   const SetFormData = () => {
-    const defaultBrand = brand && brand.trim() !== '' ? brand : 'apple';
+    // Only set brand if it's not already set in formData (preserve user's selection)
+    const shouldSetBrand = !formData.selectedBrand || (brand && brand.trim() !== '');
+    const brandToSet = shouldSetBrand ? (brand && brand.trim() !== '' ? brand : 'apple') : formData.selectedBrand;
+    
     // Then handle coupon logic if needed
     if(ad) {
-      setFormData({ ...formData, selectedBrand: defaultBrand, couponCode: "ln1", couponRateUp: LINE_RATE_UP || 0, buyingRates: buyingRates });
+      setFormData({ ...formData, selectedBrand: brandToSet, couponCode: "ln1", couponRateUp: LINE_RATE_UP || 0, buyingRates: buyingRates });
     }else if(isCouponed) {
       const couponCode = coupons.find(coupon => mainCoupon === coupon.coupon_code)?.coupon_code;
       const couponRateUp = coupons.find(coupon => mainCoupon === coupon.coupon_code)?.rate_up;
-      setFormData({ ...formData, selectedBrand: defaultBrand, couponCode: couponCode || '', couponRateUp: couponRateUp || 0, buyingRates: buyingRates });
+      setFormData({ ...formData, selectedBrand: brandToSet, couponCode: couponCode || '', couponRateUp: couponRateUp || 0, buyingRates: buyingRates });
     } else {
-      setFormData({ ...formData, selectedBrand: defaultBrand, buyingRates: buyingRates });
+      setFormData({ ...formData, selectedBrand: brandToSet, buyingRates: buyingRates });
     }
     
   };
@@ -95,7 +98,7 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
   // 6. 買取額計算
   const buybackAmount = Math.floor(totalAmount * (currentRate / 100));
 
-  // 12. 確認ボタンの処理
+  // 確認ボタンの処理
   const handleConfirm = async () => {
     setIsSubmitting(true);
     // エラーをクリア
@@ -127,15 +130,15 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
     };
 
     // バリデーション
-    const {isVaild, errorMessage} = await GiftCardValidation(formData.giftCards);
+    const giftCardValidation = validateGiftCards(formData.giftCards, formData.selectedBrand);
     
     if (!formData.selectedBrand) {
       newErrors.brand = '券種を選択してください';
       hasErrors = true;
     }
     
-    if (!isVaild) {
-      newErrors.giftCards = errorMessage;
+    if (!giftCardValidation.isValid) {
+      newErrors.giftCards = giftCardValidation.errorMessage;
       hasErrors = true;
     }
     
@@ -207,13 +210,6 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
   return (
 
   <div className="space-y-8">
-    <style jsx>{`
-      .text-fruit-gradient {
-        background: linear-gradient(45deg, #F871A0, #F97316);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    `}</style>
       {/* 1. 券種選択 */}
       <div>
         <BrandTypeSelector 

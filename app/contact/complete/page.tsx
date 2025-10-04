@@ -27,19 +27,19 @@ const jsonLd = {
       '@type': 'ListItem',
       position: 1,
       name: 'ホーム',
-      item: `${BASE_URL}/`, // 環境変数を使用
+      item: `${BASE_URL}/`,
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'お問い合わせ',
-      item: `${BASE_URL}/contact`, // 環境変数を使用
+      item: `${BASE_URL}/contact`,
     },
     {
       '@type': 'ListItem',
       position: 3,
       name: 'お問い合わせ完了',
-      item: `${BASE_URL}/contact/complete`, // 環境変数を使用
+      item: `${BASE_URL}/contact/complete`,
     },
   ],
 };

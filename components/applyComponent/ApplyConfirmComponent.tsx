@@ -38,7 +38,6 @@ const ApplicationConfirmComponent = () => {
       const result = await submitApplication(formData, finalRate);
 
       if (result.success) {
-       
         // 完了ページにリダイレクト
         router.push('/apply/complete');
       } else {
@@ -46,10 +45,7 @@ const ApplicationConfirmComponent = () => {
       }
       
     } catch (error) {
-      console.error('Submission error:', error);
       alert('申込み処理中にエラーが発生しました。もう一度お試しください。');
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -122,8 +118,8 @@ const ApplicationConfirmComponent = () => {
           <div className="text-center p-4 bg-gray-50 rounded-xl">
             <div className="text-sm text-gray-600 mb-1">券種</div>
             <div className="text-lg font-semibold text-gray-800 flex items-center justify-center">
-              <div className="w-10 h-10 mr-2">
-              <Image src={`/images/brands/icon_${formData.selectedBrand}.webp`} alt={formData.selectedBrand} width={100} height={100} />
+              <div className="w-10 h-10 mr-2 rounded-full">
+              <Image src={`/images/brands/icon_${formData.selectedBrand}.webp`} alt={formData.selectedBrand} width={100} height={100} className="rounded-full shadow-md" />
               </div>
               <div className="text-lg font-semibold text-gray-800">{formData.buyingRates.find(rate => rate.brand === formData.selectedBrand)?.brand_name}</div>
             </div>
@@ -304,7 +300,7 @@ const ApplicationConfirmComponent = () => {
                     <img 
                       src={URL.createObjectURL(formData.idImages.front)} 
                       alt="身分証明書（表面）"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                   <div className="text-center">
@@ -326,7 +322,7 @@ const ApplicationConfirmComponent = () => {
                     <img 
                       src={URL.createObjectURL(formData.idImages.back)} 
                       alt="身分証明書（裏面）"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                   <div className="text-center">
