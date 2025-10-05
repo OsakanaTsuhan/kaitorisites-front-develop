@@ -151,7 +151,7 @@ const HeroDesktop = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting
                     <div className={`${coiny.className} text-[180px]`}>{Math.floor(newUserLineRate)}</div>
                     <div>
                       <div className="text-[60px]">.
-                        <span  className={`${coiny.className} text-[80px]`}>{String(newUserLineRate).split('.')[1]}</span>
+                        <span  className={`${coiny.className} text-[80px]`}>{String(newUserLineRate).split('.')[1] || 0}</span>
                       </div>
                       <div className={`${coiny.className} text-[60px]`}>%</div>
                     </div>
@@ -164,7 +164,7 @@ const HeroDesktop = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting
                     <div className={`${coiny.className} text-[180px]`}>{Math.floor(repeatUserLineRate)}</div>
                     <div>
                       <div className="text-[60px]">.
-                        <span  className={`${coiny.className} text-[80px]`}>{String(repeatUserLineRate).split('.')[1]}</span>
+                        <span  className={`${coiny.className} text-[80px]`}>{String(repeatUserLineRate).split('.')[1] || 0}</span>
                       </div>
                       <div className={`${coiny.className} text-[60px]`}>%</div>
                     </div>
