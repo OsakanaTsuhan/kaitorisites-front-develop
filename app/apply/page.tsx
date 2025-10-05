@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import { getSetting } from "@/lib/api";
 import { Metadata } from 'next';
 import Script from "next/script";
-import { BASE_URL } from "@/util/appConst";
+import { BASE_URL, SORTED_BRANDS } from "@/util/appConst";
 
 export const metadata: Metadata = {
   title: 'お申し込み', 
@@ -48,6 +48,8 @@ export default async function Apply({searchParams}: {searchParams: Promise<{bran
     return <div>問題が発生しました。ページを更新してください。</div>;
   }
 
+  const sortedBuyingRates = buyingRates.sort((a, b) => SORTED_BRANDS.indexOf(a.brand) - SORTED_BRANDS.indexOf(b.brand));  
+
   return (
     <div className="min-h-screen bg-primary-light py-16">
       <Script
@@ -60,7 +62,7 @@ export default async function Apply({searchParams}: {searchParams: Promise<{bran
         <PageHeader title="お申し込み" />
         <ApplyComponent 
           brand={resolvedSearchParams.brand} 
-          buyingRates={buyingRates} 
+          buyingRates={sortedBuyingRates} 
           coupons={coupons} 
           isCouponed={resolvedSearchParams.isCouponed || false} 
           ad={resolvedSearchParams.ad || ""} 

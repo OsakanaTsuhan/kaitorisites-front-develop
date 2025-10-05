@@ -95,7 +95,7 @@ const IDUpload = ({ idImages, onIdImagesChange, usageType }: { idImages: IDImage
                   <div>元のサイズ: {formatFileSize(fileSizes.front.original)}</div>
                   <div>リサイズ後: {formatFileSize(fileSizes.front.resized)}</div>
                   {fileSizes.front.original !== fileSizes.front.resized && (
-                    <div className="text-green-600 font-medium">
+                    <div className="font-medium">
                       リサイズ済み ✓
                     </div>
                   )}

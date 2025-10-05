@@ -16,7 +16,7 @@ import { BuyingRate, Coupon } from '@/types/setting';
 import { validateGiftCards } from '@/util/giftCodeValidation';
 import { calcRate } from '@/util/apply';
 import BankModal from './BankModal';
-import { LINE_RATE_UP } from '@/util/appConst';
+import { LINE_RATE_UP, MAIN_BRAND } from '@/util/appConst';
 import { getUserIP } from '@/lib/getUserIP';
 
 
@@ -44,7 +44,7 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
   const SetFormData = () => {
     // Only set brand if it's not already set in formData (preserve user's selection)
     const shouldSetBrand = !formData.selectedBrand || (brand && brand.trim() !== '');
-    const brandToSet = shouldSetBrand ? (brand && brand.trim() !== '' ? brand : 'apple') : formData.selectedBrand;
+    const brandToSet = shouldSetBrand ? (brand && brand.trim() !== '' ? brand : MAIN_BRAND) : formData.selectedBrand;
     
     // Then handle coupon logic if needed
     if(ad) {

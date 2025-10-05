@@ -8,6 +8,8 @@ import HeroDesktop from "@/components/toppageSections/HeroDesktop";
 import FeatureSection from "@/components/toppageSections/FeatureSection";
 import StepSection from "@/components/toppageSections/StepSection";
 import HeroStatic from "@/components/toppageSections/HeroStatic";
+import { SORTED_BRANDS } from "@/util/appConst";
+
 
 export default async function Home() {
   try {
@@ -22,19 +24,22 @@ export default async function Home() {
       return <StaticFallbackHome />
     }
     
+    // 券種の並び替え
+    const sortedBuyingRates = buyingRates.sort((a, b) => SORTED_BRANDS.indexOf(a.brand) - SORTED_BRANDS.indexOf(b.brand));
+    
 
     return (
       <div className="relative m-0 p-0 overflow-x-hidden">
         <div className="z-10">
           <div className="hidden lg:block">
-            <HeroDesktop appleRate={buyingRates[0]} siteSetting={siteSetting[0]} />
+            <HeroDesktop mainRate={sortedBuyingRates[0]} siteSetting={siteSetting[0]} />
           </div>
           <div className="lg:hidden">
-            <HeroMobile appleRate={buyingRates[0]} siteSetting={siteSetting[0]} />
+            <HeroMobile mainRate={sortedBuyingRates[0]} siteSetting={siteSetting[0]} />
           </div>
           <BannerSection />
-          <RateSection isVisible={true} buyingRates={buyingRates} />
-          <SimulationSection brandRates={buyingRates} />
+          <RateSection isVisible={true} buyingRates={sortedBuyingRates} />
+          <SimulationSection brandRates={sortedBuyingRates} />
           <StepSection siteSetting={siteSetting[0]} />
           <FeatureSection />
           <BannerSection />

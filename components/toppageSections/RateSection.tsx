@@ -4,11 +4,11 @@ import { BuyingRate } from '@/types/setting';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FormatRate } from '@/util/apply';
-import { LINE_LINK, LINE_RATE_UP } from '@/util/appConst';
+import { LINE_LINK, LINE_RATE_UP, TARGET_BRANDS } from '@/util/appConst';
 
 // Function to create LINE rates with 1% rate up
 const createLineRates = (buyingRates: BuyingRate[]) => {
-  const targetBrands = ['apple', 'amazon', 'rakuten', 'googleplay'];
+  const targetBrands = TARGET_BRANDS;
   
   return targetBrands.map(brand => {
     const originalRate = buyingRates.find(rate => rate.brand === brand);

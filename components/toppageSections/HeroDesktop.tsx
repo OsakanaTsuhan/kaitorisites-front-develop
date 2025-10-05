@@ -7,12 +7,12 @@ import { coiny } from './font';
 import {  } from '@/util/apply';
 import { LINE_RATE_UP } from '@/util/appConst';
 
-const HeroDesktop = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetting: SiteSetting}) => {
+const HeroDesktop = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting: SiteSetting}) => {
 
   const [showRepeatRate, setShowRepeatRate] = useState(false);
 
-  const newUserLineRate = appleRate.new_user + LINE_RATE_UP;
-  const repeatUserLineRate = appleRate.repeat_user + LINE_RATE_UP;
+  const newUserLineRate = mainRate.new_user + LINE_RATE_UP;
+  const repeatUserLineRate = mainRate.repeat_user + LINE_RATE_UP;
 
 
   useEffect(() => {
