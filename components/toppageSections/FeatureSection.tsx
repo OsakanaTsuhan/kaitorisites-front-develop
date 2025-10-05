@@ -34,7 +34,7 @@ import { SITE_NAME } from '@/util/appConst';
                       >
                         {feature.point}
                       </span>
-                      <div className="text-xl md:text-2xl font-bold text-gray-900 text-balance leading-tight mb-4">
+                      <div className="text-lg md:text-xl font-bold text-gray-900 text-balance leading-tight mb-4">
                         {feature.title.split('\n').map((line, index) => (
                           <span key={index}>
                             {line}
@@ -50,7 +50,7 @@ import { SITE_NAME } from '@/util/appConst';
                         <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${feature.gradient} opacity-20 blur-sm scale-110`}></div>
                         
                         {/* Main image with pop-out effect */}
-                        <div className="absolute inset-0 z-10 border-4 border-white shadow-xl rounded-full">
+                        <div className="absolute top-3 inset-0 z-10 border-4 border-white shadow-xl rounded-full">
                           <Image
                             src={`${feature.characterImage}`}
                             alt={`${feature.point} character`}

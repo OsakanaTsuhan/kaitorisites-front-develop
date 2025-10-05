@@ -224,7 +224,7 @@ const HeroMobile = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting:
         <div className={`fixed bottom-0 left-0 right-0 z-40 md:hidden transition-opacity duration-500 ease-in-out ${
           showBottomButton ? 'block' : 'hidden'
         }`}>
-          <div className="bg-black/20 w-full p-1">
+          <div className=" w-full p-1">
             <div className="flex justify-center">
               <Link href={LINE_LINK} className="w-100">
                 <Image src="/images/line_banner.webp" alt="Apply" width={500} height={500} className="w-full h-auto" />
