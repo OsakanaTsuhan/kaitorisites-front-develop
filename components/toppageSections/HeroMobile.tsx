@@ -149,7 +149,7 @@ const HeroMobile = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting:
                   <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{Math.floor(newUserLineRate)}</div>
                   <div>
                     <div className="-mt-10 text-[80px] sm:text-[100px]">.
-                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{String(newUserLineRate).split('.')[1]}</span>
+                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{String(newUserLineRate).split('.')[1] || 0}</span>
                       </div>
                     {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
                     <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
@@ -163,7 +163,7 @@ const HeroMobile = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting:
                   <div className={`${coiny.className} text-[140px] sm:text-[180px]`}>{Math.floor(repeatUserLineRate)}</div>
                   <div>
                     <div className="-mt-10 text-[80px] sm:text-[100px]">.
-                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{String(repeatUserLineRate).split('.')[1]}</span>
+                      <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{String(repeatUserLineRate).split('.')[1] || 0}</span>
                       </div>
                     {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
 
