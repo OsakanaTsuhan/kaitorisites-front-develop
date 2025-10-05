@@ -45,6 +45,7 @@ const ApplicationConfirmComponent = () => {
       }
       
     } catch (error) {
+      setIsSubmitting(false);
       alert('申込み処理中にエラーが発生しました。もう一度お試しください。');
     }
   };

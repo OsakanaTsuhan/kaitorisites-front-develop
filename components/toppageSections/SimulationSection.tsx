@@ -4,10 +4,10 @@ import { BuyingRate } from '@/types/setting';
 import Image from 'next/image';
 import PageHeader from '../PageHeader';
 import Link from 'next/link';
-import { LINE_LINK, LINE_RATE_UP } from '@/util/appConst';
+import { LINE_LINK, LINE_RATE_UP, MAIN_BRAND } from '@/util/appConst';
 
 const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
-  const [selectedBrand, setSelectedBrand] = useState('apple');
+  const [selectedBrand, setSelectedBrand] = useState(MAIN_BRAND);
   const [faceValue, setFaceValue] = useState(50000);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const currentBrand = brandRates.find(brand => brand.brand === selectedBrand) as BuyingRate;

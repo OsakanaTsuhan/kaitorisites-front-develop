@@ -7,12 +7,12 @@ import Link from 'next/link';
 import { LINE_LINK, LINE_RATE_UP } from '@/util/appConst';
 import { useRouter } from 'next/navigation';
 
-const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSetting: SiteSetting}) => {
+const HeroMobile = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting: SiteSetting}) => {
   const [showRepeatRate, setShowRepeatRate] = useState(false);
   const [showBottomButton, setShowBottomButton] = useState(false);
 
-  const newUserLineRate = appleRate.new_user + LINE_RATE_UP;
-  const repeatUserLineRate = appleRate.repeat_user + LINE_RATE_UP;
+  const newUserLineRate = mainRate.new_user + LINE_RATE_UP;
+  const repeatUserLineRate = mainRate.repeat_user + LINE_RATE_UP;
 
   const router = useRouter();
   useEffect(() => {
@@ -227,7 +227,7 @@ const HeroMobile = ({appleRate, siteSetting}: {appleRate: BuyingRate, siteSettin
           <div className="bg-black/20 w-full p-1">
             <div className="flex justify-center">
               <Link href={LINE_LINK} className="w-100">
-                <Image src="/images/line_footer.webp" alt="Apply" width={500} height={500} className="w-full h-auto" />
+                <Image src="/images/line_banner.webp" alt="Apply" width={500} height={500} className="w-full h-auto" />
               </Link>
             </div>
           </div>

@@ -86,7 +86,7 @@ import Link from 'next/link';
                 ギフト券買取代金のご入金をご確認
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-left">
-                振込完了のメールが届きましたら、ご入金の合図です。お客様の銀行口座をご確認いただき、お取引完了となります。<br />ほとんどの場合は深夜や休日でも着金いたしますが、万が一遅い場合など、ご不明な点やご質問がございましたら<Link href="/contact" className="text-primary border-b border-primary font-bold">お問い合わせ</Link>まで遠慮なくご連絡ください。誠意をもって対応いたします。
+                振込完了のメールが届きましたら、ご入金の合図です。お客様の銀行口座をご確認いただき、お取引完了となります。<br />ほとんどの場合は深夜や休日でも着金いたしますが、万が一 遅い場合などございましたらお気軽に<Link href="/contact" className="text-primary border-b border-primary font-bold">コチラ</Link>までお問い合わせください。迅速に対応させていただきます。
                 </p>
               </div>
             </div>
