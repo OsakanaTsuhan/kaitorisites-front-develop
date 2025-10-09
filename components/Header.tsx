@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { LINE_LINK } from '@/util/appConst';
 
 const Header = () => {
-  // current path
+  const mainCoupon = process.env.NEXT_PUBLIC_MAIN_COUPON;
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,7 +45,7 @@ const Header = () => {
            <div>
            <button
               className="ml-8 px-6 py-2 bg-accent text-black cursor-pointer font-semibold rounded-full hover:opacity-80 shadow-lg"
-              onClick={() => router.push('/apply')}
+              onClick={() => router.push(`/apply?cp=${mainCoupon}`)}
             >
               お申込み
             </button>
@@ -109,7 +109,7 @@ const Header = () => {
               ホーム
             </Link>
             <Link 
-              href="/apply?isCouponed=true" 
+              href={`/apply?cp=${mainCoupon}`} 
               className="flex items-center px-4 text-gray-700 hover:bg-orange-100 rounded-lg transition-colors"
               onClick={toggleMenu}
             >
@@ -159,7 +159,7 @@ const Header = () => {
                 <Image src="/images/btn_line.webp" alt="LINE mobile" width={200} height={200} />
               </Link>
               )}
-              <Link href="/apply" className="w-200 rounded-full flex items-center justify-center">
+              <Link href={`/apply?cp=${mainCoupon}`} className="w-200 rounded-full flex items-center justify-center">
                 <Image src="/images/btn_app.webp" alt="apply mobile" width={200} height={200} />
               </Link>
             </div>

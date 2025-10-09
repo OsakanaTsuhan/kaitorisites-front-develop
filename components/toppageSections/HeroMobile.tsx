@@ -8,6 +8,7 @@ import { LINE_LINK, LINE_RATE_UP } from '@/util/appConst';
 import { useRouter } from 'next/navigation';
 
 const HeroMobile = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting: SiteSetting}) => {
+  const mainCoupon = process.env.NEXT_PUBLIC_MAIN_COUPON;
   const [showRepeatRate, setShowRepeatRate] = useState(false);
   const [showBottomButton, setShowBottomButton] = useState(false);
 
@@ -137,7 +138,7 @@ const HeroMobile = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting:
               height={600}
               className="w-[135px] h-[135px] sm:w-[150px] sm:h-[180px] object-contain absolute top-2/5 right-0 md:right-20"
             />
-            <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]"  onClick={() => router.push('/apply?isCouponed=true')}>
+            <div className="absolute top-17/20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]"  onClick={() => router.push(`/apply?cp=${mainCoupon}`)}>
               <div className={`leading-none text-white
                   [-webkit-text-stroke:2px_#ff6b2e] [text-stroke:2px_#ff6b2e]
                    flex items-center justify-center relative`}>

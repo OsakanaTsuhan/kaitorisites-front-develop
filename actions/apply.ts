@@ -3,10 +3,10 @@
 import { FormState } from '@/context/ApplyFormContext';
 import { secureApiCall } from '@/lib/jwt';
 import { ContactApiResponse } from './response';
-import { SITE_NO } from '@/util/appConst';
+import { BASE_SITE, SITE_NO } from '@/util/appConst';
 
 // フォームデータを引数として受け取る
-export async function submitApplication(formData: FormState, finalRate: number) {
+export async function submitApplication(formData: FormState, finalRate: number, ipaddress: string) {
   
   const totalAmount = formData.giftCards.reduce((sum, card) => sum + parseInt(card.amount), 0);
   const transferAmount = Math.floor(totalAmount * finalRate / 100);
@@ -37,7 +37,7 @@ export async function submitApplication(formData: FormState, finalRate: number) 
   multipartData.append('remarks', formData.remarks);
   multipartData.append('ad', formData.ad);
   multipartData.append('affiliate', formData.affiliate);
-  multipartData.append('ip', formData.ip);
+  multipartData.append('ip', ipaddress);
   multipartData.append('gifts', JSON.stringify(gifts));
 
   if (formData.idImages.front && formData.usageType === 'new') {
@@ -55,6 +55,7 @@ export async function submitApplication(formData: FormState, finalRate: number) 
     });
 
     if (result.message) {
+      // 申し込み情報をcookieに保存
       return { 
         success: true, 
         message: result.message,
@@ -66,10 +67,70 @@ export async function submitApplication(formData: FormState, finalRate: number) 
       };
     }
   } catch (error) {
-    // console.error(error);
+    
+    // Extract error message from the error
+    let errorMessage = '申込み中にエラーが発生しました。';
+    
+    if (error instanceof Error) {
+      // If it's an API error with a message, use that
+      if (error.message.includes('API Error:')) {
+        errorMessage = `サーバーエラー: ${error.message}`;
+      } else {
+        errorMessage = error.message;
+      }
+    }
+    
     return { 
       success: false, 
-      message: '申込み中にエラーが発生しました。'
+      message: errorMessage
+    };
+  }
+}
+
+
+
+export async function searchPreviousData() {
+  // TODO: get cookie data
+  try {
+    const formData = new FormData();
+    formData.append('site', BASE_SITE);
+    formData.append('customer_id', "fkrl9tts3325134810");
+    
+    const result = await secureApiCall<ContactApiResponse>('/apply/search', {
+      method: 'POST',
+      body: formData,
+    });
+
+
+    if (result.message) {
+      return { 
+        success: true, 
+        message: result.message,
+        data: result.data
+      };
+    } else {
+      return { 
+        success: false, 
+        message: '前回のデータがありませんでした'
+      };
+    }
+  } catch (error) {
+    
+    // Extract error message from the error
+    let errorMessage = '前回のデータがありませんでした';
+    
+    if (error instanceof Error) {
+      // If it's an API error with a message, use that
+      if (error.message.includes('API Error:')) {
+        errorMessage = `サーバーエラー: ${error.message}`;
+      } else {
+        errorMessage = error.message;
+      }
+    }
+    
+    return { 
+      success: false, 
+      message: errorMessage
     };
   }
 }

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApplyForm } from '@/context/ApplyFormContext';
 import { submitApplication } from '@/actions/apply'; // Server Actionsをインポート
 import { useRouter } from 'next/navigation';
@@ -7,15 +7,28 @@ import Link from 'next/link';
 import { calcRate } from '@/util/apply';
 import { BuyingRate } from '@/types/setting';
 import Image from 'next/image';
+import { getUserIP } from '@/lib/getUserIP';
 
 const ApplicationConfirmComponent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [ipaddress, setIpaddress] = useState<string>('unknown');
+  const [successSubmit, setSuccessSubmit] = useState(false);
   const cardsPerPage = 10;
  
   const router = useRouter();
   const { formData } = useApplyForm();
+
+  useEffect(() => {
+    // Get user's IP address
+    const fetchIP = async () => {
+      const ip = await getUserIP();
+      setIpaddress(ip);
+    };
+    fetchIP();
+  }, []); 
+ 
 
   // Check for missing data and redirect if needed
   React.useEffect(() => {
@@ -28,16 +41,18 @@ const ApplicationConfirmComponent = () => {
   if(formData.selectedBrand === '') {
     return null;
   }
- 
+
+
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
 
     // const result  = {success: true, message: '申込みが完了しました！'};
     try {
-      const result = await submitApplication(formData, finalRate);
+      const result = await submitApplication(formData, finalRate, ipaddress);
 
       if (result.success) {
+        setSuccessSubmit(true);
         // 完了ページにリダイレクト
         router.push('/apply/complete');
       } else {
@@ -45,8 +60,9 @@ const ApplicationConfirmComponent = () => {
       }
       
     } catch (error) {
-      setIsSubmitting(false);
       alert('申込み処理中にエラーが発生しました。もう一度お試しください。');
+    }finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -88,7 +104,12 @@ const ApplicationConfirmComponent = () => {
   const totalAmount = validGiftCards.reduce((sum, card) => sum + parseInt(card.amount), 0);
   const selectedRate = formData.buyingRates.find((rate: BuyingRate) => rate.brand === formData.selectedBrand);
   
-  const finalRate = calcRate(selectedRate, formData.usageType) + (formData.couponRateUp || 0);
+  if(!selectedRate) {
+    alert("問題が発生しましたので、申込画面からやり直してください");
+    router.push('/apply');
+  }
+  const finalRate = formData.couponRateUp > 0 ? calcRate(selectedRate, formData.usageType) + formData.couponRateUp : calcRate(selectedRate, formData.usageType);
+  // const finalRate = calcRate(selectedRate, formData.usageType) + (formData.couponRateUp || 0);
   const finalBuybackAmount = Math.floor(totalAmount * (finalRate / 100));
 
   // 率を小数点第一位まで表示する関数
@@ -388,7 +409,7 @@ const ApplicationConfirmComponent = () => {
               : 'bg-accent text-black hover:opacity-80 hover:shadow-xl cursor-pointer'
           } ${isSubmitting ? 'opacity-50 transform-none' : ''}`}
         >
-          {isSubmitting ? (
+          {isSubmitting || successSubmit ? (
             <span className="flex items-center justify-center">
               <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

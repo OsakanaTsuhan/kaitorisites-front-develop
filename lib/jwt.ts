@@ -49,8 +49,8 @@ export async function secureApiCall<T>(
 
   try {
     const response = await fetch(`${backendURL}${endpoint}`, config);
-    console.log("response::::")
-    console.log(response);
+    // console.log("response::::")
+    // console.log(response);
     
     if (!response.ok) {
       throw new Error(`API Error: ${response.status}`);

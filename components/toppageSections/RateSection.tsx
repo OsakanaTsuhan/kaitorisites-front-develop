@@ -8,6 +8,7 @@ import { LINE_LINK, LINE_RATE_UP, TARGET_BRANDS } from '@/util/appConst';
 
 // Function to create LINE rates with 1% rate up
 const createLineRates = (buyingRates: BuyingRate[]) => {
+
   const targetBrands = TARGET_BRANDS;
   
   return targetBrands.map(brand => {
@@ -25,7 +26,7 @@ const createLineRates = (buyingRates: BuyingRate[]) => {
 };
 
 const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates: BuyingRate[]}) => {
-
+  const mainCoupon = process.env.NEXT_PUBLIC_MAIN_COUPON;
   const lineBuyingRates = createLineRates(buyingRates);
   
   const [showRepeatRate, setShowRepeatRate] = useState(false);
@@ -123,7 +124,7 @@ const RateSection = ({isVisible, buyingRates}: {isVisible: boolean, buyingRates:
                 key={index}
                 className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-accent group cursor-pointer"
                 onClick={() => {
-                  router.push(`/apply?brand=${rate.brand}&isCouponed=true`);
+                  router.push(`/apply?brand=${rate.brand}&cp=${mainCoupon}`);
                 }}
               >
                 {/* Brand Header */}

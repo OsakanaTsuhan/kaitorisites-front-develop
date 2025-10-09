@@ -38,7 +38,7 @@ const jsonLd = {
   ],
 };
 
-export default async function Apply({searchParams}: {searchParams: Promise<{brand: string, isCouponed: boolean, ad: string}>}) {
+export default async function Apply({searchParams}: {searchParams: Promise<{brand: string, cp: string, ad: string}>}) {
   const resolvedSearchParams = await searchParams;
   const setting = await getSetting();
   const buyingRates = setting.rate_setting;
@@ -64,7 +64,7 @@ export default async function Apply({searchParams}: {searchParams: Promise<{bran
           brand={resolvedSearchParams.brand} 
           buyingRates={sortedBuyingRates} 
           coupons={coupons} 
-          isCouponed={resolvedSearchParams.isCouponed || false} 
+          cp={resolvedSearchParams.cp || ""} 
           ad={resolvedSearchParams.ad || ""} 
           affiliate={""} 
         />

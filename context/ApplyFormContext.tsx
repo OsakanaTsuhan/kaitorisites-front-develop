@@ -33,9 +33,9 @@ export type FormState = {
   couponCode: string;
   ad: string;
   affiliate: string;
-  ip: string;
   remarks: string;
   buyingRates: BuyingRate[];
+  useCurrentData: boolean;
 };
 
 // Contextの型定義
@@ -71,9 +71,9 @@ export function ApplyFormProvider({ children }: { children: ReactNode }) {
     couponCode: '',
     ad: '',
     affiliate: '',
-    ip: '',
     remarks: '',
-    buyingRates: []
+    buyingRates: [],
+    useCurrentData: false
   });
 
   const setFormData = (data: Partial<FormState>) => {
@@ -103,9 +103,9 @@ export function ApplyFormProvider({ children }: { children: ReactNode }) {
       couponCode: '',
       ad: '',
       affiliate: '',
-      ip: '',
       remarks: '',
-      buyingRates: []
+      buyingRates: [],
+      useCurrentData: false
     });
   }, []);
 

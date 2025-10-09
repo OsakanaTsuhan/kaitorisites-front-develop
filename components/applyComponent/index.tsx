@@ -18,28 +18,22 @@ import { calcRate } from '@/util/apply';
 import BankModal from './BankModal';
 import { LINE_RATE_UP, MAIN_BRAND } from '@/util/appConst';
 import { getUserIP } from '@/lib/getUserIP';
+import { searchPreviousData } from '@/actions/apply';
 
 
-const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}: {brand: string | null | undefined, buyingRates: BuyingRate[], coupons: Coupon[], ad: string, affiliate: string, isCouponed: boolean}) => {
-  const mainCoupon = process.env.NEXT_PUBLIC_MAIN_COUPON || '3abc7UP';
-  const [ipaddress, setIpaddress] = useState<string>('unknown');
+const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand: string | null | undefined, buyingRates: BuyingRate[], coupons: Coupon[], ad: string, affiliate: string, cp: string}) => {
+
   const router = useRouter();
   const { formData, setFormData } = useApplyForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isSearching, setIsSearching] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [previousData, setPreviousData] = useState<any>({});
   
   useEffect(() => {
     SetFormData();
-  }, [brand, isCouponed, ad])
-
-  useEffect(() => {
-    // Get user's IP address
-    const fetchIP = async () => {
-      const ip = await getUserIP();
-      setIpaddress(ip);
-    };
-    fetchIP();
-  }, []);
+  }, [brand, cp, ad])
 
   const SetFormData = () => {
     // Only set brand if it's not already set in formData (preserve user's selection)
@@ -49,9 +43,9 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
     // Then handle coupon logic if needed
     if(ad) {
       setFormData({ ...formData, selectedBrand: brandToSet, couponCode: "ln1", couponRateUp: LINE_RATE_UP || 0, buyingRates: buyingRates });
-    }else if(isCouponed) {
-      const couponCode = coupons.find(coupon => mainCoupon === coupon.coupon_code)?.coupon_code;
-      const couponRateUp = coupons.find(coupon => mainCoupon === coupon.coupon_code)?.rate_up;
+    }else if(cp) {
+      const couponCode = coupons.find(coupon => cp === coupon.coupon_code)?.coupon_code;
+      const couponRateUp = coupons.find(coupon => cp === coupon.coupon_code)?.rate_up;
       setFormData({ ...formData, selectedBrand: brandToSet, couponCode: couponCode || '', couponRateUp: couponRateUp || 0, buyingRates: buyingRates });
     } else {
       setFormData({ ...formData, selectedBrand: brandToSet, buyingRates: buyingRates });
@@ -195,9 +189,9 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
       couponCode: formData.couponCode || '',
       ad: ad || '',
       affiliate: affiliate || '',
-      ip: ipaddress,
       remarks: formData.remarks,
-      buyingRates: formData.buyingRates
+      buyingRates: formData.buyingRates,
+      useCurrentData: formData.useCurrentData
     };
 
     if(submitData.bankInfo.account_type === '') {
@@ -206,6 +200,50 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
     router.push('/apply/confirm');
     setIsSubmitting(false);
   };
+
+
+  const handleGetPreviousData = async() => {
+
+
+    if(previousData.name !== '') {
+      setPersonalInfo({ name: previousData.name, email: previousData.email, phone: previousData.phone });
+      setFormData({ ...formData, useCurrentData: true });
+      return;
+    }
+
+    setIsSearching(true);
+    // const result  = {success: true, message: '申込みが完了しました！'};
+    try {
+      const result = await searchPreviousData();
+      
+      if (result.success) {
+        // console.log("::::::::::::::::");
+        // console.log(result.data);
+        const data = result.data;
+        const name = data.masked_name;
+        const email = data.masked_mail;
+        const phone = data.masked_tel;
+        setPreviousData({
+          name: name,
+          email: email,
+          phone: phone
+        });
+        setPersonalInfo({ name: name, email: email, phone: phone });
+        setFormData({ ...formData, useCurrentData: true });
+      } else {
+        alert(result.message);
+      }
+      
+    } catch (error) {
+      alert('前回のデータがありませんでした');
+    }finally {
+      setIsSearching(false);
+    }
+  }
+
+  const handleNewInput = () => {
+    setFormData({ ...formData, useCurrentData: false });
+  }
 
   return (
 
@@ -261,13 +299,38 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
         couponCode={formData.couponCode}
         coupons={coupons}
       />
+
+      {formData.usageType == "repeat" && (
+        <>
+          {formData.useCurrentData ? (
+            <div>
+              <button  onClick={handleNewInput}>新しい情報を入力</button>
+            </div>
+          ) : (
+            <div>
+              <button disabled={isSearching} onClick={handleGetPreviousData}>{isSearching ? '検索中...' :'前の申し込み情報を使用する'}</button>
+            </div>
+          )
+          }
+        </>
+      )}
       
       {/* 6. 個人情報入力 */}
       <div>
-        <PersonalInfoForm 
-          personalInfo={formData.personalInfo} 
-          onPersonalInfoChange={setPersonalInfo}
-        />
+        {/* {formData.useCurrentData ? (
+          <PersonalInfoMasking 
+            personalInfo={previousData}
+          />
+        ) : (
+          <PersonalInfoForm 
+            personalInfo={formData.personalInfo} 
+            onPersonalInfoChange={setPersonalInfo}
+          />
+        )} */}
+          <PersonalInfoForm 
+            personalInfo={formData.personalInfo} 
+            onPersonalInfoChange={setPersonalInfo}
+          />
         {(errors.personalInfo.name || errors.personalInfo.email || errors.personalInfo.phone) && (
           <div className="mt-2 space-y-1">
             {errors.personalInfo.name && (
@@ -340,10 +403,6 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, isCouponed}
         remarks={formData.remarks}
         onRemarksChange={setRemarks}
       />
-
-      <div>
-        IP: {ipaddress}
-      </div>
       
       {/* 12. 内容確認ボタン */}
       <div className="text-center pt-8">
