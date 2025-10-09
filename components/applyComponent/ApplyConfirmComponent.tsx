@@ -416,6 +416,9 @@ const ApplicationConfirmComponent = () => {
         </div>
         <p className="text-sm text-gray-600 mt-4">利用規約と個人情報保護方針に同意をしていただけない場合は、お申し込みが完了しません。</p>
       </div>
+      
+
+      <p>previous_order_id: {formData.previousOrderId}</p>
 
       {/* ボタンエリア */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
