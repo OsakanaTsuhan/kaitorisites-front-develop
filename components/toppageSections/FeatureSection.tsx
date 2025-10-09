@@ -54,7 +54,7 @@ import { SITE_NAME } from '@/util/appConst';
                           <Image
                             src={`${feature.characterImage}`}
                             alt={`${feature.point} character`}
-                            className="mt-[-45px] w-33 rounded-full object-contain"
+                            className="mt-[-54px] ml-[-1px] w-33 rounded-full object-contain"
                             width={1000}
                             height={1000}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"

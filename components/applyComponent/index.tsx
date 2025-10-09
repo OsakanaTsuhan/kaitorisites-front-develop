@@ -16,9 +16,11 @@ import { BuyingRate, Coupon } from '@/types/setting';
 import { validateGiftCards } from '@/util/giftCodeValidation';
 import { calcRate } from '@/util/apply';
 import BankModal from './BankModal';
+import PreviousDataSelector from './PreviousDataSelector';
+import RememberMeForm from './RememberMeForm';
 import { LINE_RATE_UP, MAIN_BRAND } from '@/util/appConst';
-import { getUserIP } from '@/lib/getUserIP';
 import { searchPreviousData } from '@/actions/apply';
+import { getUserIds } from '@/lib/secure';
 
 
 const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand: string | null | undefined, buyingRates: BuyingRate[], coupons: Coupon[], ad: string, affiliate: string, cp: string}) => {
@@ -28,8 +30,6 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isSearching, setIsSearching] = useState(false)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [previousData, setPreviousData] = useState<any>({});
   
   useEffect(() => {
     SetFormData();
@@ -65,6 +65,7 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand
   const setCouponCode = (code: string) => setFormData({ ...formData, couponCode: code });
   
   const setRemarks = (text: string) => setFormData({ ...formData, remarks: text });
+  const setIsRememmber = (isRememmber: boolean) => setFormData({ ...formData, isRememmber: isRememmber });
 
   // エラー状態はコンポーネント内で管理
   const [errors, setErrors] = useState({
@@ -135,31 +136,34 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand
       newErrors.giftCards = giftCardValidation.errorMessage;
       hasErrors = true;
     }
+
+    if(formData.previousOrderId == '') {
     
-    if (!formData.personalInfo.name.trim()) {
-      newErrors.personalInfo.name = 'お名前を入力してください';
-      hasErrors = true;
-    }
-    
-    if (!formData.personalInfo.email.trim()) {
-      newErrors.personalInfo.email = 'メールアドレスを入力してください';
-      hasErrors = true;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.personalInfo.email)) {
-      newErrors.personalInfo.email = '正しいメールアドレスを入力してください';
-      hasErrors = true;
-    }
-    
-    if (!formData.personalInfo.phone.trim()) {
-      newErrors.personalInfo.phone = '電話番号を入力してください';
-      hasErrors = true;
-    } else if (!/^[\d\-\+\(\)\s]+$/.test(formData.personalInfo.phone)) {
-      newErrors.personalInfo.phone = '正しい電話番号を入力してください';
-      hasErrors = true;
-    }
-    
-    if (!formData.bankInfo.bank) {
-      newErrors.bank = '振込先銀行を選択してください';
-      hasErrors = true;
+      if (!formData.personalInfo.name.trim()) {
+        newErrors.personalInfo.name = 'お名前を入力してください';
+        hasErrors = true;
+      }
+      
+      if (!formData.personalInfo.email.trim()) {
+        newErrors.personalInfo.email = 'メールアドレスを入力してください';
+        hasErrors = true;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.personalInfo.email)) {
+        newErrors.personalInfo.email = '正しいメールアドレスを入力してください';
+        hasErrors = true;
+      }
+      
+      if (!formData.personalInfo.phone.trim()) {
+        newErrors.personalInfo.phone = '電話番号を入力してください';
+        hasErrors = true;
+      } else if (!/^[\d\-\+\(\)\s]+$/.test(formData.personalInfo.phone)) {
+        newErrors.personalInfo.phone = '正しい電話番号を入力してください';
+        hasErrors = true;
+      }
+      
+      if (!formData.bankInfo.bank) {
+        newErrors.bank = '振込先銀行を選択してください';
+        hasErrors = true;
+      }
     }
     
     if (formData.usageType === 'new' && (!formData.idImages.front)) {
@@ -191,7 +195,8 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand
       affiliate: affiliate || '',
       remarks: formData.remarks,
       buyingRates: formData.buyingRates,
-      useCurrentData: formData.useCurrentData
+      previousOrderId: formData.previousOrderId,
+      isRememmber: formData.isRememmber
     };
 
     if(submitData.bankInfo.account_type === '') {
@@ -204,45 +209,80 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand
 
   const handleGetPreviousData = async() => {
 
-
-    if(previousData.name !== '') {
-      setPersonalInfo({ name: previousData.name, email: previousData.email, phone: previousData.phone });
-      setFormData({ ...formData, useCurrentData: true });
-      return;
-    }
-
     setIsSearching(true);
-    // const result  = {success: true, message: '申込みが完了しました！'};
+
     try {
-      const result = await searchPreviousData();
+
+      const { anonId, siteId } = await getUserIds();
+      // console.log('anonId', anonId);
+      // console.log('siteId', siteId);
+      // alert('anonId:::' + anonId + ' siteId:::' + siteId);
+      if(anonId === '' || siteId === '') {
+        alert('前回のデータがありませんでした');
+        setIsSearching(false);
+        return;
+      }
+      
+      const result = await searchPreviousData({ anonId, siteId });
       
       if (result.success) {
-        // console.log("::::::::::::::::");
-        // console.log(result.data);
         const data = result.data;
-        const name = data.masked_name;
-        const email = data.masked_mail;
-        const phone = data.masked_tel;
-        setPreviousData({
-          name: name,
-          email: email,
-          phone: phone
+
+        if(data.masked_name === '' || data.masked_mail === '' || data.masked_tel === '' || data.bank === '' || data.masked_branch_name === '' || data.masked_branch_no === '' || data.masked_bank_no === '' || data.masked_bank_name === '') {
+          alert('前回のデータがありませんでした');
+          setIsSearching(false);
+          return;
+        }
+        
+        // Set all data at once to avoid state update issues
+        setFormData({
+          ...formData,
+          personalInfo: { 
+            name: data.masked_name, 
+            email: data.masked_mail, 
+            phone: data.masked_tel 
+          },
+          bankInfo: {
+            ...formData.bankInfo,
+            bank: data.bank,
+            branch_name: data.masked_branch_name,
+            branch_no: data.masked_branch_no,
+            account_type: '普通',
+            bank_no: data.masked_bank_no,
+            bank_name: data.masked_bank_name
+          },
+          previousOrderId: anonId
         });
-        setPersonalInfo({ name: name, email: email, phone: phone });
-        setFormData({ ...formData, useCurrentData: true });
       } else {
         alert(result.message);
       }
       
     } catch (error) {
-      alert('前回のデータがありませんでした');
+      alert('前回のデータはありませんでした');
     }finally {
       setIsSearching(false);
     }
   }
 
   const handleNewInput = () => {
-    setFormData({ ...formData, useCurrentData: false });
+    setFormData({
+      ...formData,
+      personalInfo: { 
+        name: '', 
+        email: '', 
+        phone: '' 
+      },
+      bankInfo: {
+        ...formData.bankInfo,
+        bank: '',
+        branch_name: '',
+        branch_no: '',
+        account_type: '普通',
+        bank_no: '',
+        bank_name: ''
+      },
+      previousOrderId: ''
+    });
   }
 
   return (
@@ -300,36 +340,22 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand
         coupons={coupons}
       />
 
+      {/* 前回の申し込み情報選択（リピート利用者のみ） */}
       {formData.usageType == "repeat" && (
-        <>
-          {formData.useCurrentData ? (
-            <div>
-              <button  onClick={handleNewInput}>新しい情報を入力</button>
-            </div>
-          ) : (
-            <div>
-              <button disabled={isSearching} onClick={handleGetPreviousData}>{isSearching ? '検索中...' :'前の申し込み情報を使用する'}</button>
-            </div>
-          )
-          }
-        </>
+        <PreviousDataSelector
+          usePreviousData={formData.previousOrderId !== ''}
+          isSearching={isSearching}
+          onGetPreviousData={handleGetPreviousData}
+          onNewInput={handleNewInput}
+        />
       )}
       
       {/* 6. 個人情報入力 */}
       <div>
-        {/* {formData.useCurrentData ? (
-          <PersonalInfoMasking 
-            personalInfo={previousData}
-          />
-        ) : (
           <PersonalInfoForm 
             personalInfo={formData.personalInfo} 
             onPersonalInfoChange={setPersonalInfo}
-          />
-        )} */}
-          <PersonalInfoForm 
-            personalInfo={formData.personalInfo} 
-            onPersonalInfoChange={setPersonalInfo}
+            usePreviousData={formData.previousOrderId !== ''}
           />
         {(errors.personalInfo.name || errors.personalInfo.email || errors.personalInfo.phone) && (
           <div className="mt-2 space-y-1">
@@ -361,6 +387,7 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand
             selectedBank={formData.bankInfo}
             onBankChange={setSelectedBank}
             onClose={() => setIsOpen(true)}
+            usePreviousData={formData.previousOrderId !== ''}
           />
           <BankModal
             onBankChange={setSelectedBank}
@@ -403,8 +430,14 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand
         remarks={formData.remarks}
         onRemarksChange={setRemarks}
       />
+
+      {/* 12. リメンバーミー利用 */}
+      <RememberMeForm 
+        isRememmber={formData.isRememmber}
+        onIsRememmberChange={setIsRememmber}
+      />
       
-      {/* 12. 内容確認ボタン */}
+      {/* 13. 内容確認ボタン */}
       <div className="text-center pt-8">
         <button
             onClick={handleConfirm}

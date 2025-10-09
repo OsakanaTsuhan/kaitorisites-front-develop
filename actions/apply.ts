@@ -1,9 +1,10 @@
 'use server'; 
 
 import { FormState } from '@/context/ApplyFormContext';
-import { secureApiCall } from '@/lib/jwt';
+import { secureMultipartApiCall, secureApiCall } from '@/lib/jwt';
 import { ContactApiResponse } from './response';
 import { BASE_SITE, SITE_NO } from '@/util/appConst';
+
 
 // フォームデータを引数として受け取る
 export async function submitApplication(formData: FormState, finalRate: number, ipaddress: string) {
@@ -39,6 +40,7 @@ export async function submitApplication(formData: FormState, finalRate: number, 
   multipartData.append('affiliate', formData.affiliate);
   multipartData.append('ip', ipaddress);
   multipartData.append('gifts', JSON.stringify(gifts));
+  multipartData.append('previous_order_id', formData.previousOrderId);
 
   if (formData.idImages.front && formData.usageType === 'new') {
     multipartData.append('front_file', formData.idImages.front, formData.idImages.front.name);
@@ -49,16 +51,16 @@ export async function submitApplication(formData: FormState, finalRate: number, 
 
 
   try {
-    const result = await secureApiCall<ContactApiResponse>('/apply', {
+    const result = await secureMultipartApiCall<ContactApiResponse>('/apply', {
       method: 'POST',
       body: multipartData,
     });
 
     if (result.message) {
-      // 申し込み情報をcookieに保存
       return { 
         success: true, 
         message: result.message,
+        data: result.data
       };
     } else {
       return { 
@@ -88,18 +90,22 @@ export async function submitApplication(formData: FormState, finalRate: number, 
 }
 
 
+export async function searchPreviousData(args: { anonId: string, siteId: string }) {
+  if(args.siteId !== SITE_NO) {
+    return { 
+      success: false, 
+      message: '前回のデータがありませんでした'
+    };
+  }
 
-export async function searchPreviousData() {
-  // TODO: get cookie data
+  
   try {
-    const formData = new FormData();
-    formData.append('site', BASE_SITE);
-    formData.append('customer_id', "fkrl9tts3325134810");
+    const requestData = {
+      site: args.siteId,
+      order_id: args.anonId
+    };
     
-    const result = await secureApiCall<ContactApiResponse>('/apply/search', {
-      method: 'POST',
-      body: formData,
-    });
+    const result = await secureApiCall<ContactApiResponse>('/apply/search', requestData);
 
 
     if (result.message) {
@@ -117,16 +123,16 @@ export async function searchPreviousData() {
   } catch (error) {
     
     // Extract error message from the error
-    let errorMessage = '前回のデータがありませんでした';
+    const errorMessage = '前回のデータがありませんでした';
     
-    if (error instanceof Error) {
-      // If it's an API error with a message, use that
-      if (error.message.includes('API Error:')) {
-        errorMessage = `サーバーエラー: ${error.message}`;
-      } else {
-        errorMessage = error.message;
-      }
-    }
+    // if (error instanceof Error) {
+    //   // If it's an API error with a message, use that
+    //   if (error.message.includes('API Error:')) {
+    //     errorMessage = `サーバーエラー: ${error.message}`;
+    //   } else {
+    //     errorMessage = error.message;
+    //   }
+    // }
     
     return { 
       success: false, 
@@ -134,3 +140,5 @@ export async function searchPreviousData() {
     };
   }
 }
+
+

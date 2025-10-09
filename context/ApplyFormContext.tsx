@@ -35,7 +35,8 @@ export type FormState = {
   affiliate: string;
   remarks: string;
   buyingRates: BuyingRate[];
-  useCurrentData: boolean;
+  previousOrderId: string;
+  isRememmber: boolean;
 };
 
 // Contextの型定義
@@ -73,7 +74,8 @@ export function ApplyFormProvider({ children }: { children: ReactNode }) {
     affiliate: '',
     remarks: '',
     buyingRates: [],
-    useCurrentData: false
+    previousOrderId: '',
+    isRememmber: false
   });
 
   const setFormData = (data: Partial<FormState>) => {
@@ -105,7 +107,8 @@ export function ApplyFormProvider({ children }: { children: ReactNode }) {
       affiliate: '',
       remarks: '',
       buyingRates: [],
-      useCurrentData: false
+      previousOrderId: '',
+      isRememmber: false
     });
   }, []);
 

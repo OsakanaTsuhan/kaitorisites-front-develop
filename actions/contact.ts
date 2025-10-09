@@ -23,9 +23,8 @@ export async function submitContact({
   formData.append('message', message);
 
   try {
-    const result = await secureApiCall<ContactApiResponse>('/contact', {
+    const result = await secureApiCall<ContactApiResponse>('/contact', formData,{
       method: 'POST',
-      body: formData,
     });
 
 

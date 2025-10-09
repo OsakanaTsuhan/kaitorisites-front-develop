@@ -153,7 +153,7 @@ const HeroMobile = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting:
                       <span className={`${coiny.className} text-[60px] sm:text-[80px]`}>{String(newUserLineRate).split('.')[1] || 0}</span>
                       </div>
                     {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
-                    <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
+                    <div className={`${coiny.className} text-[40px] sm:text-[60px] ml-3`}>%</div>
                   </div>
                 </div>
                 
@@ -168,7 +168,7 @@ const HeroMobile = ({mainRate, siteSetting}: {mainRate: BuyingRate, siteSetting:
                       </div>
                     {/* <div className="text-[60px] sm:text-[80px]">.3</div> */}
 
-                    <div className={`${coiny.className} text-[40px] sm:text-[60px]`}>%</div>
+                    <div className={`${coiny.className} text-[40px] sm:text-[60px] ml-3`}>%</div>
                   </div>
                 </div>
               </div>

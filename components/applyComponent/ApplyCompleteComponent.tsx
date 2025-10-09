@@ -34,9 +34,9 @@ const ApplicationCompleteComponent = () => {
       couponCode: '',
       ad: '',
       affiliate: '',
-      ip: '',
       remarks: '',
-      buyingRates: []
+      buyingRates: [],
+      previousOrderId: ''
     });
   }
   const handleBackToHome = () => {
