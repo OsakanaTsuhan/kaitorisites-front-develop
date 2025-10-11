@@ -13,17 +13,20 @@ export async function submitContact({
     tel,
     message
 }: ContactType): Promise<ContactResponse> {
+
+  const formData = new FormData();
+  formData.append('site', SITE_NO);
+  formData.append('name', name);
+  formData.append('reply_method', replyMethod);
+  formData.append('mail', mail);
+  formData.append('tel', tel);
+  formData.append('message', message);
+
   try {
-    const result = await secureApiCall<ContactApiResponse>('/contact?site=' + SITE_NO, {
+    const result = await secureApiCall<ContactApiResponse>('/contact', formData,{
       method: 'POST',
-      body: JSON.stringify({
-        name,
-        reply_method: replyMethod,
-        mail,
-        tel,
-        message
-      }),
     });
+
 
     if (result.message) {
       return { 
@@ -36,11 +39,22 @@ export async function submitContact({
         message: 'お問い合わせ中にエラーが発生しました。'
       };
     }
-  } catch (error) {
-    console.error(error);
+  } catch (error) {    
+    // Extract error message from the error
+    let errorMessage = 'お問い合わせ中にエラーが発生しました。';
+    
+    if (error instanceof Error) {
+      // If it's an API error with a message, use that
+      if (error.message.includes('API Error:')) {
+        errorMessage = `サーバーエラー: ${error.message}`;
+      } else {
+        errorMessage = error.message;
+      }
+    }
+    
     return { 
       success: false, 
-      message: 'お問い合わせ中にエラーが発生しました。'
+      message: errorMessage
     };
   }
 }

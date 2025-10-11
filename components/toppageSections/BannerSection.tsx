@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import BackGroundPattern from '../figures/BackGroundPattern';
 const BannerSection = () => {
-  
+  const mainCoupon = process.env.NEXT_PUBLIC_MAIN_COUPON;
   return (
     <section className="pb-16 px-8 relative sm:px-6 lg:px-8 bg-primary -mt-1  z-1">
       {/* Background Pattern */}
@@ -30,7 +30,7 @@ const BannerSection = () => {
         </Link>
 
         {/* Banner 2 */}
-        <Link href="/apply?isCouponed=true" className="block relative h-30 md:h-80 group cursor-pointer hover:opacity-80 transition-opacity duration-300 mb-4 md:mb-0">
+        <Link href={`/apply?cp=${mainCoupon}`} className="block relative h-30 md:h-80 group cursor-pointer hover:opacity-80 transition-opacity duration-300 mb-4 md:mb-0">
           <Image src="/images/banner/coupon_repeat_v2.webp" alt="Banner 2" fill className="object-contain" priority/>
           <div className="absolute top-[56%] md:top-[58%] left-[26%] md:left-[30%] text-base lg:text-4xl font-bold text-[#383838]">買取率UP</div>
         </Link>
@@ -49,7 +49,7 @@ const BannerSection = () => {
         </Link> */}
 
          {/* Banner 5 */}
-         <Link href="/apply?isCouponed=true" className="block relative h-30 md:h-80 group cursor-pointer hover:opacity-80 transition-opacity duration-300 mb-4 md:mb-0">
+         <Link href={`/apply?cp=${mainCoupon}`} className="block relative h-30 md:h-80 group cursor-pointer hover:opacity-80 transition-opacity duration-300 mb-4 md:mb-0">
           <Image src="/images/banner/btn_app_v2.webp" alt="Banner 5" fill className="object-contain" priority/>
         </Link>
       </div>

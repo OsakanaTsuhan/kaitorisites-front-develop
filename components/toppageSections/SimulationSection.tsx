@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { LINE_LINK, LINE_RATE_UP, MAIN_BRAND } from '@/util/appConst';
 
 const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
+  const mainCoupon = process.env.NEXT_PUBLIC_MAIN_COUPON;
   const [selectedBrand, setSelectedBrand] = useState(MAIN_BRAND);
   const [faceValue, setFaceValue] = useState(50000);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -247,7 +248,7 @@ const SimulationSection = ({brandRates}: {brandRates: BuyingRate[]}) => {
                 <Image src="/images/btn_line.webp" alt="LINE mobile" width={200} height={200} />
               </Link>
               )}
-              <Link href="/apply?isCouponed=true" className="w-200 rounded-full flex items-center justify-center">
+              <Link href={`/apply?cp=${mainCoupon}`} className="w-200 rounded-full flex items-center justify-center">
                 <Image src="/images/btn_app.webp" alt="apply mobile" width={200} height={200} />
               </Link>
             </div>

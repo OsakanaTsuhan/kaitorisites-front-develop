@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApplyForm } from '@/context/ApplyFormContext';
 import { submitApplication } from '@/actions/apply'; // Server Actionsをインポート
 import { useRouter } from 'next/navigation';
@@ -7,15 +7,29 @@ import Link from 'next/link';
 import { calcRate } from '@/util/apply';
 import { BuyingRate } from '@/types/setting';
 import Image from 'next/image';
+import { getUserIP } from '@/lib/getUserIP';
+import { deleteUserIds, getUserIds, setUserIds } from '@/lib/secure';
 
 const ApplicationConfirmComponent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [ipaddress, setIpaddress] = useState<string>('unknown');
+  const [successSubmit, setSuccessSubmit] = useState(false);
   const cardsPerPage = 10;
  
   const router = useRouter();
   const { formData } = useApplyForm();
+
+  useEffect(() => {
+    // Get user's IP address
+    const fetchIP = async () => {
+      const ip = await getUserIP();
+      setIpaddress(ip);
+    };
+    fetchIP();
+  }, []); 
+ 
 
   // Check for missing data and redirect if needed
   React.useEffect(() => {
@@ -28,25 +42,43 @@ const ApplicationConfirmComponent = () => {
   if(formData.selectedBrand === '') {
     return null;
   }
- 
+
+
 
   const handleSubmit = async () => {
+
+    // alert('削除前:' + (await getUserIds()).anonId + ' ' + (await getUserIds()).siteId)
+    // await deleteUserIds()
+    // alert('削除後:' + (await getUserIds()).anonId + ' ' + (await getUserIds()).siteId )
+    // return
+
     setIsSubmitting(true);
+
+
 
     // const result  = {success: true, message: '申込みが完了しました！'};
     try {
-      const result = await submitApplication(formData, finalRate);
+      const result = await submitApplication(formData, finalRate, ipaddress);
 
       if (result.success) {
+        setSuccessSubmit(true);
         // 完了ページにリダイレクト
+        await deleteUserIds();
+
+        if(formData.isRememmber) {
+          const data = result.data;
+          await setUserIds(data.order_id, data.site);
+        }
+
         router.push('/apply/complete');
       } else {
         alert(result.message);
       }
       
     } catch (error) {
-      setIsSubmitting(false);
       alert('申込み処理中にエラーが発生しました。もう一度お試しください。');
+    }finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -88,7 +120,12 @@ const ApplicationConfirmComponent = () => {
   const totalAmount = validGiftCards.reduce((sum, card) => sum + parseInt(card.amount), 0);
   const selectedRate = formData.buyingRates.find((rate: BuyingRate) => rate.brand === formData.selectedBrand);
   
-  const finalRate = calcRate(selectedRate, formData.usageType) + (formData.couponRateUp || 0);
+  if(!selectedRate) {
+    alert("問題が発生しましたので、申込画面からやり直してください");
+    router.push('/apply');
+  }
+  const finalRate = formData.couponRateUp > 0 ? calcRate(selectedRate, formData.usageType) + formData.couponRateUp : calcRate(selectedRate, formData.usageType);
+  // const finalRate = calcRate(selectedRate, formData.usageType) + (formData.couponRateUp || 0);
   const finalBuybackAmount = Math.floor(totalAmount * (finalRate / 100));
 
   // 率を小数点第一位まで表示する関数
@@ -197,7 +234,7 @@ const ApplicationConfirmComponent = () => {
         <div className="space-y-3">
           {currentCards.map((card, index) => (
             <div key={startIndex + index} className="p-3 bg-gray-50 rounded-xl">
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+              <div className="flex items-center sm:justify-between sm:items-center gap-2">
                 <div className="flex-1">
                   <div className="font-medium text-gray-800 text-sm break-all">
                     {card.code}
@@ -341,18 +378,21 @@ const ApplicationConfirmComponent = () => {
         </div>
       )}
 
-      {/* 備考 */}
-      {formData.remarks && (
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-orange-200">
+      {/* その他 */}
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-orange-200">
           <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
             その他情報
           </h3>
           <div className="p-4 bg-gray-50 rounded-xl">
             <div className="text-sm text-gray-600 mb-1">備考</div>
-            <div className="text-gray-800">{formData.remarks}</div>
+            <div className="text-gray-800">{formData.remarks || ''}</div>
+          </div>
+          <div className="p-4 bg-gray-50 rounded-xl">
+            <div className="text-sm text-gray-600 mb-1">データ保存設定</div>
+            <div className="text-gray-800">{formData.isRememmber ? 'お客様情報を保存する' : 'お客様情報を保存しない'}</div>
           </div>
         </div>
-      )}
+
 
       {/* 利用規約同意 */}
       <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-orange-200">
@@ -376,19 +416,22 @@ const ApplicationConfirmComponent = () => {
         </div>
         <p className="text-sm text-gray-600 mt-4">利用規約と個人情報保護方針に同意をしていただけない場合は、お申し込みが完了しません。</p>
       </div>
+      
+
+      <p>previous_order_id: {formData.previousOrderId}</p>
 
       {/* ボタンエリア */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
         <button
           onClick={handleSubmit}
-          disabled={isSubmitting || !agreedToTerms}
+          disabled={isSubmitting || !agreedToTerms || successSubmit}
           className={`px-12 py-4 font-bold rounded-full transition-all duration-300 shadow-lg text-lg ${
             !agreedToTerms 
               ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
               : 'bg-accent text-black hover:opacity-80 hover:shadow-xl cursor-pointer'
           } ${isSubmitting ? 'opacity-50 transform-none' : ''}`}
         >
-          {isSubmitting ? (
+          {isSubmitting || successSubmit ? (
             <span className="flex items-center justify-center">
               <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -402,7 +445,7 @@ const ApplicationConfirmComponent = () => {
         </button>
         <button
           onClick={handleBack}
-          disabled={isSubmitting}
+          disabled={isSubmitting || successSubmit}
           className="px-8 py-4 bg-gray-500 text-white font-semibold rounded-full hover:bg-gray-600 transition-colors disabled:opacity-50 cursor-pointer"
         >
           修正する

@@ -1,12 +1,13 @@
 'use server'; 
 
 import { FormState } from '@/context/ApplyFormContext';
-import { secureApiCall } from '@/lib/jwt';
+import { secureMultipartApiCall, secureApiCall } from '@/lib/jwt';
 import { ContactApiResponse } from './response';
-import { SITE_NO } from '@/util/appConst';
+import { BASE_SITE, SITE_NO } from '@/util/appConst';
+
 
 // フォームデータを引数として受け取る
-export async function submitApplication(formData: FormState, finalRate: number) {
+export async function submitApplication(formData: FormState, finalRate: number, ipaddress: string) {
   
   const totalAmount = formData.giftCards.reduce((sum, card) => sum + parseInt(card.amount), 0);
   const transferAmount = Math.floor(totalAmount * finalRate / 100);
@@ -37,8 +38,9 @@ export async function submitApplication(formData: FormState, finalRate: number) 
   multipartData.append('remarks', formData.remarks);
   multipartData.append('ad', formData.ad);
   multipartData.append('affiliate', formData.affiliate);
-  multipartData.append('ip', formData.ip);
+  multipartData.append('ip', ipaddress);
   multipartData.append('gifts', JSON.stringify(gifts));
+  multipartData.append('previous_order_id', formData.previousOrderId);
 
   if (formData.idImages.front && formData.usageType === 'new') {
     multipartData.append('front_file', formData.idImages.front, formData.idImages.front.name);
@@ -49,7 +51,7 @@ export async function submitApplication(formData: FormState, finalRate: number) 
 
 
   try {
-    const result = await secureApiCall<ContactApiResponse>('/apply', {
+    const result = await secureMultipartApiCall<ContactApiResponse>('/apply', {
       method: 'POST',
       body: multipartData,
     });
@@ -58,6 +60,7 @@ export async function submitApplication(formData: FormState, finalRate: number) 
       return { 
         success: true, 
         message: result.message,
+        data: result.data
       };
     } else {
       return { 
@@ -66,10 +69,76 @@ export async function submitApplication(formData: FormState, finalRate: number) 
       };
     }
   } catch (error) {
-    // console.error(error);
+    
+    // Extract error message from the error
+    let errorMessage = '申込み中にエラーが発生しました。';
+    
+    if (error instanceof Error) {
+      // If it's an API error with a message, use that
+      if (error.message.includes('API Error:')) {
+        errorMessage = `サーバーエラー: ${error.message}`;
+      } else {
+        errorMessage = error.message;
+      }
+    }
+    
     return { 
       success: false, 
-      message: '申込み中にエラーが発生しました。'
+      message: errorMessage
     };
   }
 }
+
+
+export async function searchPreviousData(args: { anonId: string, siteId: string }) {
+  if(args.siteId !== SITE_NO) {
+    return { 
+      success: false, 
+      message: '前回のデータがありませんでした'
+    };
+  }
+
+  
+  try {
+    const requestData = {
+      site: args.siteId,
+      order_id: args.anonId
+    };
+    
+    const result = await secureApiCall<ContactApiResponse>('/apply/search', requestData);
+
+
+    if (result.message) {
+      return { 
+        success: true, 
+        message: result.message,
+        data: result.data
+      };
+    } else {
+      return { 
+        success: false, 
+        message: '前回のデータがありませんでした'
+      };
+    }
+  } catch (error) {
+    
+    // Extract error message from the error
+    const errorMessage = '前回のデータがありませんでした';
+    
+    // if (error instanceof Error) {
+    //   // If it's an API error with a message, use that
+    //   if (error.message.includes('API Error:')) {
+    //     errorMessage = `サーバーエラー: ${error.message}`;
+    //   } else {
+    //     errorMessage = error.message;
+    //   }
+    // }
+    
+    return { 
+      success: false, 
+      message: errorMessage
+    };
+  }
+}
+
+

@@ -2,23 +2,26 @@
 import React from 'react';
 import { BankInfo } from '@/types/apply';
 
-const BankSelector = ({ selectedBank, onBankChange, onClose }: { selectedBank: BankInfo, onBankChange: (bank: BankInfo) => void, onClose: () => void }) => {
+const BankSelector = ({ selectedBank, onBankChange, onClose, usePreviousData }: { selectedBank: BankInfo, onBankChange: (bank: BankInfo) => void, onClose: () => void, usePreviousData: boolean }) => {
 
   return (
-    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-accent">
+    <div className={`${usePreviousData ? 'bg-gray-100' : 'bg-white'} backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-accent`}>
       <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
        お振込み先口座情報
       </h3>
       <div className="space-y-4">
         <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">振込銀行</label>
-              <button className="w-[100px] mr-2 bg-[#43FFCE] p-1 border-2 border-gray-200 rounded-xl focus:border-rose-500 focus:outline-none transition-colors  my-2 cursor-pointer" onClick={() => onClose()}>
+              <button
+                className={`${usePreviousData ? 'bg-gray-200 text-white' : 'bg-[#43FFCE] text-black'} p-1 w-[100px] mr-2  border-2 border-gray-200 rounded-xl focus:border-rose-500 focus:outline-none transition-colors  my-2 cursor-pointer`}
+                onClick={() => onClose()}
+                disabled={usePreviousData}
+              >
                 選択
               </button>
               <span>{selectedBank.bank || '未選択'}</span>
         </div>
-        
-        
+               
         
         <div>
           <label htmlFor="branch_name" className="block text-sm font-medium text-gray-700 mb-2">支店名</label>
@@ -29,6 +32,7 @@ const BankSelector = ({ selectedBank, onBankChange, onClose }: { selectedBank: B
             onChange={(e) => onBankChange({ ...selectedBank, branch_name: e.target.value })}
             className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-rose-500 focus:outline-none transition-colors"
             placeholder="ダンス支店"
+            disabled={usePreviousData}
           />
           </div>
           <div>
@@ -40,6 +44,7 @@ const BankSelector = ({ selectedBank, onBankChange, onClose }: { selectedBank: B
             onChange={(e) => onBankChange({ ...selectedBank, branch_no: e.target.value })}
             className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-rose-500 focus:outline-none transition-colors"
             placeholder="208"
+            disabled={usePreviousData}
           />
           </div>
           <div>
@@ -64,6 +69,7 @@ const BankSelector = ({ selectedBank, onBankChange, onClose }: { selectedBank: B
             onChange={(e) => onBankChange({ ...selectedBank, bank_no: e.target.value })}
             className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-rose-500 focus:outline-none transition-colors"
             placeholder="1234567"
+            disabled={usePreviousData}
           />
           </div>
           <div>
@@ -75,6 +81,7 @@ const BankSelector = ({ selectedBank, onBankChange, onClose }: { selectedBank: B
             onChange={(e) => onBankChange({ ...selectedBank, bank_name: e.target.value })}
             className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-rose-500 focus:outline-none transition-colors"
             placeholder="ヤマダタロウ"
+            disabled={usePreviousData}
           />
         </div>
         {/* <p className="text-xs text-gray-500 mt-2">

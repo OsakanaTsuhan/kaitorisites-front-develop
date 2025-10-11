@@ -16,7 +16,7 @@ export async function getUserIP(): Promise<string> {
     const data = await response.json();
     return data.ip || 'unknown';
   } catch (error) {
-    console.error('Error getting IP address:', error);
+    // console.error('Error getting IP address:', error);
     return 'unknown';
   }
 }
