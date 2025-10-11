@@ -163,6 +163,20 @@ const ApplyComponent = ({brand, buyingRates, coupons, ad, affiliate, cp}: {brand
       if (!formData.bankInfo.bank) {
         newErrors.bank = '振込先銀行を選択してください';
         hasErrors = true;
+      }else if(formData.bankInfo.bank === 'ゆうちょ銀行') {
+        // branch_no must be 5 digits and bank_no must be 8 digits and last digit must be 1
+        if(formData.bankInfo.branch_no.length !== 5) {
+          newErrors.bank = 'ゆうちょ銀行の支店番号は5桁で入力してください';
+          hasErrors = true;
+        }
+        if(formData.bankInfo.bank_no.length !== 8) {
+          newErrors.bank = 'ゆうちょ銀行の口座番号は8桁で入力してください';
+          hasErrors = true;
+        }
+        if(formData.bankInfo.bank_no[7] !== '1') {
+          newErrors.bank = 'ゆうちょ銀行の口座番号の最後の数字は1で入力してください';
+          hasErrors = true;
+        }
       }
     }
     
